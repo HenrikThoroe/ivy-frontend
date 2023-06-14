@@ -53,7 +53,7 @@ export default function TestSuiteListRow(props: Props) {
         <ListAction
           variant="link"
           style="primary"
-          icon="edit"
+          icon="visibility"
           href={`/training/suites/${props.suite.id}`}
         />
         <ListAction variant="action" style="primary" icon="copy" onClick={handleCopy} />
