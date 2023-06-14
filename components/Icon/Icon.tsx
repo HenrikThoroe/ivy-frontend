@@ -11,6 +11,10 @@ import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded'
+import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
+import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 
 export type IconName =
   | 'desktop'
@@ -24,6 +28,10 @@ export type IconName =
   | 'upload'
   | 'attach'
   | 'delete'
+  | 'assignment'
+  | 'edit'
+  | 'copy'
+  | 'filter'
 
 interface Props {
   name: IconName
@@ -53,5 +61,13 @@ export default function Icon(props: Props) {
       return <AttachFileRoundedIcon />
     case 'delete':
       return <DeleteForeverRoundedIcon />
+    case 'assignment':
+      return <AssignmentRoundedIcon />
+    case 'edit':
+      return <EditRoundedIcon />
+    case 'copy':
+      return <ContentCopyRoundedIcon />
+    case 'filter':
+      return <FilterListRoundedIcon />
   }
 }
