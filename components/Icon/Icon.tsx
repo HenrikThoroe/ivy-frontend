@@ -15,6 +15,7 @@ import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
 export type IconName =
   | 'desktop'
@@ -32,6 +33,7 @@ export type IconName =
   | 'edit'
   | 'copy'
   | 'filter'
+  | 'visibility'
 
 interface Props {
   name: IconName
@@ -69,5 +71,7 @@ export default function Icon(props: Props) {
       return <ContentCopyRoundedIcon />
     case 'filter':
       return <FilterListRoundedIcon />
+    case 'visibility':
+      return <VisibilityRoundedIcon />
   }
 }
