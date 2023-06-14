@@ -1,6 +1,6 @@
 'use client'
 
-import interleave from '@/lib/util/interleave'
+import { interleave } from '@/lib/util/array'
 import Link from 'next/link'
 import { useSelectedLayoutSegments } from 'next/navigation'
 
@@ -12,7 +12,7 @@ function Breadcrumb({ name, path }: { name: string; path: string }) {
   return (
     <Link
       href={`/${path}`}
-      className="font-base cursor-pointer rounded px-2 py-1 text-on-primary last-of-type:font-semibold hover:bg-primary-hover"
+      className="font-base cursor-pointer rounded px-2 py-1 text-on-primary last-of-type:font-semibold hover:bg-primary-hover hover:bg-opacity-60"
     >
       {name}
     </Link>
