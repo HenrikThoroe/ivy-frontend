@@ -36,7 +36,8 @@ export default function Breadcrumbs() {
   const segments = useSelectedLayoutSegments()
 
   const isTestSuite = (segments: Segment[]) =>
-    segments[segments.length - 1]?.path.startsWith('training/suites/')
+    segments[segments.length - 1]?.path.startsWith('training/suites/') &&
+    !segments[segments.length - 1]?.path.endsWith('/create')
 
   const data = () =>
     segments.map((seg, idx) => {
