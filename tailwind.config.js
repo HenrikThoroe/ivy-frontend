@@ -22,6 +22,7 @@ module.exports = {
         'action-destructive-active': colors.red[600],
         'primary-hover': colors.gray[200],
         'primary-accent': colors.gray[100],
+        'primary-accent-border': colors.gray[300],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -29,11 +30,15 @@ module.exports = {
       },
       boxShadow: {
         defined: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px -1px 3px rgba(0, 0, 0, 0.25)',
+        'defined-inset':
+          'inset 0px 2px 4px rgba(0, 0, 0, 0.25), inset 0px -1px 3px rgba(0, 0, 0, 0.25)',
       },
       gridTemplateColumns: {
         'auto-fill-card-md': 'repeat(auto-fill, 386px)',
         'custom-1': '1fr 1fr 1fr 3fr 5rem',
         'custom-2': '3fr 2fr 1fr 7.5rem',
+        '2-by-2': '10rem 1fr 1fr',
+        'custom-3': '1fr 1fr 2.5rem',
       },
       animation: {
         'bounce-d-1': 'bounce 1s infinite .1s',
