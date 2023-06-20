@@ -18,8 +18,7 @@ const options = {
     { value: 'darwin', label: 'macOS' },
   ],
   arch: [
-    { value: 'x86', label: 'x86' },
-    { value: 'x86-64', label: 'x86-64' },
+    { value: 'amd64', label: 'AMD64' },
     { value: 'arm64', label: 'ARM64' },
   ],
 }
