@@ -20,13 +20,13 @@ interface Props {
 
 export default function EngineConfigForm(props: Props) {
   const names = props.configs.map((c) => c.name)
-  const [name, setName] = useState(props.default.name)
+  const [config, setConfig] = useState(props.default)
 
   const versions = () => {
-    const config = props.configs.find((c) => c.name === name)
+    const conf = props.configs.find((c) => c.name === config.name)
 
-    if (config) {
-      const versions = config.variations.flatMap((v) => v.version)
+    if (conf) {
+      const versions = conf.variations.flatMap((v) => v.version)
       versions.sort(compareEngineVersions)
       return versions
     }
@@ -34,12 +34,9 @@ export default function EngineConfigForm(props: Props) {
     return []
   }
 
-  const handleNameChange = (value: string) => {
-    setName(value)
-
-    if (props.onChange) {
-      props.onChange({ ...props.default, name: value })
-    }
+  const update = (config: EngineTestConfig) => {
+    setConfig(config)
+    props.onChange && props.onChange(config)
   }
 
   return (
@@ -47,16 +44,14 @@ export default function EngineConfigForm(props: Props) {
       <LabeledInput label="Name" required>
         <SelectInput
           options={names.map((n) => ({ label: n, value: n }))}
-          onSelect={handleNameChange}
-          defaultValue={name}
+          onSelect={(v) => update({ ...config, name: v })}
+          defaultValue={props.default.name}
         />
       </LabeledInput>
       <LabeledInput label="Version" required>
         <SelectInput
           defaultValue={versionToString(props.default.version)}
-          onSelect={(val) =>
-            props.onChange && props.onChange({ ...props.default, version: parseEngineVersion(val) })
-          }
+          onSelect={(val) => update({ ...config, version: parseEngineVersion(val) })}
           options={versions().map((v) => ({
             label: versionToString(v),
             value: versionToString(v),
@@ -67,10 +62,9 @@ export default function EngineConfigForm(props: Props) {
         <SelectInput
           defaultValue={props.default.timeControl.type}
           onSelect={(val) =>
-            props.onChange &&
-            props.onChange({
-              ...props.default,
-              timeControl: { ...props.default.timeControl, type: val },
+            update({
+              ...config,
+              timeControl: { ...config.timeControl, type: val },
             })
           }
           options={[
@@ -86,10 +80,9 @@ export default function EngineConfigForm(props: Props) {
           defaultValue={props.default.timeControl.value}
           pattern="^[0-9]{1,}$"
           onChange={(e) =>
-            props.onChange &&
-            props.onChange({
-              ...props.default,
-              timeControl: { ...props.default.timeControl, value: e.target.valueAsNumber },
+            update({
+              ...config,
+              timeControl: { ...config.timeControl, value: e.target.valueAsNumber },
             })
           }
         />
@@ -101,10 +94,9 @@ export default function EngineConfigForm(props: Props) {
           pattern="^[0-9]{1,}$"
           defaultValue={props.default.options.threads}
           onChange={(e) =>
-            props.onChange &&
-            props.onChange({
-              ...props.default,
-              options: { ...props.default.options, threads: e.target.valueAsNumber },
+            update({
+              ...config,
+              options: { ...config.options, threads: e.target.valueAsNumber },
             })
           }
         />
@@ -116,10 +108,9 @@ export default function EngineConfigForm(props: Props) {
           pattern="^[0-9]{1,}$"
           defaultValue={props.default.options.hash}
           onChange={(e) =>
-            props.onChange &&
-            props.onChange({
-              ...props.default,
-              options: { ...props.default.options, hash: e.target.valueAsNumber },
+            update({
+              ...config,
+              options: { ...config.options, hash: e.target.valueAsNumber },
             })
           }
         />
