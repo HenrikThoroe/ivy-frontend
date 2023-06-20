@@ -33,7 +33,7 @@ export default function EnginesCard(props: Props) {
   const { engine1, engine2 } = props
 
   return (
-    <div className="grid grid-cols-2-by-2 rounded-lg p-8 shadow-defined">
+    <div className="grid grid-cols-2-by-2 rounded-lg border-2 border-primary-accent-border p-8">
       <LabelCol>
         <span>Version</span>
         <span>Time Control Type</span>
