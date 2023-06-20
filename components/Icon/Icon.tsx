@@ -16,6 +16,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 
 export type IconName =
   | 'desktop'
@@ -34,6 +35,7 @@ export type IconName =
   | 'copy'
   | 'filter'
   | 'visibility'
+  | 'error'
 
 interface Props {
   name: IconName
@@ -73,5 +75,7 @@ export default function Icon(props: Props) {
       return <FilterListRoundedIcon />
     case 'visibility':
       return <VisibilityRoundedIcon />
+    case 'error':
+      return <ErrorOutlineRoundedIcon />
   }
 }
