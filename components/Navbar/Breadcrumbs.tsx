@@ -1,14 +1,21 @@
 'use client'
 
+import { fetchTestSuite } from '@/lib/data/Test'
 import { interleave } from '@/lib/util/array'
 import Link from 'next/link'
 import { useSelectedLayoutSegments } from 'next/navigation'
+import { Suspense } from 'react'
+
+interface Segment {
+  name: string
+  path: string
+}
 
 function Separator() {
   return <span className="font-base text-[1.2rem] text-on-primary">{'>'}</span>
 }
 
-function Breadcrumb({ name, path }: { name: string; path: string }) {
+function Breadcrumb({ name, path }: Segment) {
   return (
     <Link
       href={`/${path}`}
@@ -19,8 +26,17 @@ function Breadcrumb({ name, path }: { name: string; path: string }) {
   )
 }
 
+async function TestSuiteBreadcrumb({ id }: { id: string }) {
+  const suite = await fetchTestSuite(id)
+
+  return <Breadcrumb name={suite.name} path={`training/suites/${id}`} />
+}
+
 export default function Breadcrumbs() {
   const segments = useSelectedLayoutSegments()
+
+  const isTestSuite = (segments: Segment[]) =>
+    segments[segments.length - 1]?.path.startsWith('training/suites/')
 
   const data = () =>
     segments.map((seg, idx) => {
@@ -29,9 +45,29 @@ export default function Breadcrumbs() {
       return { name, path }
     })
 
+  const Body = () => {
+    const seg = data()
+
+    if (isTestSuite(seg)) {
+      const last = seg[seg.length - 1]
+
+      return interleave(
+        [
+          ...seg.slice(0, -1).map(Breadcrumb),
+          <Suspense fallback={<Breadcrumb name="Loading..." path={last.path} />}>
+            <TestSuiteBreadcrumb id={last.name.toLowerCase()} />
+          </Suspense>,
+        ],
+        <Separator />
+      )
+    }
+
+    return interleave(seg.map(Breadcrumb), <Separator />)
+  }
+
   return (
     <span className="flex flex-row items-center gap-x-2 text-[1.5rem]">
-      {interleave(data().map(Breadcrumb), <Separator />)}
+      <Body />
     </span>
   )
 }
