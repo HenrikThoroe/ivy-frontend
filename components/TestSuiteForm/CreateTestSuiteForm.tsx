@@ -1,6 +1,5 @@
 'use client'
 
-import { EngineConfig } from '@/lib/data/Engine'
 import Form from '../Form/Form'
 import FormSeparator from '../Form/FormSeparator'
 import FormSubmitButton from '../Form/FormSubmitButton'
@@ -8,9 +7,10 @@ import LabeledInput from '../Form/LabeledInput'
 import TextInput from '../Form/TextInput'
 import EngineConfigForm from './EngineConfigForm'
 import { FormEvent, useState } from 'react'
-import { EngineTestConfig, createTestSuite } from '@/lib/data/Test'
+import { createTestSuite } from '@/lib/data/Test'
 import LoadingModal from '../Modal/LoadingModal'
 import { useRouter } from 'next/navigation'
+import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
 
 interface Props {
   configs: EngineConfig[]

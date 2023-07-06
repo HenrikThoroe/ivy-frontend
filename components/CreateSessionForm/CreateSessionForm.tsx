@@ -1,6 +1,6 @@
 'use client'
 
-import { TestSuite, createTestSession } from '@/lib/data/Test'
+import { createTestSession } from '@/lib/data/Test'
 import Form from '../Form/Form'
 import FormSubmitButton from '../Form/FormSubmitButton'
 import LabeledInput from '../Form/LabeledInput'
@@ -9,6 +9,7 @@ import TextInput from '../Form/TextInput'
 import { useState } from 'react'
 import AlertModal from '../Modal/AlertModal'
 import { useRouter } from 'next/navigation'
+import { TestSuite } from '@ivy-chess/model'
 
 interface Props {
   suites: TestSuite[]

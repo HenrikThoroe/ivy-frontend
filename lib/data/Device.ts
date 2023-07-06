@@ -1,3 +1,4 @@
+import { TestDriver } from '@ivy-chess/model'
 import { resize } from '../util/array'
 import { HTTPError } from '../util/error'
 import { formatMemSize } from '../util/format'
@@ -53,7 +54,7 @@ export async function fetchDeviceInfo(): Promise<DeviceInfo> {
     throw new HTTPError(resp.status, `Could not fetch device info.`)
   }
 
-  const data = await resp.json()
+  const data: TestDriver[] = await resp.json()
   const osDistribution = new Map<string, number>()
   const coreDistribution = new Map<number, number>()
   let memory = 0
@@ -67,6 +68,18 @@ export async function fetchDeviceInfo(): Promise<DeviceInfo> {
   }
 
   for (const driver of data) {
+    if (
+      !driver.hardware ||
+      !driver.hardware.memory ||
+      !driver.hardware.cpu ||
+      !driver.hardware.os ||
+      !driver.hardware.cpu[0] ||
+      !driver.hardware.cpu[0].cores ||
+      !driver.hardware.cpu[0].threads
+    ) {
+      continue
+    }
+
     const mem = +driver.hardware.memory
     const memGb = Math.ceil(mem / 1_000_000_000)
     const cpuKey = (driver.hardware.cpu[0].cores << 16) ^ driver.hardware.cpu[0].threads

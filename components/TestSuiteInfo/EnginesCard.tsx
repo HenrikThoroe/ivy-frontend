@@ -1,5 +1,5 @@
 import { versionToString } from '@/lib/data/Engine'
-import { EngineTestConfig } from '@/lib/data/Test'
+import { EngineTestConfig } from '@ivy-chess/model'
 import React from 'react'
 
 interface Props {

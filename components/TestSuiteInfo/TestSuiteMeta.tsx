@@ -1,4 +1,4 @@
-import { TestSuite } from '@/lib/data/Test'
+import { TestSuite } from '@ivy-chess/model'
 
 interface Props {
   suite: TestSuite

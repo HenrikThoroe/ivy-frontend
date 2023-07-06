@@ -1,4 +1,4 @@
-import { TestSuite } from '@/lib/data/Test'
+import { TestSuite } from '@ivy-chess/model'
 import List from '../List/List'
 import TestSuiteListRow from './TestSuiteListRow'
 import TestSuiteListTools from './TestSuiteListTools'

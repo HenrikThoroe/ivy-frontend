@@ -1,12 +1,13 @@
 'use client'
 
-import { TestSuite, deleteTestSuite } from '@/lib/data/Test'
+import { deleteTestSuite } from '@/lib/data/Test'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
 import ActionModal from '../Modal/ActionModal'
 import WithModal from '../Modal/WithModal'
 import { useRouter } from 'next/navigation'
+import { TestSuite } from '@ivy-chess/model'
 
 interface Props {
   suite: TestSuite

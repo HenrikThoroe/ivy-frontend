@@ -1,31 +1,7 @@
+import { EngineVersion, EngineConfig, EngineInstance, EngineFlavour } from '@ivy-chess/model'
 import { HTTPError } from '../util/error'
 
-export interface EngineFlavour {
-  capabilities: string[]
-  os: string
-  arch: string
-  id: string
-}
-
-export interface EngineVariation {
-  version: EngineVersion
-  flavours: EngineFlavour[]
-}
-
-export interface EngineVersion {
-  major: number
-  minor: number
-  patch: number
-}
-
-export interface EngineConfig {
-  name: string
-  variations: EngineVariation[]
-}
-
-export interface EngineInstance {
-  name: string
-  version: EngineVersion
+interface EngineObject extends EngineInstance {
   flavour: EngineFlavour
 }
 
@@ -58,8 +34,8 @@ export function compareEngineVersions(a: EngineVersion, b: EngineVersion): numbe
   return a.patch - b.patch
 }
 
-export function getInstances(engine: EngineConfig): EngineInstance[] {
-  const instances: EngineInstance[] = []
+export function getInstances(engine: EngineConfig): EngineObject[] {
+  const instances: EngineObject[] = []
 
   engine.variations.forEach((variation) => {
     variation.flavours.forEach((flavour) => {
@@ -168,7 +144,7 @@ export async function fetchEngineConfigs(): Promise<EngineConfig[]> {
   return await response.json()
 }
 
-export async function uploadEngine(engine: EngineInstance, data: Blob): Promise<void> {
+export async function uploadEngine(engine: EngineObject, data: Blob): Promise<void> {
   const formData = new FormData()
   const vData = 'v' + engine.version.major + '-' + engine.version.minor + '-' + engine.version.patch
 

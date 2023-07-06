@@ -1,6 +1,7 @@
-import { EngineConfig, getInstances } from '@/lib/data/Engine'
+import { getInstances } from '@/lib/data/Engine'
 import EngineListRow from './EngineListRow'
 import List from '../List/List'
+import { EngineConfig } from '@ivy-chess/model'
 
 interface Props {
   engine: EngineConfig

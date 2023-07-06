@@ -1,6 +1,6 @@
 'use client'
 
-import { EngineVersion, deleteEngineConfig } from '@/lib/data/Engine'
+import { deleteEngineConfig } from '@/lib/data/Engine'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import LoadingModal from '../Modal/LoadingModal'
@@ -9,6 +9,7 @@ import ListActions from '../List/ListActions'
 import WithModal from '../Modal/WithModal'
 import ListAction from '../List/ListAction'
 import ActionModal from '../Modal/ActionModal'
+import { EngineVersion } from '@ivy-chess/model'
 
 interface Props {
   id: string

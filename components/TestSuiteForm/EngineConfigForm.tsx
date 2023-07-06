@@ -1,16 +1,11 @@
 'use client'
 
-import {
-  EngineConfig,
-  compareEngineVersions,
-  parseEngineVersion,
-  versionToString,
-} from '@/lib/data/Engine'
+import { compareEngineVersions, parseEngineVersion, versionToString } from '@/lib/data/Engine'
 import LabeledInput from '../Form/LabeledInput'
 import SelectInput from '../Form/SelectInput'
 import TextInput from '../Form/TextInput'
 import { useState } from 'react'
-import { EngineTestConfig } from '@/lib/data/Test'
+import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
 
 interface Props {
   configs: EngineConfig[]

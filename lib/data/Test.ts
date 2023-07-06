@@ -1,25 +1,5 @@
+import { TestSuite } from '@ivy-chess/model'
 import { HTTPError } from '../util/error'
-import { EngineVersion } from './Engine'
-
-export interface EngineTestConfig {
-  name: string
-  version: EngineVersion
-  timeControl: {
-    type: 'depth' | 'movetime'
-    value: number
-  }
-  options: {
-    threads: number
-    hash: number
-  }
-}
-
-export interface TestSuite {
-  name: string
-  id: string
-  iterations: number
-  engines: [EngineTestConfig, EngineTestConfig]
-}
 
 export interface TestSession {
   id: string
