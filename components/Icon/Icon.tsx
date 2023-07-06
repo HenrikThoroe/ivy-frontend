@@ -17,6 +17,10 @@ import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded'
+import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
 
 export type IconName =
   | 'desktop'
@@ -36,6 +40,10 @@ export type IconName =
   | 'filter'
   | 'visibility'
   | 'error'
+  | 'replay'
+  | 'next'
+  | 'prev'
+  | 'query-stats'
 
 interface Props {
   name: IconName
@@ -77,5 +85,13 @@ export default function Icon(props: Props) {
       return <VisibilityRoundedIcon />
     case 'error':
       return <ErrorOutlineRoundedIcon />
+    case 'replay':
+      return <ReplayRoundedIcon />
+    case 'next':
+      return <ArrowForwardIosRoundedIcon />
+    case 'prev':
+      return <ArrowBackIosRoundedIcon />
+    case 'query-stats':
+      return <QueryStatsRoundedIcon />
   }
 }
