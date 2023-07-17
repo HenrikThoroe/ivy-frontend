@@ -28,6 +28,12 @@ export default function SidebarActions() {
         active={segments[0] === 'training'}
       />
       <SidebarButton
+        icon={<Icon name="replay" />}
+        text="Replays"
+        href="/replays"
+        active={segments[0] === 'replays'}
+      />
+      <SidebarButton
         icon={<Icon name="stats" />}
         text="Statistics"
         href="/stats"
