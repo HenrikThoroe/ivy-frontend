@@ -21,6 +21,7 @@ import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded'
 import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded'
 
 export type IconName =
   | 'desktop'
@@ -44,6 +45,7 @@ export type IconName =
   | 'next'
   | 'prev'
   | 'query-stats'
+  | 'remove'
 
 interface Props {
   name: IconName
@@ -93,5 +95,7 @@ export default function Icon(props: Props) {
       return <ArrowBackIosRoundedIcon />
     case 'query-stats':
       return <QueryStatsRoundedIcon />
+    case 'remove':
+      return <RemoveRoundedIcon />
   }
 }
