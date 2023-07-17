@@ -39,6 +39,11 @@ module.exports = {
         'custom-2': '3fr 2fr 1fr 7.5rem',
         '2-by-2': '10rem 1fr 1fr',
         'custom-3': '1fr 1fr 2.5rem',
+        'custom-4': '2fr 4fr 1fr 2.5rem',
+        'chess-board': 'repeat(8, 1fr)',
+      },
+      gridTemplateRows: {
+        'chess-board': 'repeat(8, 1fr)',
       },
       animation: {
         'bounce-d-1': 'bounce 1s infinite .1s',
