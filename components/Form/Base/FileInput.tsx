@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Icon from '../Icon/Icon'
+import Icon from '../../Icon/Icon'
 import classNames from 'classnames'
 
 interface Props {

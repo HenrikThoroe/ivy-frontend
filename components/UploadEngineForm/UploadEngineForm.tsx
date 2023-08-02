@@ -1,14 +1,14 @@
 'use client'
 
-import FileInput from '@/components/Form/FileInput'
-import Form from '@/components/Form/Form'
-import LabeledInput from '@/components/Form/LabeledInput'
-import SelectInput from '@/components/Form/SelectInput'
-import TextInput from '@/components/Form/TextInput'
+import FileInput from '@/components/Form/Base/FileInput'
+import Form from '@/components/Form/Base/Form'
+import LabeledInput from '@/components/Form/Base/LabeledInput'
+import SelectInput from '@/components/Form/Base/SelectInput'
+import TextInput from '@/components/Form/Base/TextInput'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import LoadingModal from '../Modal/LoadingModal'
-import FormSubmitButton from '../Form/FormSubmitButton'
+import FormSubmitButton from '../Form/Base/FormSubmitButton'
 import { parseEngineVersion, uploadEngine } from '@/lib/data/Engine'
 
 const options = {
