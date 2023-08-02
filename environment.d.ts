@@ -6,5 +6,6 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_EVC_HOST: string
     readonly NEXT_PUBLIC_TEST_SERVER_HOST: string
     readonly REPLAYS_HOST: string
+    readonly STATS_HOST: string
   }
 }
