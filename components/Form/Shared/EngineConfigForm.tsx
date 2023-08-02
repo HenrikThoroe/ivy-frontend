@@ -9,13 +9,27 @@ import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
 
 interface Props {
   configs: EngineConfig[]
-  default: EngineTestConfig
+  default?: EngineTestConfig
   onChange?: (config: EngineTestConfig) => void
 }
 
 export default function EngineConfigForm(props: Props) {
+  const genericEngineConfig: EngineTestConfig = {
+    name: props.configs[0].name,
+    version: props.configs[0].variations[0].version,
+    timeControl: {
+      type: 'movetime',
+      value: 100,
+    },
+    options: {
+      threads: 1,
+      hash: 128,
+    },
+  }
+
+  const defaultConfig = props.default ?? genericEngineConfig
   const names = props.configs.map((c) => c.name)
-  const [config, setConfig] = useState(props.default)
+  const [config, setConfig] = useState(defaultConfig)
 
   const versions = () => {
     const conf = props.configs.find((c) => c.name === config.name)
@@ -40,12 +54,12 @@ export default function EngineConfigForm(props: Props) {
         <SelectInput
           options={names.map((n) => ({ label: n, value: n }))}
           onSelect={(v) => update({ ...config, name: v })}
-          defaultValue={props.default.name}
+          defaultValue={defaultConfig.name}
         />
       </LabeledInput>
       <LabeledInput label="Version" required>
         <SelectInput
-          defaultValue={versionToString(props.default.version)}
+          defaultValue={versionToString(defaultConfig.version)}
           onSelect={(val) => update({ ...config, version: parseEngineVersion(val) })}
           options={versions().map((v) => ({
             label: versionToString(v),
@@ -55,7 +69,7 @@ export default function EngineConfigForm(props: Props) {
       </LabeledInput>
       <LabeledInput label="Time Control Type" required>
         <SelectInput
-          defaultValue={props.default.timeControl.type}
+          defaultValue={defaultConfig.timeControl.type}
           onSelect={(val) =>
             update({
               ...config,
@@ -72,7 +86,7 @@ export default function EngineConfigForm(props: Props) {
         <TextInput
           type="number"
           placeholder="10"
-          defaultValue={props.default.timeControl.value}
+          defaultValue={defaultConfig.timeControl.value}
           pattern="^[0-9]{1,}$"
           onChange={(e) =>
             update({
@@ -87,7 +101,7 @@ export default function EngineConfigForm(props: Props) {
           type="number"
           placeholder="2"
           pattern="^[0-9]{1,}$"
-          defaultValue={props.default.options.threads}
+          defaultValue={defaultConfig.options.threads}
           onChange={(e) =>
             update({
               ...config,
@@ -101,7 +115,7 @@ export default function EngineConfigForm(props: Props) {
           type="number"
           placeholder="Number of MBs to use for hash table"
           pattern="^[0-9]{1,}$"
-          defaultValue={props.default.options.hash}
+          defaultValue={defaultConfig.options.hash}
           onChange={(e) =>
             update({
               ...config,
