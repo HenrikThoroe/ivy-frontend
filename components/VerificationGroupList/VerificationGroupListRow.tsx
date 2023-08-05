@@ -13,10 +13,11 @@ function formatEngine(engine: EngineInstance) {
 
 export default function VerificationGroupListRow(props: Props) {
   return (
-    <ListRow variant="custom-3">
+    <ListRow variant="custom-5">
       <span>{props.group.name}</span>
       <span>{formatEngine(props.group.base)}</span>
       <ListActions>
+        <ListAction icon="delete" variant="action" style="danger" />
         <ListAction
           icon="visibility"
           variant="link"

@@ -40,6 +40,7 @@ module.exports = {
         '2-by-2': '10rem 1fr 1fr',
         'custom-3': '1fr 1fr 2.5rem',
         'custom-4': '2fr 4fr 1fr 2.5rem',
+        'custom-5': '1fr 1fr 5rem',
         'chess-board': 'repeat(8, 1fr)',
       },
       gridTemplateRows: {

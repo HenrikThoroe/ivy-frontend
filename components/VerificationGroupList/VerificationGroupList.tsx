@@ -11,7 +11,7 @@ export default function VerificationGroupList(props: Props) {
   const { groups } = props
 
   return (
-    <List variant="custom-3" head={['Name', 'Base Engine', <VerificationGroupListTools />]}>
+    <List variant="custom-5" head={['Name', 'Base Engine', <VerificationGroupListTools />]}>
       {groups.map((group) => (
         <VerificationGroupListRow group={group} />
       ))}
