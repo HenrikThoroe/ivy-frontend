@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-export type LayoutVariant = 'custom-1' | 'custom-2' | 'custom-3' | 'custom-4'
+export type LayoutVariant = 'custom-1' | 'custom-2' | 'custom-3' | 'custom-4' | 'custom-5'
 
 interface Props {
   variant: LayoutVariant
@@ -17,6 +17,7 @@ export default function List(props: Props) {
           'grid-cols-custom-2': props.variant === 'custom-2',
           'grid-cols-custom-3': props.variant === 'custom-3',
           'grid-cols-custom-4': props.variant === 'custom-4',
+          'grid-cols-custom-5': props.variant === 'custom-5',
         })}
       >
         {props.head.map((head) => (

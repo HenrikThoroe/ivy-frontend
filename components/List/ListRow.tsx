@@ -17,6 +17,7 @@ export default function ListRow(props: Props) {
           'grid-cols-custom-2': props.variant === 'custom-2',
           'grid-cols-custom-3': props.variant === 'custom-3',
           'grid-cols-custom-4': props.variant === 'custom-4',
+          'grid-cols-custom-5': props.variant === 'custom-5',
         }
       )}
     >
