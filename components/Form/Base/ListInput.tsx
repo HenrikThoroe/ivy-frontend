@@ -18,6 +18,7 @@ export default function ListInput<T>(props: Props<T>) {
       <div className="flex flex-row items-center justify-between border-b-2 pb-2">
         <span className="text-base">{label}</span>
         <button
+          type="button"
           onClick={onAdd}
           className="font-base flex items-center justify-center rounded-lg bg-action-primary p-1 text-on-secondary hover:bg-action-primary-active"
         >
@@ -29,6 +30,7 @@ export default function ListInput<T>(props: Props<T>) {
           <li className="flex flex-row items-center justify-between">
             <div className="text-base font-light">{format(item)}</div>
             <button
+              type="button"
               onClick={() => onRemove(item)}
               className="font-base flex items-center justify-center rounded-lg bg-action-destructive p-1 text-on-secondary hover:bg-action-destructive-active"
             >
