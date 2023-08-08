@@ -1,5 +1,6 @@
 'use client'
 
+import { fetchVerificationGroup } from '@/lib/data/Stats'
 import { fetchTestSuite } from '@/lib/data/Test'
 import { interleave } from '@/lib/util/array'
 import Link from 'next/link'
@@ -32,11 +33,21 @@ async function TestSuiteBreadcrumb({ id }: { id: string }) {
   return <Breadcrumb name={suite.name} path={`training/suites/${id}`} />
 }
 
+async function VerificationGroupBreadcrumb({ id }: { id: string }) {
+  const group = await fetchVerificationGroup(id)
+
+  return <Breadcrumb name={group.name} path={`stats/compare/${id}`} />
+}
+
 export default function Breadcrumbs() {
   const segments = useSelectedLayoutSegments()
 
   const isTestSuite = (segments: Segment[]) =>
     segments[segments.length - 1]?.path.startsWith('training/suites/') &&
+    !segments[segments.length - 1]?.path.endsWith('/create')
+
+  const isVerificationGroup = (segments: Segment[]) =>
+    segments[segments.length - 1]?.path.startsWith('stats/compare/') &&
     !segments[segments.length - 1]?.path.endsWith('/create')
 
   const data = () =>
@@ -49,14 +60,15 @@ export default function Breadcrumbs() {
   const Body = () => {
     const seg = data()
 
-    if (isTestSuite(seg)) {
+    if (isTestSuite(seg) || isVerificationGroup(seg)) {
       const last = seg[seg.length - 1]
+      const DropIn = isTestSuite(seg) ? TestSuiteBreadcrumb : VerificationGroupBreadcrumb
 
       return interleave(
         [
           ...seg.slice(0, -1).map(Breadcrumb),
           <Suspense fallback={<Breadcrumb name="Loading..." path={last.path} />}>
-            <TestSuiteBreadcrumb id={last.name.toLowerCase()} />
+            <DropIn id={last.name.toLowerCase()} />
           </Suspense>,
         ],
         <Separator />
