@@ -1,5 +1,9 @@
+'use client'
+
 import Icon from '../Icon/Icon'
 import { EngineTestConfig } from '@ivy-chess/model'
+import WithModal from '../Modal/WithModal'
+import ActionModal from '../Modal/ActionModal'
 
 interface Props {
   engine: EngineTestConfig
@@ -20,12 +24,24 @@ export default function EngineConfigCard(props: Props) {
   )
 
   const DeleteButton = () => (
-    <button
-      onClick={props.onDelete}
-      className="absolute right-0 top-0 flex items-center justify-center rounded-full p-2 text-action-destructive hover:text-action-destructive-active"
+    <WithModal
+      modal={
+        <ActionModal
+          title="Delete Node"
+          description="Deleting the node will remove it from the group. This action cannot be undone."
+          icon="delete"
+          action={{
+            label: 'Delete',
+            variant: 'danger',
+            onClick: () => props.onDelete?.call(null),
+          }}
+        />
+      }
     >
-      <Icon name="delete" />
-    </button>
+      <button className="absolute right-0 top-0 flex items-center justify-center rounded-full p-2 text-action-destructive hover:text-action-destructive-active">
+        <Icon name="delete" />
+      </button>
+    </WithModal>
   )
 
   return (
