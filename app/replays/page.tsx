@@ -1,27 +1,27 @@
 import ReplayList from '@/components/ReplayList/ReplayList'
-import { fetchReplay, fetchReplays, parseReplayFilterOptions } from '@/lib/data/Replay'
+import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-function parseFilterOptions(props: Props) {
+function parseSearchParams({ searchParams }: Props) {
   const params: string[][] = []
 
-  Object.entries(props.searchParams ?? {}).forEach(([key, value]) => {
+  Object.entries(searchParams ?? {}).forEach(([key, value]) => {
     if (value) {
       params.push([key, value.toString()])
     }
   })
 
-  return parseReplayFilterOptions(new ReadonlyURLSearchParams(new URLSearchParams(params)))
+  return new ReadonlyURLSearchParams(new URLSearchParams(params))
 }
 
 export default async function Replays({ searchParams }: Props) {
-  const filterOptions = parseFilterOptions({ searchParams })
-  const ids = await fetchReplays(filterOptions)
-  const replays = await Promise.all(ids.map((id) => fetchReplay(id)))
+  const client = new ReplayClient()
+  const ids = await client.unsafeKeys(parseSearchParams({ searchParams }))
+  const replays = await Promise.all(ids.map(async (id) => await client.unsafeGet(id)))
 
   replays.sort((a, b) => b.date.getTime() - a.date.getTime())
 

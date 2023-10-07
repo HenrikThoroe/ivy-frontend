@@ -2,7 +2,7 @@ import Icon from '@/components/Icon/Icon'
 import LogDisplay from '@/components/LogDisplay/LogDisplay'
 import NoContent from '@/components/NoContent/NoContent'
 import TabGroup from '@/components/TabGroup/TabGroup'
-import { fetchReplayLogs } from '@/lib/data/Replay'
+import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 
 interface Params {
   id: string
@@ -10,9 +10,10 @@ interface Params {
 
 export default async function Logs({ params }: { params: Params }) {
   const { id } = params
-  const logs = await fetchReplayLogs(id)
+  const client = new ReplayClient()
+  const logs = await client.logs(id)
 
-  if (!logs) {
+  if (!logs.success) {
     return (
       <NoContent
         title="No Logs Available"
@@ -35,8 +36,8 @@ export default async function Logs({ params }: { params: Params }) {
       </div>
       <TabGroup
         tabs={[
-          { label: 'White Engine', component: <LogDisplay log={logs.white} /> },
-          { label: 'Black Engine', component: <LogDisplay log={logs.black} /> },
+          { label: 'White Engine', component: <LogDisplay log={logs.result.white} /> },
+          { label: 'Black Engine', component: <LogDisplay log={logs.result.black} /> },
         ]}
       />
     </div>

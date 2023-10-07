@@ -1,5 +1,5 @@
 import ReplayInfo from '@/components/ReplayInfo/ReplayInfo'
-import { fetchReplay, fetchReplayStats } from '@/lib/data/Replay'
+import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 
 interface Params {
   id: string
@@ -7,8 +7,23 @@ interface Params {
 
 export default async function Replay({ params }: { params: Params }) {
   const { id } = params
-  const replay = await fetchReplay(id)
-  const stats = await fetchReplayStats(id)
+  const client = new ReplayClient()
+
+  const res = {
+    replay: await client.get(id),
+    stats: await client.stats(id),
+  }
+
+  if (!res.replay.success) {
+    throw new Error(res.replay.error.message)
+  }
+
+  if (!res.stats.success) {
+    throw new Error(res.stats.error.message)
+  }
+
+  const replay = res.replay.result
+  const stats = res.stats.result
 
   return <ReplayInfo replay={replay} stats={stats} />
 }

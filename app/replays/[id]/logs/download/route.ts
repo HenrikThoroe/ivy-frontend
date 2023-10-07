@@ -1,24 +1,25 @@
-import { fetchReplayLogs } from '@/lib/data/Replay'
-import { NextResponse, NextRequest } from 'next/server'
-import AdmZip from 'adm-zip'
+import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 import { formatLog } from '@/lib/util/format'
+import AdmZip from 'adm-zip'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params
-  const logs = await fetchReplayLogs(id)
+  const client = new ReplayClient()
+  const logs = await client.logs(id)
 
-  if (!logs) {
+  if (!logs.success) {
     return new NextResponse(null, { status: 404 })
   }
 
   const json = {
-    white: JSON.stringify(logs.white, undefined, 4),
-    black: JSON.stringify(logs.black, undefined, 4),
+    white: JSON.stringify(logs.result.white, undefined, 4),
+    black: JSON.stringify(logs.result.black, undefined, 4),
   }
 
   const text = {
-    white: formatLog(logs.white),
-    black: formatLog(logs.black),
+    white: formatLog(logs.result.white),
+    black: formatLog(logs.result.black),
   }
 
   const zip = new AdmZip(undefined, { method: 0 })
