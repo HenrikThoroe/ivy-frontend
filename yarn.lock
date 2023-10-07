@@ -177,10 +177,18 @@
   dependencies:
     client-only "^0.0.1"
 
-"@ivy-chess/model@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@ivy-chess/model/-/model-0.1.3.tgz#9601314c4e075f42e3b38a5fa5eb8f139f5a290b"
-  integrity sha512-S40fv+l4dT1S/SANYRDnnc+7AzGn0IMFAPSpCkKlVLIkjLfbQnESnZBPB+vo1+N4lYMG6Uw7j4d4PCja1M8eKg==
+"@ivy-chess/api-schema@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@ivy-chess/api-schema/-/api-schema-0.1.0.tgz#605b7bc1f5b6e827fd50e291969a2f847764ddc2"
+  integrity sha512-A6FGQaz7Ca1V7SYTT/qM8aTz/lTqAFTBnxslAPHHJ6phYFSywhwkINLhRsDW3hWCsp0CkqAhe/KK5OKeCN3PZw==
+  dependencies:
+    "@ivy-chess/model" "*"
+    zod "^3.22.0"
+
+"@ivy-chess/model@*", "@ivy-chess/model@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@ivy-chess/model/-/model-0.1.4.tgz#f18a489235016d449637818cbd50296a9572ef52"
+  integrity sha512-LwF/qwqG4jqH+HiDjk49tnQWUlJIClmF3gK+2yiPt/rMVlqDg4uBQz5/9ml0YfuqpkF7U1lPZA4XTsv8q2dm6g==
   dependencies:
     uuid "^9.0.0"
 
@@ -1680,3 +1688,8 @@ zod@3.21.4:
   version "3.21.4"
   resolved "https://registry.npmjs.org/zod/-/zod-3.21.4.tgz"
   integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
+
+zod@^3.22.0:
+  version "3.22.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
+  integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
