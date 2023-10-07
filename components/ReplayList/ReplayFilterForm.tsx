@@ -1,15 +1,16 @@
 'use client'
 
+import { useReplayFilterOptions } from '@/lib/hooks/useReplayFilterOptions'
+import { buildSearchParams } from '@/lib/util/buildSearchParams'
+import { decodeTime, formatTime } from '@/lib/util/format'
 import moment from 'moment'
+import { usePathname, useRouter } from 'next/navigation'
+import { FormEvent, useCallback } from 'react'
 import Form from '../Form/Base/Form'
 import FormSubmitButton from '../Form/Base/FormSubmitButton'
 import LabeledInput from '../Form/Base/LabeledInput'
 import SelectInput from '../Form/Base/SelectInput'
 import TextInput from '../Form/Base/TextInput'
-import { encodeReplayFilterOptions, useReplayFilterOptions } from '@/lib/data/Replay'
-import { usePathname, useRouter } from 'next/navigation'
-import { decodeTime, formatTime } from '@/lib/util/format'
-import { FormEvent, useCallback } from 'react'
 
 interface Props {
   onChanged?: () => void
@@ -53,11 +54,11 @@ export default function ReplayFilterForm(props: Props) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
-    const encoded = encodeReplayFilterOptions(filterOptions)
-    const params = new URLSearchParams(Array.from(encoded))
+    const params = buildSearchParams(filterOptions)
+    const encoded = params.toString()
     let url = pathname
 
-    if (encoded.size > 0) {
+    if (encoded.length > 0) {
       url += '?' + params.toString()
     }
 
