@@ -1,13 +1,13 @@
 'use client'
 
-import { deleteTestSuite } from '@/lib/data/Test'
+import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
+import { TestSuite } from '@ivy-chess/model'
+import { useRouter } from 'next/navigation'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
 import ActionModal from '../Modal/ActionModal'
 import WithModal from '../Modal/WithModal'
-import { useRouter } from 'next/navigation'
-import { TestSuite } from '@ivy-chess/model'
 
 interface Props {
   suite: TestSuite
@@ -15,13 +15,14 @@ interface Props {
 
 export default function TestSuiteListRow(props: Props) {
   const router = useRouter()
+  const client = new TestSuiteClient()
 
   const iter = Intl.NumberFormat('en-US', { compactDisplay: 'short' }).format(
     props.suite.iterations
   )
 
   const handleDelete = async () => {
-    await deleteTestSuite(props.suite.id)
+    await client.unsafeDelete(props.suite.id)
     router.refresh()
   }
 

@@ -1,13 +1,13 @@
 'use client'
 
+import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { EngineInstance, VerificationGroup } from '@ivy-chess/model'
-import ListRow from '../List/ListRow'
-import ListActions from '../List/ListActions'
-import ListAction from '../List/ListAction'
-import WithModal from '../Modal/WithModal'
-import ActionModal from '../Modal/ActionModal'
-import { deleteVerificationGroup } from '@/lib/data/Stats'
 import { useRouter } from 'next/navigation'
+import ListAction from '../List/ListAction'
+import ListActions from '../List/ListActions'
+import ListRow from '../List/ListRow'
+import ActionModal from '../Modal/ActionModal'
+import WithModal from '../Modal/WithModal'
 
 interface Props {
   group: VerificationGroup
@@ -19,10 +19,11 @@ function formatEngine(engine: EngineInstance) {
 
 export default function VerificationGroupListRow(props: Props) {
   const router = useRouter()
+  const client = new VerificationStatsClient()
 
   const handleDelete = async () => {
     try {
-      await deleteVerificationGroup(props.group.id)
+      await client.unsafeDelete(props.group.id)
     } catch (e) {
       return
     }

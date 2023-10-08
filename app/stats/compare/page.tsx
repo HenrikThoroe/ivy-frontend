@@ -1,8 +1,9 @@
 import VerificationGroupList from '@/components/VerificationGroupList/VerificationGroupList'
-import { fetchVerificationGroups } from '@/lib/data/Stats'
+import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 
 export default async function Compare() {
-  const groups = await fetchVerificationGroups()
+  const client = new VerificationStatsClient()
+  const groups = await client.unsafeGroups()
 
   return <VerificationGroupList groups={groups} />
 }

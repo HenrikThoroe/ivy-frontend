@@ -1,7 +1,7 @@
 'use client'
 
-import { fetchVerificationGroup } from '@/lib/data/Stats'
-import { fetchTestSuite } from '@/lib/data/Test'
+import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
+import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { interleave } from '@/lib/util/array'
 import Link from 'next/link'
 import { useSelectedLayoutSegments } from 'next/navigation'
@@ -28,13 +28,15 @@ function Breadcrumb({ name, path }: Segment) {
 }
 
 async function TestSuiteBreadcrumb({ id }: { id: string }) {
-  const suite = await fetchTestSuite(id)
+  const client = new TestSuiteClient()
+  const suite = await client.unsafeSuite(id)
 
   return <Breadcrumb name={suite.name} path={`training/suites/${id}`} />
 }
 
 async function VerificationGroupBreadcrumb({ id }: { id: string }) {
-  const group = await fetchVerificationGroup(id)
+  const client = new VerificationStatsClient()
+  const group = await client.unsafeGroup(id)
 
   return <Breadcrumb name={group.name} path={`stats/compare/${id}`} />
 }

@@ -1,5 +1,5 @@
 import TestSuiteInfo from '@/components/TestSuiteInfo/TestSuiteInfo'
-import { fetchTestSuite } from '@/lib/data/Test'
+import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -14,7 +14,8 @@ interface Props {
 }
 
 export default async function Suite(props: Props) {
-  const suite = await fetchTestSuite(props.params.id)
+  const client = new TestSuiteClient()
+  const suite = await client.unsafeSuite(props.params.id)
 
   return <TestSuiteInfo suite={suite} />
 }

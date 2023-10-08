@@ -1,6 +1,6 @@
 'use client'
 
-import { addVerificationNode, removeVerificationNode } from '@/lib/data/Stats'
+import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { EngineConfig, EngineTestConfig, VerificationGroup } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -18,12 +18,13 @@ export default function EngineConfigSlider(props: Props) {
   const [showAdd, setShowAdd] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const router = useRouter()
+  const client = new VerificationStatsClient()
 
   const handleDelete = async (config: EngineTestConfig) => {
     setShowLoading(true)
 
     try {
-      await removeVerificationNode(props.verificationGroup.id, config)
+      await client.unsafeRemove(props.verificationGroup.id, config)
     } catch (e) {
       setShowLoading(false)
       return
@@ -37,7 +38,7 @@ export default function EngineConfigSlider(props: Props) {
     setShowLoading(true)
 
     try {
-      await addVerificationNode(props.verificationGroup.id, config)
+      await client.unsafeAdd(props.verificationGroup.id, config)
     } catch (e) {
       setShowLoading(false)
       return

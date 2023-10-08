@@ -1,16 +1,16 @@
 'use client'
 
+import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
+import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
+import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from 'react'
 import Form from '../Form/Base/Form'
 import FormSeparator from '../Form/Base/FormSeparator'
 import FormSubmitButton from '../Form/Base/FormSubmitButton'
 import LabeledInput from '../Form/Base/LabeledInput'
 import TextInput from '../Form/Base/TextInput'
 import EngineConfigForm from '../Form/Shared/EngineConfigForm'
-import { FormEvent, useState } from 'react'
-import { createTestSuite } from '@/lib/data/Test'
 import LoadingModal from '../Modal/LoadingModal'
-import { useRouter } from 'next/navigation'
-import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
 
 interface Props {
   configs: EngineConfig[]
@@ -36,6 +36,7 @@ export default function CreateTestSuiteForm(props: Props) {
   const [engine2, setEngine2] = useState<EngineTestConfig>(defEngineConfig)
   const [showLoading, setShowLoading] = useState(false)
   const router = useRouter()
+  const client = new TestSuiteClient()
 
   const isValid = () => {
     return name && iterations && engine1 && engine2 ? true : false
@@ -50,7 +51,7 @@ export default function CreateTestSuiteForm(props: Props) {
 
     setShowLoading(true)
 
-    await createTestSuite({
+    await client.unsafeCreate({
       name: name!,
       iterations: iterations!,
       engines: [engine1!, engine2!],

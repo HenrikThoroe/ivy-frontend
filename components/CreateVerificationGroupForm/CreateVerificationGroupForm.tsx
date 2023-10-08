@@ -1,18 +1,18 @@
 'use client'
 
+import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { EngineConfig, EngineInstance, EngineTestConfig } from '@ivy-chess/model'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Form from '../Form/Base/Form'
 import FormSeparator from '../Form/Base/FormSeparator'
+import FormSubmitButton from '../Form/Base/FormSubmitButton'
 import LabeledInput from '../Form/Base/LabeledInput'
+import ListInput from '../Form/Base/ListInput'
 import TextInput from '../Form/Base/TextInput'
 import EngineConfigForm from '../Form/Shared/EngineConfigForm'
-import { useState } from 'react'
-import ListInput from '../Form/Base/ListInput'
-import FormSubmitButton from '../Form/Base/FormSubmitButton'
-import AddNodeModal from './AddNodeModal'
-import { useRouter } from 'next/navigation'
 import LoadingModal from '../Modal/LoadingModal'
-import { createVerificationGroup } from '@/lib/data/Stats'
+import AddNodeModal from './AddNodeModal'
 
 interface Props {
   configs: EngineConfig[]
@@ -30,6 +30,7 @@ export default function CreateVerificationGroupForm(props: Props) {
   const [base, setBase] = useState<EngineTestConfig>()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const client = new VerificationStatsClient()
 
   const isValid = () => {
     if (!name || name.length === 0) {
@@ -60,7 +61,7 @@ export default function CreateVerificationGroupForm(props: Props) {
     }
 
     setLoading(true)
-    await createVerificationGroup({
+    await client.create({
       name: name!,
       threshold: threshold!,
       base: base!,

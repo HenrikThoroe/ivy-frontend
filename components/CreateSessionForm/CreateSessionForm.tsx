@@ -1,15 +1,15 @@
 'use client'
 
-import { createTestSession } from '@/lib/data/Test'
+import { TestSessionClient } from '@/lib/api/clients/TestSessionClient'
+import { TestSuite } from '@ivy-chess/model'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Form from '../Form/Base/Form'
 import FormSubmitButton from '../Form/Base/FormSubmitButton'
 import LabeledInput from '../Form/Base/LabeledInput'
 import SelectInput from '../Form/Base/SelectInput'
 import TextInput from '../Form/Base/TextInput'
-import { useState } from 'react'
 import AlertModal from '../Modal/AlertModal'
-import { useRouter } from 'next/navigation'
-import { TestSuite } from '@ivy-chess/model'
 
 interface Props {
   suites: TestSuite[]
@@ -20,6 +20,7 @@ export default function CreateSessionForm(props: Props) {
   const [session, setSession] = useState(props.suites[0].id)
   const [drivers, setDrivers] = useState(10)
   const router = useRouter()
+  const client = new TestSessionClient()
 
   const isValid = () => {
     return drivers > 0
@@ -33,7 +34,7 @@ export default function CreateSessionForm(props: Props) {
     }
 
     try {
-      await createTestSession(session, drivers)
+      await client.unsafeCreate(session, drivers)
       router.push('/training/sessions')
     } catch (e) {
       setShowError(true)

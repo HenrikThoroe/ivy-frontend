@@ -1,12 +1,12 @@
 'use client'
 
-import { TestSession, deleteTestSession } from '@/lib/data/Test'
+import { TestSession, TestSessionClient } from '@/lib/api/clients/TestSessionClient'
+import { useRouter } from 'next/navigation'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
 import ActionModal from '../Modal/ActionModal'
 import WithModal from '../Modal/WithModal'
-import { useRouter } from 'next/navigation'
 
 interface Props {
   session: TestSession
@@ -28,9 +28,10 @@ function ProgressBar({ progress }: { progress: number }) {
 export default function TestSessionsListRow({ session }: Props) {
   const router = useRouter()
   const progress = (session.suite.iterations - session.remaining) / session.suite.iterations
+  const client = new TestSessionClient()
 
   const handleDelete = async () => {
-    await deleteTestSession(session.id)
+    await client.unsafeDelete(session.id)
     router.refresh()
   }
 

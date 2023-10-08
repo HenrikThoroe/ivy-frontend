@@ -1,5 +1,5 @@
 import CreateSessionForm from '@/components/CreateSessionForm/CreateSessionForm'
-import { fetchTestSuite, fetchTestSuites } from '@/lib/data/Test'
+import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,8 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default async function CreateSession() {
-  const ids = await fetchTestSuites()
-  const suites = await Promise.all(ids.map((id) => fetchTestSuite(id)))
+  const client = new TestSuiteClient()
+  const ids = await client.unsafeSuites()
+  const suites = await Promise.all(ids.map((id) => client.unsafeSuite(id)))
 
   return <CreateSessionForm suites={suites} />
 }

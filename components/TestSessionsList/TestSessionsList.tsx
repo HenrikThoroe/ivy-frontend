@@ -1,4 +1,4 @@
-import { TestSession } from '@/lib/data/Test'
+import { TestSession } from '@/lib/api/clients/TestSessionClient'
 import List from '../List/List'
 import TestSessionListTools from './TestSessionListTools'
 import TestSessionsListRow from './TestSessionsListRow'

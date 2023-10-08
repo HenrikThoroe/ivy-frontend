@@ -1,9 +1,9 @@
 import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
-import Form from '../Form/Base/Form'
-import Modal from '../Modal/Modal'
-import EngineConfigForm from '../Form/Shared/EngineConfigForm'
 import { useState } from 'react'
+import Form from '../Form/Base/Form'
 import FormSubmitButton from '../Form/Base/FormSubmitButton'
+import EngineConfigForm from '../Form/Shared/EngineConfigForm'
+import Modal from '../Modal/Modal'
 
 interface Props {
   open: boolean
