@@ -1,5 +1,10 @@
-import { Endpoint, Route } from '@ivy-chess/api-schema'
+import { Endpoint, Route, shared } from '@ivy-chess/api-schema'
 import { z } from 'zod'
+
+/**
+ * Common API return type.
+ */
+export type WithID = z.infer<typeof shared.generic.withIdSchema>
 
 /**
  * Success type of an endpoint.
