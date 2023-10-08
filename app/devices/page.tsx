@@ -1,10 +1,11 @@
 import DeviceInfoCard from '@/components/Card/DeviceInfo'
-import OSDistributionChart from '@/components/Chart/OSDistribution'
 import CoresChart from '@/components/Chart/Cores'
 import MemoryChart from '@/components/Chart/Memory'
-import { Metadata } from 'next'
-import { fetchDeviceInfo } from '@/lib/data/Device'
+import OSDistributionChart from '@/components/Chart/OSDistribution'
 import NoContent from '@/components/NoContent/NoContent'
+import { TestDriverClient } from '@/lib/api/clients/TestDriverClient'
+import { parseDeviceInfo } from '@/lib/data/DeviceInfo'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Ivy - Device List',
@@ -12,7 +13,9 @@ export const metadata: Metadata = {
 }
 
 export default async function Devices() {
-  const deviceInfo = await fetchDeviceInfo()
+  const client = new TestDriverClient()
+  const drivers = await client.unsafeDrivers()
+  const deviceInfo = await parseDeviceInfo(drivers)
 
   if (deviceInfo.connected === 0) {
     return (

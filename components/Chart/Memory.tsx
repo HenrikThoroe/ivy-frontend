@@ -1,9 +1,9 @@
 'use client'
 
-import { MemoryDistribution } from '@/lib/data/Device'
+import { MemoryDistribution } from '@/lib/data/DeviceInfo'
 import { chartColor } from '@/lib/util/colors'
-import React, { memo } from 'react'
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Text } from 'recharts'
+import { memo } from 'react'
+import { Line, LineChart, ResponsiveContainer, Text, XAxis, YAxis } from 'recharts'
 
 interface Props {
   mem: MemoryDistribution

@@ -1,9 +1,9 @@
 'use client'
 
-import { OSDistribution } from '@/lib/data/Device'
+import { OSDistribution } from '@/lib/data/DeviceInfo'
 import { chartColor } from '@/lib/util/colors'
-import React, { memo } from 'react'
-import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
+import { memo } from 'react'
+import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 
 interface Props {
   os: OSDistribution
