@@ -69,6 +69,9 @@ export abstract class Client<T extends RouteConfig> {
       mode: 'cors',
       cache: typeof cache === 'number' ? 'default' : cache,
       next: typeof cache !== 'number' ? undefined : { revalidate: cache },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
 
     if (!response.ok) {
