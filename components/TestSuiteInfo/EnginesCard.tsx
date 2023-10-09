@@ -1,5 +1,4 @@
-import { versionToString } from '@/lib/data/Engine'
-import { EngineTestConfig } from '@ivy-chess/model'
+import { EngineTestConfig, encodeVersion } from '@ivy-chess/model'
 import React from 'react'
 
 interface Props {
@@ -42,14 +41,14 @@ export default function EnginesCard(props: Props) {
         <span>Hash</span>
       </LabelCol>
       <Col head={engine1.name}>
-        {versionToString(engine1.version)}
+        {encodeVersion(engine1.version, false)}
         {engine1.timeControl.type}
         {engine1.timeControl.value}
         {engine1.options.threads}
         {engine1.options.hash}
       </Col>
       <Col head={engine2.name}>
-        {versionToString(engine2.version)}
+        {encodeVersion(engine2.version, false)}
         {engine2.timeControl.type}
         {engine2.timeControl.value}
         {engine2.options.threads}

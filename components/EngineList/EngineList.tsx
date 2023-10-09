@@ -1,7 +1,7 @@
-import { getInstances } from '@/lib/data/Engine'
-import EngineListRow from './EngineListRow'
-import List from '../List/List'
+import { EngineHelper } from '@/lib/data/EngineHelper'
 import { EngineConfig } from '@ivy-chess/model'
+import List from '../List/List'
+import EngineListRow from './EngineListRow'
 
 interface Props {
   engine: EngineConfig
@@ -9,10 +9,11 @@ interface Props {
 
 export default function EngineList(props: Props) {
   const { engine } = props
+  const helper = new EngineHelper(engine)
 
   return (
     <List variant="custom-1" head={['Version', 'OS', 'Architecture', 'Required Capabilities']}>
-      {getInstances(engine).map((instance) => (
+      {helper.executables.map((instance) => (
         <EngineListRow
           engine={engine.name}
           id={instance.flavour.id}

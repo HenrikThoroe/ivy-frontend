@@ -1,6 +1,6 @@
 import EngineCard from '@/components/Card/Engine'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
-import { getSupportedArch, getSupportedOS } from '@/lib/data/Engine'
+import { EngineHelper } from '@/lib/data/EngineHelper'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -16,14 +16,8 @@ export default async function Engines() {
 
   const buildCards = () => {
     return engines.map((engine) => {
-      return (
-        <EngineCard
-          variant="engine"
-          name={engine.name}
-          os={getSupportedOS(engine)}
-          arch={getSupportedArch(engine)}
-        />
-      )
+      const helper = new EngineHelper(engine)
+      return <EngineCard variant="engine" name={engine.name} os={helper.os} arch={helper.arch} />
     })
   }
 

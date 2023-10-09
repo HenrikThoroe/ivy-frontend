@@ -1,11 +1,11 @@
 'use client'
 
-import { compareEngineVersions, parseEngineVersion, versionToString } from '@/lib/data/Engine'
+import { EngineHelper } from '@/lib/data/EngineHelper'
+import { EngineConfig, EngineTestConfig, decodeVersion, encodeVersion } from '@ivy-chess/model'
+import { useState } from 'react'
 import LabeledInput from '../Base/LabeledInput'
 import SelectInput from '../Base/SelectInput'
 import TextInput from '../Base/TextInput'
-import { useState } from 'react'
-import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
 
 interface Props {
   configs: EngineConfig[]
@@ -35,9 +35,8 @@ export default function EngineConfigForm(props: Props) {
     const conf = props.configs.find((c) => c.name === config.name)
 
     if (conf) {
-      const versions = conf.variations.flatMap((v) => v.version)
-      versions.sort(compareEngineVersions)
-      return versions
+      const helper = new EngineHelper(conf)
+      return helper.versions
     }
 
     return []
@@ -59,11 +58,11 @@ export default function EngineConfigForm(props: Props) {
       </LabeledInput>
       <LabeledInput label="Version" required>
         <SelectInput
-          defaultValue={versionToString(defaultConfig.version)}
-          onSelect={(val) => update({ ...config, version: parseEngineVersion(val) })}
+          defaultValue={encodeVersion(defaultConfig.version, false)}
+          onSelect={(val) => update({ ...config, version: decodeVersion(val) })}
           options={versions().map((v) => ({
-            label: versionToString(v),
-            value: versionToString(v),
+            label: encodeVersion(v, false),
+            value: encodeVersion(v, false),
           }))}
         />
       </LabeledInput>

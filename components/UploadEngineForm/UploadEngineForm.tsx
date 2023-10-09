@@ -6,7 +6,7 @@ import LabeledInput from '@/components/Form/Base/LabeledInput'
 import SelectInput from '@/components/Form/Base/SelectInput'
 import TextInput from '@/components/Form/Base/TextInput'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
-import { parseEngineVersion } from '@/lib/data/Engine'
+import { decodeVersion } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import FormSubmitButton from '../Form/Base/FormSubmitButton'
@@ -55,7 +55,7 @@ export default function UploadEngineForm() {
 
     const res = await client.create(binary!, {
       name: engineName!,
-      version: parseEngineVersion(version!),
+      version: decodeVersion(version!),
       os: os!,
       arch: arch!,
       capabilities: capabilities ? capabilities.split(',').map((c) => c.trim().toLowerCase()) : [],
