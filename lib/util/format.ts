@@ -1,5 +1,13 @@
 import { Move, Piece, UCILog } from '@ivy-chess/model'
 
+/**
+ * Format a number of bytes to a human readable string
+ * using the IEC standard.
+ *
+ * @param bytes The number of bytes.
+ * @param decimals The number of decimals to use.
+ * @returns The formatted string.
+ */
 export function formatMemSize(bytes: number, decimals: number = 2) {
   const k = 1000
   const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
@@ -8,6 +16,12 @@ export function formatMemSize(bytes: number, decimals: number = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(decimals))} ${units[i]}`
 }
 
+/**
+ * Formats a chess position given by index to a string.
+ *
+ * @param position The position to format.
+ * @returns The formatted position.
+ */
 export function formatPosition(position: number) {
   const row = Math.floor(position / 8)
   const column = position % 8
@@ -15,17 +29,36 @@ export function formatPosition(position: number) {
   return `${String.fromCharCode(97 + column)}${8 - row}`
 }
 
+/**
+ * Formats a chess piece to a string.
+ *
+ * @param piece The piece to format.
+ * @returns The formatted piece.
+ */
 export function formatPiece(piece: Piece) {
   const type = piece.type === 'knight' ? 'n' : piece.type[0]
   return piece.color === 'white' ? type.toUpperCase() : type.toLowerCase()
 }
 
+/**
+ * Formats a chess move to a string.
+ *
+ * @param move The move to format.
+ * @returns The formatted move.
+ */
 export function formatMove(move: Move) {
   return `${formatPosition(move.source)}${formatPosition(move.target)}${
     move.promotion ? formatPiece(move.promotion) : ''
   }`
 }
 
+/**
+ * Formats a number of nanoseconds to a human readable string.
+ * The format is `1h2m3s4ms5µs6ns`.
+ *
+ * @param nanoseconds The number of nanoseconds.
+ * @returns The formatted string.
+ */
 export function formatTime(nanoseconds: number): string {
   if (nanoseconds === 0) {
     return ''
@@ -60,6 +93,12 @@ export function formatTime(nanoseconds: number): string {
   return `${nanoseconds}ns`
 }
 
+/**
+ * Formats an UCI score to a human readable string.
+ *
+ * @param score The score to format.
+ * @returns The formatted string.
+ */
 export function formatScore(score: {
   value: number
   type: 'cp' | 'mate'
@@ -83,6 +122,14 @@ export function formatScore(score: {
   return res
 }
 
+/**
+ * Decodes a time string to nanoseconds.
+ * The format of the input is expected to be
+ * as returned by {@link formatTime}.
+ *
+ * @param time The time string to decode.
+ * @returns The number of nanoseconds.
+ */
 export function decodeTime(time: string) {
   const readPart = (unit: string) => {
     const index = time.indexOf(unit)
@@ -114,6 +161,12 @@ export function decodeTime(time: string) {
   )
 }
 
+/**
+ * Formats an UCI log to a human readable string.
+ *
+ * @param log The log to format.
+ * @returns The formatted string with newlines.
+ */
 export function formatLog(log: UCILog) {
   return log.messages
     .map((entry) => {

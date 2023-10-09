@@ -1,3 +1,10 @@
+/**
+ * Returns a color based on the index and total number of items.
+ *
+ * @param index The index of the item. Same index and total will always return the same color.
+ * @param total The total number of items and colors required.
+ * @returns The color in hex format.
+ */
 export function chartColor(index: number, total: number) {
   const s = 62
   const l = 60
