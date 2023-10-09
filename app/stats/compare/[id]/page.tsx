@@ -1,7 +1,7 @@
 import EngineConfigSlider from '@/components/EngineConfigSlider/EngineConfigSlider'
 import EngineVerificationStats from '@/components/EngineVerificationStats/EngineVerificationStats'
+import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
-import { fetchEngineConfigs } from '@/lib/data/Engine'
 import { VerificationGroupState, VerificationResult } from '@ivy-chess/model'
 
 interface Props {
@@ -46,14 +46,15 @@ function ProgressSection({ state }: { state: VerificationGroupState }) {
 }
 
 export default async function Comparison({ params }: Props) {
-  const client = new VerificationStatsClient()
-  const group = await client.unsafeGroup(params.id)
-  const state = await client.unsafeState(params.id)
-  const configs = await fetchEngineConfigs()
+  const statsClient = new VerificationStatsClient()
+  const engineClient = new EngineClient()
+  const group = await statsClient.unsafeGroup(params.id)
+  const state = await statsClient.unsafeState(params.id)
+  const configs = await engineClient.unsafeEngines()
   let result: VerificationResult | undefined = undefined
 
   if (state.hasResult) {
-    result = await client.unsafeResult(params.id)
+    result = await statsClient.unsafeResult(params.id)
   }
 
   return (

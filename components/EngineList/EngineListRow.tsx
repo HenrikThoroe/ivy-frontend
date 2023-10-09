@@ -1,15 +1,15 @@
 'use client'
 
-import { deleteEngineConfig } from '@/lib/data/Engine'
+import { EngineClient } from '@/lib/api/clients/EngineClient'
+import { EngineVersion } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import LoadingModal from '../Modal/LoadingModal'
-import ListRow from '../List/ListRow'
-import ListActions from '../List/ListActions'
-import WithModal from '../Modal/WithModal'
 import ListAction from '../List/ListAction'
+import ListActions from '../List/ListActions'
+import ListRow from '../List/ListRow'
 import ActionModal from '../Modal/ActionModal'
-import { EngineVersion } from '@ivy-chess/model'
+import LoadingModal from '../Modal/LoadingModal'
+import WithModal from '../Modal/WithModal'
 
 interface Props {
   id: string
@@ -23,13 +23,15 @@ interface Props {
 export default function EngineListRow(props: Props) {
   const router = useRouter()
   const [showLoading, setShowLoading] = useState(false)
+  const client = new EngineClient()
 
   const handleDelete = async () => {
     setShowLoading(true)
 
-    const didRemoveEngine = await deleteEngineConfig(props.engine, props.id)
+    await client.unsafeDelete(props.engine, props.id)
+    const engine = await client.engine(props.engine)
 
-    if (didRemoveEngine) {
+    if (!engine.success || engine.result.variations.length === 0) {
       router.push('/engines')
     } else {
       router.refresh()

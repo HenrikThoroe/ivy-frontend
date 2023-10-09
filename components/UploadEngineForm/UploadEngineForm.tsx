@@ -5,11 +5,12 @@ import Form from '@/components/Form/Base/Form'
 import LabeledInput from '@/components/Form/Base/LabeledInput'
 import SelectInput from '@/components/Form/Base/SelectInput'
 import TextInput from '@/components/Form/Base/TextInput'
+import { EngineClient } from '@/lib/api/clients/EngineClient'
+import { parseEngineVersion } from '@/lib/data/Engine'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import LoadingModal from '../Modal/LoadingModal'
 import FormSubmitButton from '../Form/Base/FormSubmitButton'
-import { parseEngineVersion, uploadEngine } from '@/lib/data/Engine'
+import LoadingModal from '../Modal/LoadingModal'
 
 const options = {
   os: [
@@ -37,6 +38,7 @@ export default function UploadEngineForm() {
   const [capabilities, setCapabilities] = useState<string | null>(null)
   const [binary, setBinary] = useState<File | null>(null)
   const router = useRouter()
+  const client = new EngineClient()
 
   const isValid = () => {
     return engineName && version && os && arch && binary ? true : false
@@ -51,23 +53,23 @@ export default function UploadEngineForm() {
 
     setShowLoading(true)
 
-    await uploadEngine(
-      {
-        name: engineName!,
-        version: parseEngineVersion(version!),
-        flavour: {
-          id: '',
-          os: os!,
-          arch: arch!,
-          capabilities: capabilities
-            ? capabilities.split(',').map((c) => c.trim().toLowerCase())
-            : [],
-        },
-      },
-      binary!
-    )
+    const res = await client.create(binary!, {
+      name: engineName!,
+      version: parseEngineVersion(version!),
+      os: os!,
+      arch: arch!,
+      capabilities: capabilities ? capabilities.split(',').map((c) => c.trim().toLowerCase()) : [],
+    })
 
-    router.push(`/engines/${engineName}`)
+    if (!res.success) {
+      console.log(res.error.message)
+    }
+
+    setShowLoading(false)
+
+    if (res.success) {
+      router.push(`/engines/${engineName}`)
+    }
   }
 
   return (

@@ -1,5 +1,5 @@
 import EngineList from '@/components/EngineList/EngineList'
-import { fetchEngineConfig } from '@/lib/data/Engine'
+import { EngineClient } from '@/lib/api/clients/EngineClient'
 
 interface Props {
   params: {
@@ -17,7 +17,8 @@ export function generateMetadata({ params }: Props) {
 }
 
 export default async function Engine({ params }: Props) {
-  const engine = await fetchEngineConfig(params.name)
+  const client = new EngineClient()
+  const engine = await client.unsafeEngine(params.name)
 
   return <EngineList engine={engine} />
 }

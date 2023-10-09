@@ -1,5 +1,6 @@
 import EngineCard from '@/components/Card/Engine'
-import { fetchEngineConfigs, getSupportedArch, getSupportedOS } from '@/lib/data/Engine'
+import { EngineClient } from '@/lib/api/clients/EngineClient'
+import { getSupportedArch, getSupportedOS } from '@/lib/data/Engine'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 export const revalidate = 0
 
 export default async function Engines() {
-  const engines = await fetchEngineConfigs()
+  const client = new EngineClient()
+  const engines = await client.unsafeEngines()
 
   const buildCards = () => {
     return engines.map((engine) => {

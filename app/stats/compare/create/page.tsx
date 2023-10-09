@@ -1,8 +1,9 @@
 import CreateVerificationGroupForm from '@/components/CreateVerificationGroupForm/CreateVerificationGroupForm'
-import { fetchEngineConfigs } from '@/lib/data/Engine'
+import { EngineClient } from '@/lib/api/clients/EngineClient'
 
 export default async function Create() {
-  const configs = await fetchEngineConfigs()
+  const client = new EngineClient()
+  const configs = await client.unsafeEngines()
 
   return <CreateVerificationGroupForm configs={configs} />
 }
