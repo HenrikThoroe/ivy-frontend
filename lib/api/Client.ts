@@ -1,6 +1,7 @@
 import { Route, RouteConfig } from '@ivy-chess/api-schema'
+import { encodeVersion } from '@ivy-chess/model'
 import { buildSearchParams } from '../util/buildSearchParams'
-import { Failure, FetchOptions, FetchResult, Result } from './types'
+import { Failure, FetchOptions, FetchResult, Files, Result } from './types'
 
 /**
  * A client allows to make requests against an API given by its schema.
@@ -65,13 +66,11 @@ export abstract class Client<T extends RouteConfig> {
 
     const response = await fetch(url, {
       method: ep.method,
-      body: JSON.stringify(options.body),
+      body: this.buildBodyData(options),
       mode: 'cors',
       cache: typeof cache === 'number' ? 'default' : cache,
       next: typeof cache !== 'number' ? undefined : { revalidate: cache },
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.headers(options),
     })
 
     if (!response.ok) {
@@ -95,6 +94,50 @@ export abstract class Client<T extends RouteConfig> {
 
   //* Private Methods
 
+  private headers<K extends Extract<keyof T, string>>(
+    options: Partial<FetchOptions<T[K]>>
+  ): HeadersInit {
+    if (options.files !== undefined) {
+      return {}
+    }
+
+    return {
+      'Content-Type': 'application/json',
+    }
+  }
+
+  private buildBodyData<K extends Extract<keyof T, string>>(options: Partial<FetchOptions<T[K]>>) {
+    if (options.files) {
+      const data = new FormData()
+
+      for (const key in options.body) {
+        const value = options.body[key]
+
+        if (options.transform) {
+          const transformed = options.transform(key, value)
+
+          if (transformed) {
+            data.append(key, transformed)
+            continue
+          }
+        }
+
+        data.append(key, value)
+      }
+
+      for (const key in options.files) {
+        const idx = key as Extract<Files<T[K]>, string>
+        const value = options.files[idx]
+
+        data.append(key, value)
+      }
+
+      return data
+    }
+
+    return JSON.stringify(options.body)
+  }
+
   private buildURL<K extends Extract<keyof T, string>>(
     key: K,
     target: 'client' | 'server',
@@ -112,7 +155,9 @@ export abstract class Client<T extends RouteConfig> {
 
     for (const key in options.params) {
       const value = options.params[key]
-      path = path.replace(`:${key}`, value)
+      const encoded = key === 'version' ? encodeVersion(value) : value
+
+      path = path.replace(`:${key}`, encoded)
     }
 
     return `${host}${this.schema.path}${path}${this.encodeQuery(query)}`

@@ -7,6 +7,13 @@ import { z } from 'zod'
 export type WithID = z.infer<typeof shared.generic.withIdSchema>
 
 /**
+ * Common API return type.
+ */
+export interface SuccessState {
+  success: boolean
+}
+
+/**
  * Success type of an endpoint.
  */
 export type Success<T> = T extends Endpoint<any, any, any, any, infer S, any> ? z.infer<S> : never
@@ -32,6 +39,11 @@ export type Query<T> = T extends Endpoint<infer Q, any, any, any, any, any> ? z.
 export type Params<T> = T extends Endpoint<any, any, infer P, any, any, any> ? z.infer<P> : never
 
 /**
+ * Files type of an endpoint.
+ */
+export type Files<T> = T extends Endpoint<any, any, any, infer F, any, any> ? F : never
+
+/**
  * Result which contains either a success or an error property depending on the success type.
  */
 export type Result<S, F, B = boolean> = B extends true
@@ -50,6 +62,17 @@ export interface FetchOptions<T extends Endpoint<any, any, any, any, any, any>> 
   body: Body<T>
   query: Query<T>
   params: Params<T>
+  files: Record<Files<T>, Blob>
+
+  /**
+   * A transformation function used to serialize form data before sending it.
+   * Will only apply if the data is sent as form data, which is the case when a file is present.
+   *
+   * @param key The key of the body value.
+   * @param value The value for the key.
+   * @returns A string value to replace the original value or undefined to keep the original value.
+   */
+  transform?: <K extends keyof Body<T>>(key: K, value: Body<T>[K]) => string | undefined
 }
 
 /**
