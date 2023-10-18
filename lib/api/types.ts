@@ -21,7 +21,9 @@ export type Success<T> = T extends Endpoint<any, any, any, any, infer S, any> ? 
 /**
  * Failure type of an endpoint.
  */
-export type Failure<T> = T extends Endpoint<any, any, any, any, any, infer F> ? z.infer<F> : never
+export type Failure<T> = T extends Endpoint<any, any, any, any, any, any, infer F>
+  ? z.infer<F>
+  : never
 
 /**
  * Body type of an endpoint.
