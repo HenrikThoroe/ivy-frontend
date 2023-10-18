@@ -1,6 +1,9 @@
 import { Route, RouteConfig } from '@ivy-chess/api-schema'
 import { encodeVersion } from '@ivy-chess/model'
 import { buildSearchParams } from '../util/buildSearchParams'
+import { shouldRefresh } from './auth/parser/jwt'
+import { JWTProvider } from './auth/store/types'
+import { TokenStrategy } from './auth/strategy/TokenStrategy'
 import { Failure, FetchOptions, FetchResult, Files, Result } from './types'
 
 /**
@@ -13,10 +16,22 @@ export abstract class Client<T extends RouteConfig> {
 
   private readonly serverUrl?: string
 
-  constructor(schema: Route<T>, clientUrl: string | undefined, serverUrl: string | undefined) {
+  /**
+   * The authentication strategy to use for this client.
+   * When no strategy is given, the client will not perform any authentication.
+   */
+  protected readonly authStrategy?: TokenStrategy<JWTProvider>
+
+  constructor(
+    schema: Route<T>,
+    clientUrl?: string,
+    serverUrl?: string,
+    strategy?: TokenStrategy<JWTProvider>
+  ) {
     this.schema = schema
     this.clientUrl = clientUrl
     this.serverUrl = serverUrl
+    this.authStrategy = strategy
   }
 
   //* API
@@ -48,6 +63,9 @@ export abstract class Client<T extends RouteConfig> {
   /**
    * Fetches a resource from the API.
    *
+   * When an {@link Client.authStrategy auth strategy} is present,
+   * the client will automatically try to refresh the token if necessary.
+   *
    * @param key The key of the resource to fetch.
    * @param cache The cache strategy to use.
    * @param target The target to fetch from depending on the environment of the client.
@@ -64,13 +82,15 @@ export abstract class Client<T extends RouteConfig> {
     const ep = this.schema.get(key)
     const url = this.buildURL(key, target, options)
 
+    await this.refreshToken(ep)
+
     const response = await fetch(url, {
       method: ep.method,
       body: this.buildBodyData(options),
       mode: 'cors',
       cache: typeof cache === 'number' ? 'default' : cache,
       next: typeof cache !== 'number' ? undefined : { revalidate: cache },
-      headers: this.headers(options),
+      headers: await this.headers(options, ep.authenticated),
     })
 
     if (!response.ok) {
@@ -94,14 +114,42 @@ export abstract class Client<T extends RouteConfig> {
 
   //* Private Methods
 
-  private headers<K extends Extract<keyof T, string>>(
-    options: Partial<FetchOptions<T[K]>>
-  ): HeadersInit {
+  private async refreshToken<K extends Extract<keyof T, string>>(endpoint: T[K]) {
+    if (!this.authStrategy?.refresh) {
+      return
+    }
+
+    if (endpoint.authenticated) {
+      const token = this.authStrategy?.store.jwt
+
+      if (token && token.available) {
+        if (shouldRefresh(token.token)) {
+          await this.authStrategy.refresh()
+        }
+      }
+    }
+  }
+
+  private async headers<K extends Extract<keyof T, string>>(
+    options: Partial<FetchOptions<T[K]>>,
+    requiresAuth: boolean
+  ): Promise<HeadersInit> {
+    const headers: HeadersInit = {}
+
+    if (requiresAuth && this.authStrategy) {
+      const token = this.authStrategy.store.jwt
+
+      if (token.available) {
+        headers['Authorization'] = `Bearer ${token.token}`
+      }
+    }
+
     if (options.files !== undefined) {
-      return {}
+      return headers
     }
 
     return {
+      ...headers,
       'Content-Type': 'application/json',
     }
   }
