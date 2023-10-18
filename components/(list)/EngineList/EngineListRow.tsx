@@ -48,7 +48,7 @@ export default function EngineListRow(props: Props) {
 
   //* UI
 
-  const DeletePrompt = () => (
+  const DeletePrompt = (
     <ActionModal
       title="Delete Engine"
       description="Deleting an engine will remove it from the registry. This action cannot be undone."
@@ -72,7 +72,7 @@ export default function EngineListRow(props: Props) {
         <span>{props.arch}</span>
         <span>{props.capabilities.join(', ')}</span>
         <ListActions>
-          <WithModal modal={<DeletePrompt />}>
+          <WithModal modal={DeletePrompt}>
             <ListAction variant="action" style="danger" icon="delete" />
           </WithModal>
           <ListAction
