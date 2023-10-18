@@ -4,6 +4,8 @@ import moment from 'moment'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 import { z } from 'zod'
 import { Client } from '../Client'
+import { JWTProvider } from '../auth/store/types'
+import { TokenStrategy } from '../auth/strategy/TokenStrategy'
 import { Config, ReturnType } from '../types'
 
 /**
@@ -17,8 +19,8 @@ type AcceptedReplayFilterOptions = ReadonlyURLSearchParams | ReplayFilterOptions
  * A client for the replay API.
  */
 export class ReplayClient extends Client<Config<typeof api.replay.replayRoute>> {
-  constructor() {
-    super(api.replay.replayRoute, undefined, process.env.REPLAYS_HOST)
+  constructor(strategy: TokenStrategy<JWTProvider>) {
+    super(api.replay.replayRoute, undefined, process.env.REPLAYS_HOST, strategy)
   }
 
   //* API

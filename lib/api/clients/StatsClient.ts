@@ -6,6 +6,8 @@ import {
   VerificationResult,
 } from '@ivy-chess/model'
 import { Client } from '../Client'
+import { JWTProvider } from '../auth/store/types'
+import { TokenStrategy } from '../auth/strategy/TokenStrategy'
 import { Config, ReturnType, WithID } from '../types'
 
 type VerificationConfig = Config<typeof api.stats.verification.verificationRoute>
@@ -14,11 +16,12 @@ type VerificationConfig = Config<typeof api.stats.verification.verificationRoute
  * A client for the verification API.
  */
 export class VerificationStatsClient extends Client<VerificationConfig> {
-  constructor() {
+  constructor(strategy: TokenStrategy<JWTProvider>) {
     super(
       api.stats.verification.verificationRoute,
       process.env.NEXT_PUBLIC_STATS_HOST,
-      process.env.STATS_HOST
+      process.env.STATS_HOST,
+      strategy
     )
   }
 

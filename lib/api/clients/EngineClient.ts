@@ -1,6 +1,8 @@
 import { api } from '@ivy-chess/api-schema'
 import { EngineConfig, EngineVariation, EngineVersion, encodeVersion } from '@ivy-chess/model'
 import { Client } from '../Client'
+import { JWTProvider } from '../auth/store/types'
+import { TokenStrategy } from '../auth/strategy/TokenStrategy'
 import { Config, ReturnType, SuccessState } from '../types'
 
 interface CreateOptions {
@@ -15,8 +17,13 @@ interface CreateOptions {
  * A client for the engine versioning API.
  */
 export class EngineClient extends Client<Config<typeof api.evc.engineVersioningRoute>> {
-  constructor() {
-    super(api.evc.engineVersioningRoute, process.env.NEXT_PUBLIC_EVC_HOST, process.env.EVC_HOST)
+  constructor(strategy: TokenStrategy<JWTProvider>) {
+    super(
+      api.evc.engineVersioningRoute,
+      process.env.NEXT_PUBLIC_EVC_HOST,
+      process.env.EVC_HOST,
+      strategy
+    )
   }
 
   //* API

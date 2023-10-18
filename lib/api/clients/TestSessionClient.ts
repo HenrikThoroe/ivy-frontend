@@ -1,6 +1,8 @@
 import { api } from '@ivy-chess/api-schema'
 import { z } from 'zod'
 import { Client } from '../Client'
+import { JWTProvider } from '../auth/store/types'
+import { TokenStrategy } from '../auth/strategy/TokenStrategy'
 import { Config, ReturnType, WithID } from '../types'
 
 /**
@@ -12,11 +14,12 @@ export type TestSession = z.infer<typeof api.testing.http.testSessionSchema>
  * Client for the test session API.
  */
 export class TestSessionClient extends Client<Config<typeof api.testing.http.sessionsRoute>> {
-  constructor() {
+  constructor(strategy: TokenStrategy<JWTProvider>) {
     super(
       api.testing.http.sessionsRoute,
       process.env.NEXT_PUBLIC_TEST_SERVER_HOST,
-      process.env.TEST_SERVER_HOST
+      process.env.TEST_SERVER_HOST,
+      strategy
     )
   }
 

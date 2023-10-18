@@ -1,17 +1,20 @@
 import { api } from '@ivy-chess/api-schema'
 import { TestSuite } from '@ivy-chess/model'
 import { Client } from '../Client'
+import { JWTProvider } from '../auth/store/types'
+import { TokenStrategy } from '../auth/strategy/TokenStrategy'
 import { Config, ReturnType, WithID } from '../types'
 
 /**
  * Client for the test suite API.
  */
 export class TestSuiteClient extends Client<Config<typeof api.testing.http.testSuitesRoute>> {
-  constructor() {
+  constructor(strategy: TokenStrategy<JWTProvider>) {
     super(
       api.testing.http.testSuitesRoute,
       process.env.NEXT_PUBLIC_TEST_SERVER_HOST,
-      process.env.TEST_SERVER_HOST
+      process.env.TEST_SERVER_HOST,
+      strategy
     )
   }
 

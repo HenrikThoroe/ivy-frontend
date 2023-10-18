@@ -1,17 +1,20 @@
 import { api } from '@ivy-chess/api-schema'
 import { TestDriver } from '@ivy-chess/model'
 import { Client } from '../Client'
+import { JWTProvider } from '../auth/store/types'
+import { TokenStrategy } from '../auth/strategy/TokenStrategy'
 import { Config, ReturnType } from '../types'
 
 /**
  * Client for the test driver API.
  */
 export class TestDriverClient extends Client<Config<typeof api.testing.http.driverRoute>> {
-  constructor() {
+  constructor(strategy: TokenStrategy<JWTProvider>) {
     super(
       api.testing.http.driverRoute,
       process.env.NEXT_PUBLIC_TEST_SERVER_HOST,
-      process.env.TEST_SERVER_HOST
+      process.env.TEST_SERVER_HOST,
+      strategy
     )
   }
 
