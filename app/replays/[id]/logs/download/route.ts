@@ -1,3 +1,4 @@
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 import { formatLog } from '@/lib/util/format'
 import AdmZip from 'adm-zip'
@@ -5,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params
-  const client = new ReplayClient()
+  const client = new ReplayClient(serverStrategy())
   const logs = await client.logs(id)
 
   if (!logs.success) {

@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { TestSuite } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -15,7 +16,7 @@ interface Props {
 
 export default function TestSuiteListRow(props: Props) {
   const router = useRouter()
-  const client = new TestSuiteClient()
+  const client = new TestSuiteClient(clientStrategy())
 
   const iter = Intl.NumberFormat('en-US', { compactDisplay: 'short' }).format(
     props.suite.iterations

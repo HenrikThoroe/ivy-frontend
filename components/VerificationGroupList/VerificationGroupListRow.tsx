@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { EngineInstance, VerificationGroup } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -19,7 +20,7 @@ function formatEngine(engine: EngineInstance) {
 
 export default function VerificationGroupListRow(props: Props) {
   const router = useRouter()
-  const client = new VerificationStatsClient()
+  const client = new VerificationStatsClient(clientStrategy())
 
   const handleDelete = async () => {
     try {

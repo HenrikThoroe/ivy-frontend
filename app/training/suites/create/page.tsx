@@ -1,4 +1,5 @@
 import CreateTestSuiteForm from '@/components/TestSuiteForm/CreateTestSuiteForm'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { Metadata } from 'next'
 
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Create() {
-  const client = new EngineClient()
+  const client = new EngineClient(serverStrategy())
   const configs = await client.unsafeEngines()
 
   return <CreateTestSuiteForm configs={configs} />

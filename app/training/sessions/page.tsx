@@ -1,5 +1,6 @@
 import NoContent from '@/components/NoContent/NoContent'
 import TestSessionsList from '@/components/TestSessionsList/TestSessionsList'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { TestSessionClient } from '@/lib/api/clients/TestSessionClient'
 import { Metadata } from 'next'
 
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Suites() {
-  const client = new TestSessionClient()
+  const client = new TestSessionClient(serverStrategy())
   const sessions = await client.unsafeSessions()
 
   if (sessions.length < 1) {

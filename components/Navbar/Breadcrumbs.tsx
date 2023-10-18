@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { interleave } from '@/lib/util/array'
@@ -28,14 +29,14 @@ function Breadcrumb({ name, path }: Segment) {
 }
 
 async function TestSuiteBreadcrumb({ id }: { id: string }) {
-  const client = new TestSuiteClient()
+  const client = new TestSuiteClient(clientStrategy())
   const suite = await client.unsafeSuite(id)
 
   return <Breadcrumb name={suite.name} path={`training/suites/${id}`} />
 }
 
 async function VerificationGroupBreadcrumb({ id }: { id: string }) {
-  const client = new VerificationStatsClient()
+  const client = new VerificationStatsClient(clientStrategy())
   const group = await client.unsafeGroup(id)
 
   return <Breadcrumb name={group.name} path={`stats/compare/${id}`} />

@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { TestSessionClient } from '@/lib/api/clients/TestSessionClient'
 import { TestSuite } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -20,7 +21,7 @@ export default function CreateSessionForm(props: Props) {
   const [session, setSession] = useState(props.suites[0].id)
   const [drivers, setDrivers] = useState(10)
   const router = useRouter()
-  const client = new TestSessionClient()
+  const client = new TestSessionClient(clientStrategy())
 
   const isValid = () => {
     return drivers > 0

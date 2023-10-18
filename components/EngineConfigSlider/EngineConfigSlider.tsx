@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { EngineConfig, EngineTestConfig, VerificationGroup } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -18,7 +19,7 @@ export default function EngineConfigSlider(props: Props) {
   const [showAdd, setShowAdd] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const router = useRouter()
-  const client = new VerificationStatsClient()
+  const client = new VerificationStatsClient(clientStrategy())
 
   const handleDelete = async (config: EngineTestConfig) => {
     setShowLoading(true)

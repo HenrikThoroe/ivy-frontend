@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { EngineConfig, EngineTestConfig } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -36,7 +37,7 @@ export default function CreateTestSuiteForm(props: Props) {
   const [engine2, setEngine2] = useState<EngineTestConfig>(defEngineConfig)
   const [showLoading, setShowLoading] = useState(false)
   const router = useRouter()
-  const client = new TestSuiteClient()
+  const client = new TestSuiteClient(clientStrategy())
 
   const isValid = () => {
     return name && iterations && engine1 && engine2 ? true : false

@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { EngineConfig, EngineInstance, EngineTestConfig } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -30,7 +31,7 @@ export default function CreateVerificationGroupForm(props: Props) {
   const [base, setBase] = useState<EngineTestConfig>()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const client = new VerificationStatsClient()
+  const client = new VerificationStatsClient(clientStrategy())
 
   const isValid = () => {
     if (!name || name.length === 0) {

@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { EngineVersion } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -23,7 +24,7 @@ interface Props {
 export default function EngineListRow(props: Props) {
   const router = useRouter()
   const [showLoading, setShowLoading] = useState(false)
-  const client = new EngineClient()
+  const client = new EngineClient(clientStrategy())
 
   const handleDelete = async () => {
     setShowLoading(true)

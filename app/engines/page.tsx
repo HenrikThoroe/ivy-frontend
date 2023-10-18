@@ -1,4 +1,5 @@
 import EngineCard from '@/components/Card/Engine'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { EngineHelper } from '@/lib/data/EngineHelper'
 import { Metadata } from 'next'
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export const revalidate = 0
 
 export default async function Engines() {
-  const client = new EngineClient()
+  const client = new EngineClient(serverStrategy())
   const engines = await client.unsafeEngines()
 
   const buildCards = () => {

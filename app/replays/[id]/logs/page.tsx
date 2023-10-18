@@ -2,6 +2,7 @@ import Icon from '@/components/Icon/Icon'
 import LogDisplay from '@/components/LogDisplay/LogDisplay'
 import NoContent from '@/components/NoContent/NoContent'
 import TabGroup from '@/components/TabGroup/TabGroup'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 
 interface Params {
@@ -10,7 +11,7 @@ interface Params {
 
 export default async function Logs({ params }: { params: Params }) {
   const { id } = params
-  const client = new ReplayClient()
+  const client = new ReplayClient(serverStrategy())
   const logs = await client.logs(id)
 
   if (!logs.success) {

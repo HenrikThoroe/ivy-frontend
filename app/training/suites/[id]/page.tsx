@@ -1,4 +1,5 @@
 import TestSuiteInfo from '@/components/TestSuiteInfo/TestSuiteInfo'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { Metadata } from 'next'
 
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export default async function Suite(props: Props) {
-  const client = new TestSuiteClient()
+  const client = new TestSuiteClient(serverStrategy())
   const suite = await client.unsafeSuite(props.params.id)
 
   return <TestSuiteInfo suite={suite} />

@@ -3,6 +3,7 @@ import CoresChart from '@/components/Chart/Cores'
 import MemoryChart from '@/components/Chart/Memory'
 import OSDistributionChart from '@/components/Chart/OSDistribution'
 import NoContent from '@/components/NoContent/NoContent'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { TestDriverClient } from '@/lib/api/clients/TestDriverClient'
 import { parseDeviceInfo } from '@/lib/data/DeviceInfo'
 import { Metadata } from 'next'
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Devices() {
-  const client = new TestDriverClient()
+  const client = new TestDriverClient(serverStrategy())
   const drivers = await client.unsafeDrivers()
   const deviceInfo = await parseDeviceInfo(drivers)
 

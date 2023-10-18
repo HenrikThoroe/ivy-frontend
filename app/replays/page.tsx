@@ -1,4 +1,5 @@
 import ReplayList from '@/components/ReplayList/ReplayList'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 
@@ -19,7 +20,7 @@ function parseSearchParams({ searchParams }: Props) {
 }
 
 export default async function Replays({ searchParams }: Props) {
-  const client = new ReplayClient()
+  const client = new ReplayClient(serverStrategy())
   const ids = await client.unsafeKeys(parseSearchParams({ searchParams }))
   const replays = await Promise.all(ids.map(async (id) => await client.unsafeGet(id)))
 

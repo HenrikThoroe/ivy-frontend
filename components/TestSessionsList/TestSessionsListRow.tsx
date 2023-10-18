@@ -1,5 +1,6 @@
 'use client'
 
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { TestSession, TestSessionClient } from '@/lib/api/clients/TestSessionClient'
 import { useRouter } from 'next/navigation'
 import ListAction from '../List/ListAction'
@@ -28,7 +29,7 @@ function ProgressBar({ progress }: { progress: number }) {
 export default function TestSessionsListRow({ session }: Props) {
   const router = useRouter()
   const progress = (session.suite.iterations - session.remaining) / session.suite.iterations
-  const client = new TestSessionClient()
+  const client = new TestSessionClient(clientStrategy())
 
   const handleDelete = async () => {
     await client.unsafeDelete(session.id)

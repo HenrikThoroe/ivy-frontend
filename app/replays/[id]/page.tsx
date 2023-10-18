@@ -1,4 +1,5 @@
 import ReplayInfo from '@/components/ReplayInfo/ReplayInfo'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { ReplayClient } from '@/lib/api/clients/ReplayClient'
 
 interface Params {
@@ -7,7 +8,7 @@ interface Params {
 
 export default async function Replay({ params }: { params: Params }) {
   const { id } = params
-  const client = new ReplayClient()
+  const client = new ReplayClient(serverStrategy())
 
   const res = {
     replay: await client.get(id),

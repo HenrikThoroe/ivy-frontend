@@ -1,4 +1,5 @@
 import TestSuiteList from '@/components/TestSuiteList/TestSuiteList'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { Metadata } from 'next'
 
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Suites() {
-  const client = new TestSuiteClient()
+  const client = new TestSuiteClient(serverStrategy())
   const ids = await client.unsafeSuites()
   const suites = await Promise.all(ids.map((id) => client.unsafeSuite(id)))
 

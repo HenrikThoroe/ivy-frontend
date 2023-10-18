@@ -5,6 +5,7 @@ import Form from '@/components/Form/Base/Form'
 import LabeledInput from '@/components/Form/Base/LabeledInput'
 import SelectInput from '@/components/Form/Base/SelectInput'
 import TextInput from '@/components/Form/Base/TextInput'
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { decodeVersion } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
@@ -38,7 +39,7 @@ export default function UploadEngineForm() {
   const [capabilities, setCapabilities] = useState<string | null>(null)
   const [binary, setBinary] = useState<File | null>(null)
   const router = useRouter()
-  const client = new EngineClient()
+  const client = new EngineClient(clientStrategy())
 
   const isValid = () => {
     return engineName && version && os && arch && binary ? true : false
@@ -55,7 +56,7 @@ export default function UploadEngineForm() {
 
     const res = await client.create(binary!, {
       name: engineName!,
-      version: decodeVersion(version!),
+      version: decodeVersion(version!.replaceAll('.', '-')),
       os: os!,
       arch: arch!,
       capabilities: capabilities ? capabilities.split(',').map((c) => c.trim().toLowerCase()) : [],
