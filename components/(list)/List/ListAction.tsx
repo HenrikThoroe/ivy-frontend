@@ -1,32 +1,40 @@
 import classNames from 'classnames'
-import Icon, { IconName } from '../Icon/Icon'
 import Link from 'next/link'
+import Icon, { IconName } from '../../Icon/Icon'
 
 type Variant = 'action' | 'link' | 'download'
 
-interface Props<T extends Variant> {
+type Props<T extends Variant> = T extends 'action'
+  ? ActionProps
+  : T extends 'link'
+  ? LinkProps
+  : DownloadProps
+
+interface BaseProps<T extends Variant> {
   variant: T
   style: 'primary' | 'danger'
   icon: IconName
 }
 
-interface ActionProps extends Props<'action'> {
+interface ActionProps extends BaseProps<'action'> {
   onClick?: () => void
 }
 
-interface LinkProps extends Props<'link'> {
+interface LinkProps extends BaseProps<'link'> {
   href: string
 }
 
-interface DownloadProps extends Props<'download'> {
+interface DownloadProps extends BaseProps<'download'> {
   href: string
   filename: string
 }
 
-export default function ListAction<T extends Variant>(
-  props: T extends 'action' ? ActionProps : T extends 'link' ? LinkProps : DownloadProps
-) {
-  const Element = ({ className }: { className: string }) => {
+/**
+ * Button that should be used as an action in a list row.
+ * Depending on the variant, the button will either act as a button, link, or download link.
+ */
+export default function ListAction<T extends Variant>(props: Props<T>) {
+  const Action = ({ className }: { className: string }) => {
     switch (props.variant) {
       case 'action':
         return (
@@ -50,7 +58,7 @@ export default function ListAction<T extends Variant>(
   }
 
   return (
-    <Element
+    <Action
       className={classNames(
         'flex items-center justify-center rounded-lg p-2 hover:text-on-secondary',
         {
