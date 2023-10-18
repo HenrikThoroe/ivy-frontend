@@ -2,15 +2,15 @@
 
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
-import { EngineVersion } from '@ivy-chess/model'
+import { EngineVersion, encodeVersion } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import ActionModal from '../../Modal/ActionModal'
+import LoadingModal from '../../Modal/LoadingModal'
+import WithModal from '../../Modal/WithModal'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
-import ActionModal from '../Modal/ActionModal'
-import LoadingModal from '../Modal/LoadingModal'
-import WithModal from '../Modal/WithModal'
 
 interface Props {
   id: string
@@ -21,10 +21,17 @@ interface Props {
   engine: string
 }
 
+/**
+ * {@link ListRow Row} for an `EngineList`.
+ * Allows the user to download and delete an engine instance.
+ */
 export default function EngineListRow(props: Props) {
   const router = useRouter()
   const [showLoading, setShowLoading] = useState(false)
   const client = new EngineClient(clientStrategy())
+  const downloadUrl = `${process.env.NEXT_PUBLIC_EVC_HOST}/engines/bin/${props.engine}/${props.id}`
+
+  //* Event Handler
 
   const handleDelete = async () => {
     setShowLoading(true)
@@ -39,36 +46,40 @@ export default function EngineListRow(props: Props) {
     }
   }
 
+  //* UI
+
+  const DeletePrompt = () => (
+    <ActionModal
+      title="Delete Engine"
+      description="Deleting an engine will remove it from the registry. This action cannot be undone."
+      icon="delete"
+      action={{
+        label: 'Delete',
+        onClick: handleDelete,
+        variant: 'danger',
+      }}
+    />
+  )
+
+  //* Render
+
   return (
     <>
       <LoadingModal open={showLoading} />
       <ListRow variant="custom-1">
-        <span>{`v${props.version.major}.${props.version.minor}.${props.version.patch}`}</span>
+        <span>{encodeVersion(props.version, false)}</span>
         <span>{props.os}</span>
         <span>{props.arch}</span>
         <span>{props.capabilities.join(', ')}</span>
         <ListActions>
-          <WithModal
-            modal={
-              <ActionModal
-                title="Delete Engine"
-                description="Deleting an engine will remove it from the registry. This action cannot be undone."
-                icon="delete"
-                action={{
-                  label: 'Delete',
-                  onClick: handleDelete,
-                  variant: 'danger',
-                }}
-              />
-            }
-          >
+          <WithModal modal={<DeletePrompt />}>
             <ListAction variant="action" style="danger" icon="delete" />
           </WithModal>
           <ListAction
             variant="download"
             style="primary"
             icon="download"
-            href={`http://localhost:4500/engines/bin/${props.engine}/${props.id}`}
+            href={downloadUrl}
             filename={props.engine}
           />
         </ListActions>

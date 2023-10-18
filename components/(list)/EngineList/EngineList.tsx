@@ -7,6 +7,11 @@ interface Props {
   engine: EngineConfig
 }
 
+/**
+ * An `EngineList` is a {@link List} of {@link EngineListRow EngineListRows}.
+ * It displays information about the engine's instances and
+ * allows the user to download and delete them.
+ */
 export default function EngineList(props: Props) {
   const { engine } = props
   const helper = new EngineHelper(engine)
