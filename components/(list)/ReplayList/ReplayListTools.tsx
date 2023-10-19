@@ -1,17 +1,21 @@
 'use client'
 
 import { useState } from 'react'
+import Modal from '../../Modal/Modal'
 import ListAction from '../List/ListAction'
-import Modal from '../Modal/Modal'
-import ReplayFilterForm from './ReplayFilterForm'
+import ReplayFilterPrompt from './ReplayFilterPrompt'
 
+/**
+ * A set of tools for the replay list header.
+ * Contains a button to open the {@link ReplayFilterPrompt filter prompt}.
+ */
 export default function ReplayListTools() {
   const [showModal, setShowModal] = useState(false)
 
   return (
     <>
       <Modal open={showModal} onClose={() => setShowModal(false)}>
-        <ReplayFilterForm onChanged={() => setShowModal(false)} />
+        <ReplayFilterPrompt onChanged={() => setShowModal(false)} />
       </Modal>
       <div className="flex flex-row justify-end">
         <ListAction

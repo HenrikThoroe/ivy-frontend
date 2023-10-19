@@ -1,26 +1,19 @@
-import { Replay, EngineVersion, Color } from '@ivy-chess/model'
+import { Replay } from '@ivy-chess/model'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
+import { formatEngine, formatWinner } from './format'
 
 interface Props {
+  /**
+   * The replay to display.
+   */
   replay: Replay
 }
 
-function formatEngine(name: string, version: EngineVersion) {
-  return `${name} ${version.major}.${version.minor}.${version.patch}`
-}
-
-function formatWinner(winner: Color | 'draw') {
-  if (winner === 'draw') {
-    return '1 : 1'
-  } else if (winner === 'white') {
-    return '2 : 0'
-  } else {
-    return '0 : 2'
-  }
-}
-
+/**
+ * The {@link ListRow row} for a {@link Replay replay}.
+ */
 export default function ReplayListRow(props: Props) {
   const { replay } = props
   const { white, black } = replay.engines
