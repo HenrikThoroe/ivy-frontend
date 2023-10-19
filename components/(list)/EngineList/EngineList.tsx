@@ -4,6 +4,13 @@ import List from '../List/List'
 import EngineListRow from './EngineListRow'
 
 interface Props {
+  /**
+   * The engine configuration to display.
+   * The list will fetch the different executables,
+   * that can be derived from the configuration.
+   *
+   * @see {@link EngineConfig}
+   */
   engine: EngineConfig
 }
 
