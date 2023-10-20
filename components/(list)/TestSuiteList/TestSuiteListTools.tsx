@@ -1,5 +1,9 @@
 import ListAction from '../List/ListAction'
 
+/**
+ * A set of tools for the test suite list header.
+ * Contains a button to create a new test suite.
+ */
 export default function TestSuiteListTools() {
   return (
     <div className="flex flex-row justify-end">
