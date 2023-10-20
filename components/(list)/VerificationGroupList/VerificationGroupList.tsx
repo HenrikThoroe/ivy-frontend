@@ -7,6 +7,15 @@ interface Props {
   groups: VerificationGroup[]
 }
 
+/**
+ * A list of {@link VerificationGroup verification groups}.
+ * Provides controls for the user to create a new verification group.
+ * Each verification group can be viewed or deleted.
+ *
+ * For each verification group the following information is displayed:
+ * - Name
+ * - Base Engine
+ */
 export default function VerificationGroupList(props: Props) {
   const { groups } = props
 

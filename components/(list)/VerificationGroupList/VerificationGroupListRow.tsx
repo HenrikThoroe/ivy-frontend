@@ -2,55 +2,60 @@
 
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
-import { EngineInstance, VerificationGroup } from '@ivy-chess/model'
+import { VerificationGroup } from '@ivy-chess/model'
 import { useRouter } from 'next/navigation'
+import ActionModal from '../../Modal/ActionModal'
+import WithModal from '../../Modal/WithModal'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
-import ActionModal from '../Modal/ActionModal'
-import WithModal from '../Modal/WithModal'
+import { formatEngine } from './format'
 
 interface Props {
+  /**
+   * Verification group to display
+   */
   group: VerificationGroup
 }
 
-function formatEngine(engine: EngineInstance) {
-  return `${engine.name} ${engine.version.major}.${engine.version.minor}.${engine.version.patch}`
-}
-
+/**
+ * The {@link ListRow row} for a {@link VerificationGroup verification group}.
+ * Provides controls for the user to view and delete the verification group.
+ */
 export default function VerificationGroupListRow(props: Props) {
   const router = useRouter()
   const client = new VerificationStatsClient(clientStrategy())
 
-  const handleDelete = async () => {
-    try {
-      await client.unsafeDelete(props.group.id)
-    } catch (e) {
-      return
-    }
+  //* Event Handler
 
+  const handleDelete = async () => {
+    await client.delete(props.group.id)
     router.refresh()
   }
+
+  //* UI
+
+  const DeletePrompt = (
+    <ActionModal
+      title="Delete Verification Group"
+      description="Deleting the verification group will remove it from the registry. This action cannot be undone."
+      icon="delete"
+      action={{
+        label: 'Delete',
+        variant: 'danger',
+        onClick: handleDelete,
+      }}
+    />
+  )
+
+  //* Render
 
   return (
     <ListRow variant="custom-5">
       <span>{props.group.name}</span>
       <span>{formatEngine(props.group.base)}</span>
       <ListActions>
-        <WithModal
-          modal={
-            <ActionModal
-              title="Delete Verification Group"
-              description="Deleting the verification group will remove it from the registry. This action cannot be undone."
-              icon="delete"
-              action={{
-                label: 'Delete',
-                variant: 'danger',
-                onClick: handleDelete,
-              }}
-            />
-          }
-        >
+        <WithModal modal={DeletePrompt}>
           <ListAction icon="delete" variant="action" style="danger" />
         </WithModal>
         <ListAction
