@@ -1,14 +1,36 @@
 interface Props<T extends string> {
+  /**
+   * Set of options available for the user to choose
+   */
   options: Option<T>[]
+
+  /**
+   * Called when the selection changes.
+   * The value of the selected option is passed as an argument.
+   */
   onSelect?: (value: T) => void
+
+  /**
+   * Default value of the input
+   */
   defaultValue?: T
 }
 
 export interface Option<T extends string> {
+  /**
+   * Option key
+   */
   value: T
+
+  /**
+   * Display label
+   */
   label: string
 }
 
+/**
+ * A styled, type-safe select input field.
+ */
 export default function SelectInput<T extends string>(props: Props<T>) {
   return (
     <select
