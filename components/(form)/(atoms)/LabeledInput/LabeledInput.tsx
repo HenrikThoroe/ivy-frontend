@@ -32,9 +32,11 @@ export default function LabeledInput(props: Props) {
         <span className="text-base font-medium">{props.label}</span>
         {props.required && <span className="text-action-invalid">*</span>}
       </div>
-      <div className="relative flex w-full flex-col pl-2">
+      <div className="relative flex w-full flex-col gap-1 pl-2">
         {props.children}
-        <span className="min-h-[1rem] text-xs font-light text-action-invalid">{props.error}</span>
+        <span className="min-h-[1rem] pl-1 text-xs font-light text-action-invalid">
+          {props.error}
+        </span>
       </div>
     </div>
   )
