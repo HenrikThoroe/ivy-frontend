@@ -4,5 +4,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "conventionalCommits.scopes": ["comp", "lib", "styles", "app"]
+  "conventionalCommits.scopes": ["comp", "lib", "styles", "app", "story"]
 }
