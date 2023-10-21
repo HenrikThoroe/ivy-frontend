@@ -1,20 +1,45 @@
-export default function Logo() {
+import { SVGAttributes } from 'react'
+
+export default function Logo(props: SVGAttributes<SVGElement>) {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="1" width="50" height="50" fill="#D9D9D9" />
-      <rect x="2" y="2" width="24" height="24" fill="black" />
-      <rect x="2" y="2" width="24" height="24" stroke="black" />
-      <rect x="26" y="2" width="24" height="24" fill="white" />
-      <rect x="26" y="2" width="24" height="24" stroke="black" />
-      <rect x="2" y="26" width="24" height="24" fill="white" />
-      <rect x="2" y="26" width="24" height="24" stroke="black" />
-      <rect x="26" y="26" width="24" height="24" fill="black" />
-      <rect x="26" y="26" width="24" height="24" stroke="black" />
+    <svg
+      {...props}
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
-        d="M20.8672 13.369C21.2054 13.129 21.6099 13 22.0247 13H30.6129L34.6763 14.0814C36.2715 14.506 37.4421 15.8668 37.6234 17.5075L39 29.9643L33.129 25.5L27.2581 38L20.5484 26.3929L13 29.9643L15.9057 18.3643C16.1956 17.2073 16.8894 16.192 17.8621 15.5017L20.8672 13.369Z"
-        fill="#3C7023"
+        d="M19 2.88675C22.094 1.10042 25.906 1.10042 29 2.88675L39.7846 9.11325C42.8786 10.8996 44.7846 14.2008 44.7846 17.7735V30.2265C44.7846 33.7992 42.8786 37.1004 39.7846 38.8868L29 45.1132C25.906 46.8996 22.094 46.8996 19 45.1132L8.21539 38.8868C5.12138 37.1004 3.21539 33.7992 3.21539 30.2265V17.7735C3.21539 14.2008 5.12138 10.8996 8.21539 9.11325L19 2.88675Z"
+        fill="#2E412E"
       />
-      <rect x="1" y="1" width="50" height="50" stroke="black" stroke-width="2" />
+      <ellipse
+        cx="16.2269"
+        cy="22.4164"
+        rx="3.69229"
+        ry="9.23074"
+        transform="rotate(20 16.2269 22.4164)"
+        fill="#4FE828"
+        fill-opacity="0.54"
+      />
+      <ellipse
+        cx="23.8521"
+        cy="25.8095"
+        rx="3.69229"
+        ry="9.23074"
+        fill="#4FE828"
+        fill-opacity="0.54"
+      />
+      <ellipse
+        cx="31.587"
+        cy="22.4167"
+        rx="3.69229"
+        ry="9.23074"
+        transform="rotate(-20 31.587 22.4167)"
+        fill="#4FE828"
+        fill-opacity="0.54"
+      />
     </svg>
   )
 }
