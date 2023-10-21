@@ -1,14 +1,18 @@
 'use client'
 
-import Icon from '../Icon/Icon'
 import { useSelectedLayoutSegments } from 'next/navigation'
+import Icon from '../../Icon/Icon'
 import SidebarButton from './SidebarButton'
 
+/**
+ * A client side component that uses the current route to
+ * display a column list of navigation buttons.
+ */
 export default function SidebarActions() {
   const segments = useSelectedLayoutSegments()
 
   return (
-    <div className="flex flex-col gap-y-[1.875rem]">
+    <nav className="flex flex-col gap-y-[1.875rem]">
       <SidebarButton
         icon={<Icon name="storage" />}
         text="Engines"
@@ -39,6 +43,6 @@ export default function SidebarActions() {
         href="/stats"
         active={segments[0] === 'stats'}
       />
-    </div>
+    </nav>
   )
 }
