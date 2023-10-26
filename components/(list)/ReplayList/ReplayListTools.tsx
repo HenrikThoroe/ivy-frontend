@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Modal from '../../Modal/Modal'
+import Modal from '../../(modal)/Modal/Modal'
 import ListAction from '../List/ListAction'
 import ReplayFilterPrompt from './ReplayFilterPrompt'
 

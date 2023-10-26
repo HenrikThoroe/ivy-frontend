@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Form from '../(atoms)/Form/Form'
 import FormSubmitButton from '../(atoms)/FormSubmitButton/FormSubmitButton'
 import EngineConfigForm from '../(compositions)/EngineConfigForm/EngineConfigForm'
-import Modal from '../../Modal/Modal'
+import Modal from '../../(modal)/Modal/Modal'
 
 interface Props {
   /**

@@ -1,6 +1,6 @@
 'use client'
 
-import AlertModal from '@/components/Modal/AlertModal'
+import AlertModal from '@/components/(modal)/AlertModal/AlertModal'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { useChangeListener } from '@/lib/hooks/useChangeListener'
@@ -22,7 +22,7 @@ import LabeledInput from '../(atoms)/LabeledInput/LabeledInput'
 import ListInput from '../(atoms)/ListInput/ListInput'
 import TextInput from '../(atoms)/TextInput/TextInput'
 import EngineConfigForm from '../(compositions)/EngineConfigForm/EngineConfigForm'
-import LoadingModal from '../../Modal/LoadingModal'
+import LoadingModal from '../../(modal)/LoadingModal/LoadingModal'
 import AddNodeModal from './AddNodeModal'
 
 interface Props {

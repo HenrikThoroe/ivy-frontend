@@ -13,7 +13,7 @@ import FormSubmitButton from '../(atoms)/FormSubmitButton/FormSubmitButton'
 import LabeledInput from '../(atoms)/LabeledInput/LabeledInput'
 import SelectInput from '../(atoms)/SelectInput/SelectInput'
 import TextInput from '../(atoms)/TextInput/TextInput'
-import AlertModal from '../../Modal/AlertModal'
+import AlertModal from '../../(modal)/AlertModal/AlertModal'
 
 interface Props {
   /**

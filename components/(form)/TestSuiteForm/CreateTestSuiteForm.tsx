@@ -14,8 +14,8 @@ import FormSubmitButton from '../(atoms)/FormSubmitButton/FormSubmitButton'
 import LabeledInput from '../(atoms)/LabeledInput/LabeledInput'
 import TextInput from '../(atoms)/TextInput/TextInput'
 import EngineConfigForm from '../(compositions)/EngineConfigForm/EngineConfigForm'
-import AlertModal from '../../Modal/AlertModal'
-import LoadingModal from '../../Modal/LoadingModal'
+import AlertModal from '../../(modal)/AlertModal/AlertModal'
+import LoadingModal from '../../(modal)/LoadingModal/LoadingModal'
 
 interface Props {
   /**

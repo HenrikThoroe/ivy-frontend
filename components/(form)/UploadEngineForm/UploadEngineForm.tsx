@@ -5,7 +5,7 @@ import Form from '@/components/(form)/(atoms)/Form/Form'
 import LabeledInput from '@/components/(form)/(atoms)/LabeledInput/LabeledInput'
 import SelectInput from '@/components/(form)/(atoms)/SelectInput/SelectInput'
 import TextInput from '@/components/(form)/(atoms)/TextInput/TextInput'
-import AlertModal from '@/components/Modal/AlertModal'
+import AlertModal from '@/components/(modal)/AlertModal/AlertModal'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { useChangeListener } from '@/lib/hooks/useChangeListener'
@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
 import FormSubmitButton from '../(atoms)/FormSubmitButton/FormSubmitButton'
-import LoadingModal from '../../Modal/LoadingModal'
+import LoadingModal from '../../(modal)/LoadingModal/LoadingModal'
 
 const schema = {
   engine: shared.engine.engineNameSchema,
