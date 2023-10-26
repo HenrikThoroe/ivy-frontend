@@ -2,11 +2,30 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
 export interface ModalProps {
+  /**
+   * Whether the modal is open or not.
+   */
   open?: boolean
+
+  /**
+   * Callback when the modal is closed
+   * by an outside click.
+   */
   onClose?: () => void
+
+  /**
+   * Content of the modal.
+   */
   children: React.ReactNode
 }
 
+/**
+ * A popover modal component.
+ *
+ * Listens for outside click events to close.
+ * Should be used for prompts or error messages,
+ * that require immediate attention.
+ */
 export default function Modal(props: ModalProps) {
   const { open, onClose } = props
 

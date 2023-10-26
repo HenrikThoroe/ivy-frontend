@@ -1,24 +1,58 @@
 'use client'
 
 import { Dialog } from '@headlessui/react'
-import Icon, { IconName } from '../Icon/Icon'
-import Modal, { ModalProps } from './Modal'
 import classNames from 'classnames'
+import Icon, { IconName } from '../../Icon/Icon'
+import Modal, { ModalProps } from '../Modal/Modal'
 
 interface Action {
+  /**
+   * Label of the action button.
+   */
   label: string
+
+  /**
+   * Callback when the action button is clicked.
+   */
   onClick: () => void
+
+  /**
+   * Visual variant of the action button and the modal.
+   */
   variant: 'primary' | 'danger'
 }
 
 export interface ActionModalProps extends Omit<ModalProps, 'children'> {
+  /**
+   * Title of the modal.
+   */
   title: string
+
+  /**
+   * Alert message to display.
+   */
   description: string
+
+  /**
+   * Action to perform.
+   */
   action: Action
+
+  /**
+   * Used icon for the alert.
+   */
   icon: IconName
 }
 
+/**
+ * Interactive modal that displays an alert message and
+ * prompts the user to take an action.
+ *
+ * Could be used to confirm a destructive or irreversible action.
+ */
 export default function ActionModal(props: ActionModalProps) {
+  //* UI
+
   const Body = () => (
     <div className="bg-primary px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
       <div className="sm:flex sm:items-start">
@@ -63,13 +97,19 @@ export default function ActionModal(props: ActionModalProps) {
       </button>
       <button
         type="button"
-        className="mt-3 inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-on-primary shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200 sm:mt-0 sm:w-auto"
+        className={classNames(
+          'mt-3 inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-on-primary shadow-sm',
+          'ring-1 ring-inset ring-gray-300',
+          'hover:bg-gray-200 sm:mt-0 sm:w-auto'
+        )}
         onClick={props.onClose}
       >
         Cancel
       </button>
     </div>
   )
+
+  //* Render
 
   return (
     <Modal open={props.open} onClose={props.onClose}>

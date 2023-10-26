@@ -1,5 +1,11 @@
-import Modal, { ModalProps } from './Modal'
+import Modal, { ModalProps } from '../Modal/Modal'
 
+/**
+ * Modal that displays a loading indicator.
+ *
+ * Should be used when the user needs to wait for a process to finish.
+ * It prevents the user from interacting with the application.
+ */
 export default function LoadingModal(props: Omit<ModalProps, 'children' | 'onClose'>) {
   return (
     <Modal {...props} onClose={() => {}}>
