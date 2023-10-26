@@ -48,7 +48,7 @@ export default function CreateSessionForm(props: Props) {
     const res = await client.create(session, drivers ?? 0)
 
     if (res.success) {
-      router.push('/training/sessions')
+      router.push('/training')
     } else {
       setError(res.error.message)
       setShowError(true)
