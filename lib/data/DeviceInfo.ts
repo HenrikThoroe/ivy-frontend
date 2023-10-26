@@ -1,6 +1,5 @@
 import { TestDriver } from '@ivy-chess/model'
 import { resize } from '../util/array'
-import { formatMemSize } from '../util/format'
 
 /**
  * Distribution of RAM over the connected devices.
@@ -33,7 +32,7 @@ export type CPUDistribution = {
  * Information about the accumulated available memory.
  */
 export interface MemoryInfo {
-  total: string
+  total: number
   distribution: MemoryDistribution
 }
 
@@ -130,7 +129,7 @@ export async function parseDeviceInfo(drivers: TestDriver[]): Promise<DeviceInfo
   return {
     connected,
     memory: {
-      total: formatMemSize(stats.memory, 2),
+      total: stats.memory,
       distribution: distribution.memory.map((devices, capacity) => ({
         devices,
         capacity: capacity + 1,
