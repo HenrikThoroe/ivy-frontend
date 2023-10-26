@@ -17,6 +17,13 @@ export function useChangeListener<T extends z.ZodType>(schema: T, defaultValue?:
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
+
+    if (value === '') {
+      setValue(undefined)
+      setError(undefined)
+      return
+    }
+
     const result = schema.safeParse(value)
 
     if (result.success) {
@@ -24,7 +31,7 @@ export function useChangeListener<T extends z.ZodType>(schema: T, defaultValue?:
       setError(undefined)
     } else {
       setValue(undefined)
-      setError(result.error.message)
+      setError(result.error.issues[0].message)
     }
   }
 
