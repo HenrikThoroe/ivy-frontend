@@ -1,5 +1,15 @@
 import { SVGAttributes } from 'react'
 
+/**
+ * A SVG element for the application logo.
+ *
+ * Supports changing attributes of the outer `svg` component, except:
+ * - `width`
+ * - `height`
+ * - `viewBox`
+ * - `fill`
+ * - `xmlns`
+ */
 export default function Logo(props: SVGAttributes<SVGElement>) {
   return (
     <svg
