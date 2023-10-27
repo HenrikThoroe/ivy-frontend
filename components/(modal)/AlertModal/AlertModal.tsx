@@ -2,7 +2,7 @@
 
 import { Dialog } from '@headlessui/react'
 import classNames from 'classnames'
-import Icon, { IconName } from '../../Icon/Icon'
+import Icon, { IconName } from '../../(media)/Icon/Icon'
 import Modal, { ModalProps } from '../Modal/Modal'
 
 export interface ActionModalProps extends Omit<ModalProps, 'children'> {

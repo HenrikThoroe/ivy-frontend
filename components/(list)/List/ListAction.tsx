@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import Link from 'next/link'
-import Icon, { IconName } from '../../Icon/Icon'
+import Icon, { IconName } from '../../(media)/Icon/Icon'
 
 type Variant = 'action' | 'link' | 'download'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useSelectedLayoutSegments } from 'next/navigation'
-import Icon from '../../Icon/Icon'
+import Icon from '../../(media)/Icon/Icon'
 import SidebarButton from './SidebarButton'
 
 /**

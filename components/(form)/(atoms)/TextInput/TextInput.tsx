@@ -1,6 +1,6 @@
 'use client'
 
-import Icon from '@/components/Icon/Icon'
+import Icon from '@/components/(media)/Icon/Icon'
 import classNames from 'classnames'
 import { HTMLInputTypeAttribute, useRef } from 'react'
 

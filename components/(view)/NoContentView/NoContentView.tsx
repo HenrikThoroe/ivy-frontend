@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Icon, { IconName } from '../../Icon/Icon'
+import Icon, { IconName } from '../../(media)/Icon/Icon'
 
 interface Props {
   /**

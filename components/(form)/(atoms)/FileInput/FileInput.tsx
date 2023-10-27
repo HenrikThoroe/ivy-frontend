@@ -2,7 +2,7 @@
 
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
-import Icon from '../../../Icon/Icon'
+import Icon from '../../../(media)/Icon/Icon'
 
 interface Props {
   /**

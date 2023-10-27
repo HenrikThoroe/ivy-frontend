@@ -1,4 +1,4 @@
-import Icon, { IconName } from '@/components/Icon/Icon'
+import Icon, { IconName } from '@/components/(media)/Icon/Icon'
 import Link from 'next/link'
 
 interface Props {

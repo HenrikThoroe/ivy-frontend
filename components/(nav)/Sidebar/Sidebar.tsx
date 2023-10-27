@@ -1,4 +1,4 @@
-import Logo from '../../Icon/Logo'
+import Logo from '../../(media)/Logo/Logo'
 import SidebarActions from './SidebarActions'
 
 /**

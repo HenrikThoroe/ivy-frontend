@@ -1,6 +1,6 @@
 'use client'
 
-import Icon from '@/components/Icon/Icon'
+import Icon from '@/components/(media)/Icon/Icon'
 
 interface Props<T> {
   /**
