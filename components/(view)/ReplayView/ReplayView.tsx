@@ -8,6 +8,8 @@ import { Replay, ReplayLog, ReplayStats } from '@ivy-chess/model'
 import { ReactNode as Node, useState } from 'react'
 import LogView from '../LogView/LogView'
 import NoContentView from '../NoContentView/NoContentView'
+import Section from '../SectionedView/Section'
+import SectionedView from '../SectionedView/SectionedView'
 import TabView from '../TabView/TabView'
 
 interface Props {
@@ -60,16 +62,6 @@ export default function ReplayView(props: Props) {
     </div>
   )
 
-  const Section = ({ title, children, action }: SectionProps) => (
-    <section className="flex flex-col gap-10">
-      <div className="flex flex-row items-center justify-between">
-        <h2 className="text-3xl font-semibold text-on-primary-light">{title}</h2>
-        {action}
-      </div>
-      <div className="pl-4">{children}</div>
-    </section>
-  )
-
   const LogSection = ({ logs }: { logs: ReplayLog }) => (
     <TabView
       tabs={[
@@ -88,7 +80,7 @@ export default function ReplayView(props: Props) {
   //* Render
 
   return (
-    <article className="flex flex-col gap-20 p-12">
+    <SectionedView>
       <Section title="Info">
         <div className="flex w-full flex-col gap-4">
           <Entry label="Result" value={`${replay.result.winner} (${replay.result.reason})`} />
@@ -130,6 +122,6 @@ export default function ReplayView(props: Props) {
           />
         )}
       </Section>
-    </article>
+    </SectionedView>
   )
 }
