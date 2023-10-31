@@ -1,17 +1,25 @@
 import { formatMemSize } from '@/lib/util/format'
 import { EngineTestConfig, encodeVersion } from '@ivy-chess/model'
+import classNames from 'classnames'
 
 interface Props {
   /**
    * Engine test configuration
    */
   engine: EngineTestConfig
+
+  /**
+   * The size of the hero text aka the engine name.
+   *
+   * @default "lg"
+   */
+  textSize?: 'md' | 'lg'
 }
 
 /**
  * A card to display information about an engine test configuration.
  */
-export default function EngineTestConfigCard({ engine }: Props) {
+export default function EngineTestConfigCard({ engine, textSize }: Props) {
   //* UI
 
   const Entry = ({ label, value }: { label: string; value: string }) => {
@@ -26,7 +34,15 @@ export default function EngineTestConfigCard({ engine }: Props) {
 
   return (
     <section className="flex w-max min-w-[20rem] flex-col items-center justify-center gap-8 rounded-md px-8 py-6 shadow-card">
-      <span className="bg-gradient-to-br from-indigo-300 to-sky-600 bg-clip-text text-4xl font-extrabold text-transparent">
+      <span
+        className={classNames(
+          'bg-gradient-to-br from-indigo-300 to-sky-600 bg-clip-text font-extrabold text-transparent',
+          {
+            'text-4xl': textSize === 'lg' || !textSize,
+            'text-2xl': textSize === 'md',
+          }
+        )}
+      >
         {engine.name}
       </span>
       <div className="flex w-full flex-col gap-6">

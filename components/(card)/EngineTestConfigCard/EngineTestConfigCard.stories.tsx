@@ -40,4 +40,11 @@ export const Plain: Story = {
   },
 }
 
+export const SmallerText: Story = {
+  args: {
+    engine,
+    textSize: 'md',
+  },
+}
+
 export default meta
