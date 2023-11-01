@@ -1,4 +1,4 @@
-import EngineList from '@/components/EngineList/EngineList'
+import EngineList from '@/components/(list)/EngineList/EngineList'
 import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 
@@ -7,8 +7,6 @@ interface Props {
     name: string
   }
 }
-
-export const revalidate = 1
 
 export function generateMetadata({ params }: Props) {
   return {

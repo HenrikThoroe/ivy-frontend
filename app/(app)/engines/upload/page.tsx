@@ -1,4 +1,4 @@
-import UploadEngineForm from '@/components/UploadEngineForm/UploadEngineForm'
+import UploadEngineForm from '@/components/(form)/UploadEngineForm/UploadEngineForm'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {

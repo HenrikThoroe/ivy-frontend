@@ -1,4 +1,4 @@
-import CreateTestSuiteForm from '@/components/TestSuiteForm/CreateTestSuiteForm'
+import CreateTestSuiteForm from '@/components/(form)/TestSuiteForm/CreateTestSuiteForm'
 import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { Metadata } from 'next'

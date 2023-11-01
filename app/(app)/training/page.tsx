@@ -1,5 +1,11 @@
-import TextCard from '@/components/Card/Text'
+import TestCaseCard from '@/components/(card)/TestCaseCard/TestCaseCard'
+import TestSessionsList from '@/components/(list)/TestSessionsList/TestSessionsList'
+import NoContentView from '@/components/(view)/NoContentView/NoContentView'
+import { serverStrategy } from '@/lib/api/auth/strategy/server'
+import { TestSessionClient } from '@/lib/api/clients/TestSessionClient'
+import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Ivy - Training',
@@ -7,20 +13,38 @@ export const metadata: Metadata = {
 }
 
 export default async function Training() {
+  const sessionClient = new TestSessionClient(serverStrategy())
+  const suitesClient = new TestSuiteClient(serverStrategy())
+  const suites = await suitesClient.unsafeSuites()
+  const sessions = await sessionClient.unsafeSessions()
+
+  //* UI
+
+  const SessionPlaceholder = () => (
+    <NoContentView
+      title="No Sessions Available"
+      message="Currently no test sessions are running. Please create a new session to start testing."
+      action={{
+        href: '/training/add',
+        label: 'Create Session',
+        icon: 'add',
+      }}
+    />
+  )
+
+  //* Render
+
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-10 py-10 lg:flex-row">
-      <TextCard
-        icon="assignment"
-        title="Test Suites"
-        description="The place where you can find all available test suites, that define test scenarios to train engines. To execute a test suite, create and run a test session."
-        href="/training/suites"
-      />
-      <TextCard
-        icon="play"
-        title="Test Sessions"
-        description="The place where you can find all available test sessions and create new ones. Test sessions play games between your engines to collect data or train them. Sessions select a bunch of the connected clients to run the selected engines. You can choose one of your test suites to define which engine to use and the desired time control."
-        href="/training/sessions"
-      />
+    <div className="flex flex-col">
+      <section className="flex min-h-[30rem] w-full flex-row items-center justify-center py-10">
+        <Link href="/training/suites">
+          <TestCaseCard suites={suites.length} />
+        </Link>
+      </section>
+
+      <section>
+        {sessions.length > 0 ? <TestSessionsList sessions={sessions} /> : <SessionPlaceholder />}
+      </section>
     </div>
   )
 }

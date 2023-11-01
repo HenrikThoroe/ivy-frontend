@@ -1,10 +1,16 @@
-import ReplayList from '@/components/ReplayList/ReplayList'
+import ReplayList from '@/components/(list)/ReplayList/ReplayList'
 import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { ReplayClient } from '@/lib/api/clients/ReplayClient'
+import { Metadata } from 'next'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined }
+}
+
+export const metadata: Metadata = {
+  title: 'Ivy - Replays',
+  description: 'List of all stored replays',
 }
 
 function parseSearchParams({ searchParams }: Props) {

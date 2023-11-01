@@ -1,4 +1,4 @@
-import TestSuiteList from '@/components/TestSuiteList/TestSuiteList'
+import TestSuiteList from '@/components/(list)/TestSuiteList/TestSuiteList'
 import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { Metadata } from 'next'
