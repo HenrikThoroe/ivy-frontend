@@ -4,7 +4,7 @@ import { buildSearchParams } from '../util/buildSearchParams'
 import { shouldRefresh } from './auth/parser/jwt'
 import { JWTProvider } from './auth/store/types'
 import { TokenStrategy } from './auth/strategy/TokenStrategy'
-import { Failure, FetchOptions, FetchResult, Files, Result } from './types'
+import { Failure, FetchOptions, FetchResult, Files, Result, ReturnType } from './types'
 
 /**
  * A client allows to make requests against an API given by its schema.
@@ -56,6 +56,32 @@ export abstract class Client<T extends RouteConfig> {
     }
 
     return result.result
+  }
+
+  /**
+   * Takes a `Promise` created by a fetch request and ensures that it will never throw.
+   * In case of an error, the method will return a result object with the error.
+   * Use this method to catch unexpected errors, like network errors.
+   *
+   * @param result The initial promise when it resolved, otherwise a result object with the error.
+   * @returns The result of the fetch request in case of success.
+   */
+  public async catchNetworkError<T>(result: Promise<ReturnType<T>>): Promise<ReturnType<T>> {
+    try {
+      return await result
+    } catch (e) {
+      if (e instanceof Error) {
+        return {
+          success: false,
+          error: { message: e.message },
+        }
+      }
+
+      return {
+        success: false,
+        error: { message: 'Unknown Error' },
+      }
+    }
   }
 
   //* Protected Methods
