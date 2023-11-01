@@ -32,6 +32,11 @@ module.exports = {
         defined: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px -1px 3px rgba(0, 0, 0, 0.25)',
         'defined-inset':
           'inset 0px 2px 4px rgba(0, 0, 0, 0.25), inset 0px -1px 3px rgba(0, 0, 0, 0.25)',
+        card: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px rgba(0, 0, 0, 0.25)',
+        'inner-card':
+          'inset 0px 2px 4px rgba(0, 0, 0, 0.25), inset 0px -1px 3px rgba(0, 0, 0, 0.25)',
+        'inner-card-contrast':
+          'inset 0px 3px 4px rgba(255, 255, 255, 0.4), inset 0px -1px 3px rgba(255, 255, 255, 0.4)',
       },
       gridTemplateColumns: {
         'auto-fill-card-md': 'repeat(auto-fill, 386px)',
