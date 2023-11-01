@@ -12,9 +12,7 @@ import { Failure, FetchOptions, FetchResult, Files, Result, ReturnType } from '.
 export abstract class Client<T extends RouteConfig> {
   private readonly schema: Route<T>
 
-  private readonly clientUrl?: string
-
-  private readonly serverUrl?: string
+  private readonly url?: string
 
   /**
    * The authentication strategy to use for this client.
@@ -22,15 +20,9 @@ export abstract class Client<T extends RouteConfig> {
    */
   protected readonly authStrategy?: TokenStrategy<JWTProvider>
 
-  constructor(
-    schema: Route<T>,
-    clientUrl?: string,
-    serverUrl?: string,
-    strategy?: TokenStrategy<JWTProvider>
-  ) {
+  constructor(schema: Route<T>, url?: string, strategy?: TokenStrategy<JWTProvider>) {
     this.schema = schema
-    this.clientUrl = clientUrl
-    this.serverUrl = serverUrl
+    this.url = url
     this.authStrategy = strategy
   }
 
@@ -102,11 +94,10 @@ export abstract class Client<T extends RouteConfig> {
   protected async fetch<K extends Extract<keyof T, string>>(
     key: K,
     cache: RequestCache | number,
-    target: 'client' | 'server',
     options: Partial<FetchOptions<T[K]>>
   ): Promise<FetchResult<T[K]>> {
     const ep = this.schema.get(key)
-    const url = this.buildURL(key, target, options)
+    const url = this.buildURL(key, options)
 
     await this.refreshToken(ep)
 
@@ -214,13 +205,10 @@ export abstract class Client<T extends RouteConfig> {
 
   private buildURL<K extends Extract<keyof T, string>>(
     key: K,
-    target: 'client' | 'server',
     options: Partial<FetchOptions<T[K]>>
   ) {
-    const host = target === 'client' ? this.clientUrl : this.serverUrl
-
-    if (!host) {
-      throw new Error(`No ${target} host configured`)
+    if (!this.url) {
+      throw new Error(`No host configured`)
     }
 
     const query = buildSearchParams(options.query ?? {})
@@ -234,7 +222,7 @@ export abstract class Client<T extends RouteConfig> {
       path = path.replace(`:${key}`, encoded)
     }
 
-    return `${host}${this.schema.path}${path}${this.encodeQuery(query)}`
+    return `${this.url}${this.schema.path}${path}${this.encodeQuery(query)}`
   }
 
   private encodeQuery(query: URLSearchParams): string {

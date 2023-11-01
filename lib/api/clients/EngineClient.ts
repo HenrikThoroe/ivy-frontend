@@ -18,12 +18,7 @@ interface CreateOptions {
  */
 export class EngineClient extends Client<Config<typeof api.evc.engineVersioningRoute>> {
   constructor(strategy: TokenStrategy<JWTProvider>) {
-    super(
-      api.evc.engineVersioningRoute,
-      process.env.NEXT_PUBLIC_EVC_HOST,
-      process.env.EVC_HOST,
-      strategy
-    )
+    super(api.evc.engineVersioningRoute, process.env.NEXT_PUBLIC_EVC_HOST, strategy)
   }
 
   //* API
@@ -35,7 +30,7 @@ export class EngineClient extends Client<Config<typeof api.evc.engineVersioningR
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async engines(): Promise<ReturnType<EngineConfig[]>> {
-    return await this.fetch('all', 'no-store', 'client', {})
+    return await this.fetch('all', 'no-store', {})
   }
 
   /**
@@ -57,7 +52,7 @@ export class EngineClient extends Client<Config<typeof api.evc.engineVersioningR
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async engine(name: string): Promise<ReturnType<EngineConfig>> {
-    return await this.fetch('get', 'no-store', 'client', {
+    return await this.fetch('get', 'no-store', {
       params: { id: name },
     })
   }
@@ -83,7 +78,7 @@ export class EngineClient extends Client<Config<typeof api.evc.engineVersioningR
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async delete(name: string, id: string): Promise<ReturnType<SuccessState>> {
-    return await this.fetch('delete', 'no-store', 'client', {
+    return await this.fetch('delete', 'no-store', {
       params: { id, engine: name },
     })
   }
@@ -110,7 +105,7 @@ export class EngineClient extends Client<Config<typeof api.evc.engineVersioningR
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async version(name: string, version: EngineVersion): Promise<ReturnType<EngineVariation>> {
-    return await this.fetch('getVersion', 'no-store', 'client', {
+    return await this.fetch('getVersion', 'no-store', {
       params: { name, version },
     })
   }
@@ -137,7 +132,7 @@ export class EngineClient extends Client<Config<typeof api.evc.engineVersioningR
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async create(data: Blob, meta: CreateOptions): Promise<ReturnType<EngineConfig>> {
-    return await this.fetch('create', 'no-store', 'client', {
+    return await this.fetch('create', 'no-store', {
       body: {
         ...meta,
       },

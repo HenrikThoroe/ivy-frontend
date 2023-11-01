@@ -10,12 +10,7 @@ import { Config, ReturnType, WithID } from '../types'
  */
 export class TestSuiteClient extends Client<Config<typeof api.testing.http.testSuitesRoute>> {
   constructor(strategy: TokenStrategy<JWTProvider>) {
-    super(
-      api.testing.http.testSuitesRoute,
-      process.env.NEXT_PUBLIC_TEST_SERVER_HOST,
-      process.env.TEST_SERVER_HOST,
-      strategy
-    )
+    super(api.testing.http.testSuitesRoute, process.env.NEXT_PUBLIC_TEST_SERVER_HOST, strategy)
   }
 
   //* API
@@ -27,7 +22,7 @@ export class TestSuiteClient extends Client<Config<typeof api.testing.http.testS
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async suites(): Promise<ReturnType<string[]>> {
-    return await this.fetch('all', 'no-store', 'client', {})
+    return await this.fetch('all', 'no-store', {})
   }
 
   /**
@@ -49,7 +44,7 @@ export class TestSuiteClient extends Client<Config<typeof api.testing.http.testS
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async suite(id: string): Promise<ReturnType<TestSuite>> {
-    return await this.fetch('get', 'no-store', 'client', {
+    return await this.fetch('get', 'no-store', {
       params: { id },
     })
   }
@@ -74,7 +69,7 @@ export class TestSuiteClient extends Client<Config<typeof api.testing.http.testS
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async create(suite: Omit<TestSuite, 'id'>): Promise<ReturnType<WithID>> {
-    return await this.fetch('create', 'no-store', 'client', {
+    return await this.fetch('create', 'no-store', {
       body: suite,
     })
   }
@@ -99,7 +94,7 @@ export class TestSuiteClient extends Client<Config<typeof api.testing.http.testS
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async delete(id: string): Promise<ReturnType<WithID>> {
-    return await this.fetch('delete', 'no-store', 'client', {
+    return await this.fetch('delete', 'no-store', {
       params: { id },
     })
   }

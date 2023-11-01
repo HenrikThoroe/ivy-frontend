@@ -15,12 +15,7 @@ export type TestSession = z.infer<typeof api.testing.http.testSessionSchema>
  */
 export class TestSessionClient extends Client<Config<typeof api.testing.http.sessionsRoute>> {
   constructor(strategy: TokenStrategy<JWTProvider>) {
-    super(
-      api.testing.http.sessionsRoute,
-      process.env.NEXT_PUBLIC_TEST_SERVER_HOST,
-      process.env.TEST_SERVER_HOST,
-      strategy
-    )
+    super(api.testing.http.sessionsRoute, process.env.NEXT_PUBLIC_TEST_SERVER_HOST, strategy)
   }
 
   //* API
@@ -32,7 +27,7 @@ export class TestSessionClient extends Client<Config<typeof api.testing.http.ses
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async sessions(): Promise<ReturnType<TestSession[]>> {
-    return await this.fetch('all', 'no-store', 'client', {})
+    return await this.fetch('all', 'no-store', {})
   }
 
   /**
@@ -54,7 +49,7 @@ export class TestSessionClient extends Client<Config<typeof api.testing.http.ses
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async session(id: string): Promise<ReturnType<TestSession>> {
-    return await this.fetch('get', 'no-store', 'client', {
+    return await this.fetch('get', 'no-store', {
       params: { id },
     })
   }
@@ -80,7 +75,7 @@ export class TestSessionClient extends Client<Config<typeof api.testing.http.ses
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async create(suite: string, driver: number): Promise<ReturnType<TestSession>> {
-    return await this.fetch('create', 'no-store', 'client', {
+    return await this.fetch('create', 'no-store', {
       body: {
         suite,
         driver,
@@ -109,7 +104,7 @@ export class TestSessionClient extends Client<Config<typeof api.testing.http.ses
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async delete(id: string): Promise<ReturnType<WithID>> {
-    return await this.fetch('delete', 'no-store', 'client', {
+    return await this.fetch('delete', 'no-store', {
       params: { id },
     })
   }

@@ -20,7 +20,7 @@ type AcceptedReplayFilterOptions = ReadonlyURLSearchParams | ReplayFilterOptions
  */
 export class ReplayClient extends Client<Config<typeof api.replay.replayRoute>> {
   constructor(strategy: TokenStrategy<JWTProvider>) {
-    super(api.replay.replayRoute, undefined, process.env.REPLAYS_HOST, strategy)
+    super(api.replay.replayRoute, process.env.NEXT_PUBLIC_REPLAYS_HOST, strategy)
   }
 
   //* API
@@ -63,7 +63,7 @@ export class ReplayClient extends Client<Config<typeof api.replay.replayRoute>> 
         ? ReplayClient.parseReplayFilterOptions(options)
         : options ?? {}
 
-    return await this.fetch('all', 'no-store', 'server', { query })
+    return await this.fetch('all', 'no-store', { query })
   }
 
   /**
@@ -86,7 +86,7 @@ export class ReplayClient extends Client<Config<typeof api.replay.replayRoute>> 
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async get(id: string): Promise<ReturnType<Replay>> {
-    return await this.fetch('get', 'force-cache', 'server', {
+    return await this.fetch('get', 'force-cache', {
       params: { id },
     })
   }
@@ -111,7 +111,7 @@ export class ReplayClient extends Client<Config<typeof api.replay.replayRoute>> 
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async stats(id: string): Promise<ReturnType<ReplayStats>> {
-    return await this.fetch('analysis', 'force-cache', 'server', {
+    return await this.fetch('analysis', 'force-cache', {
       params: { id },
     })
   }
@@ -135,7 +135,7 @@ export class ReplayClient extends Client<Config<typeof api.replay.replayRoute>> 
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async logs(id: string): Promise<ReturnType<ReplayLog>> {
-    return await this.fetch('logs', 'force-cache', 'server', {
+    return await this.fetch('logs', 'force-cache', {
       params: { id },
     })
   }

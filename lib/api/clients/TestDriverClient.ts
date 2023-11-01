@@ -10,12 +10,7 @@ import { Config, ReturnType } from '../types'
  */
 export class TestDriverClient extends Client<Config<typeof api.testing.http.driverRoute>> {
   constructor(strategy: TokenStrategy<JWTProvider>) {
-    super(
-      api.testing.http.driverRoute,
-      process.env.NEXT_PUBLIC_TEST_SERVER_HOST,
-      process.env.TEST_SERVER_HOST,
-      strategy
-    )
+    super(api.testing.http.driverRoute, process.env.NEXT_PUBLIC_TEST_SERVER_HOST, strategy)
   }
 
   //* API
@@ -27,7 +22,7 @@ export class TestDriverClient extends Client<Config<typeof api.testing.http.driv
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async drivers(): Promise<ReturnType<TestDriver[]>> {
-    return await this.fetch('all', 'no-store', 'client', {})
+    return await this.fetch('all', 'no-store', {})
   }
 
   /**
@@ -49,7 +44,7 @@ export class TestDriverClient extends Client<Config<typeof api.testing.http.driv
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async driver(id: string): Promise<ReturnType<TestDriver>> {
-    return await this.fetch('get', 'no-store', 'client', {
+    return await this.fetch('get', 'no-store', {
       params: { id },
     })
   }

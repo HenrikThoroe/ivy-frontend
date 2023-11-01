@@ -17,12 +17,7 @@ type VerificationConfig = Config<typeof api.stats.verification.verificationRoute
  */
 export class VerificationStatsClient extends Client<VerificationConfig> {
   constructor(strategy: TokenStrategy<JWTProvider>) {
-    super(
-      api.stats.verification.verificationRoute,
-      process.env.NEXT_PUBLIC_STATS_HOST,
-      process.env.STATS_HOST,
-      strategy
-    )
+    super(api.stats.verification.verificationRoute, process.env.NEXT_PUBLIC_STATS_HOST, strategy)
   }
 
   //* API
@@ -34,7 +29,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async groups(): Promise<ReturnType<VerificationGroup[]>> {
-    const res = await this.fetch('all', 'no-store', 'server', {})
+    const res = await this.fetch('all', 'no-store', {})
 
     if (res.success) {
       return { ...res, result: res.result.sort((a, b) => a.name.localeCompare(b.name)) }
@@ -62,7 +57,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async group(id: string): Promise<ReturnType<VerificationGroup>> {
-    return await this.fetch('get', 'no-store', 'client', { params: { id } })
+    return await this.fetch('get', 'no-store', { params: { id } })
   }
 
   /**
@@ -85,7 +80,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async state(id: string): Promise<ReturnType<VerificationGroupState>> {
-    return await this.fetch('state', 'no-store', 'server', { params: { id } })
+    return await this.fetch('state', 'no-store', { params: { id } })
   }
 
   /**
@@ -108,7 +103,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async result(id: string): Promise<ReturnType<VerificationResult>> {
-    return await this.fetch('result', 'no-store', 'server', { params: { id } })
+    return await this.fetch('result', 'no-store', { params: { id } })
   }
 
   /**
@@ -133,7 +128,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
   public async create(
     group: Omit<VerificationGroup, 'id'>
   ): Promise<ReturnType<VerificationGroup>> {
-    return await this.fetch('create', 'no-store', 'client', { body: group })
+    return await this.fetch('create', 'no-store', { body: group })
   }
 
   /**
@@ -156,7 +151,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async delete(id: string): Promise<ReturnType<WithID>> {
-    return await this.fetch('delete', 'no-store', 'client', { params: { id } })
+    return await this.fetch('delete', 'no-store', { params: { id } })
   }
 
   /**
@@ -183,7 +178,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
     group: string,
     engine: EngineTestConfig
   ): Promise<ReturnType<VerificationGroup>> {
-    return await this.fetch('addNode', 'no-store', 'client', {
+    return await this.fetch('addNode', 'no-store', {
       params: { id: group },
       body: { node: engine },
     })
@@ -215,7 +210,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
     group: string,
     engine: EngineTestConfig
   ): Promise<ReturnType<VerificationGroup>> {
-    return await this.fetch('removeNode', 'no-store', 'client', {
+    return await this.fetch('removeNode', 'no-store', {
       params: { id: group },
       body: { node: engine },
     })
