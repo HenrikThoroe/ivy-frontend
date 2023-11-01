@@ -62,7 +62,7 @@ export class VerificationStatsClient extends Client<VerificationConfig> {
    * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
    */
   public async group(id: string): Promise<ReturnType<VerificationGroup>> {
-    return await this.fetch('get', 10, 'client', { params: { id } })
+    return await this.fetch('get', 'no-store', 'client', { params: { id } })
   }
 
   /**
