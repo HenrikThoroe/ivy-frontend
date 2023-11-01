@@ -1,5 +1,5 @@
-import Navbar from '@/components/Navbar/Navbar'
-import Sidebar from '@/components/Sidebar/Sidebar'
+import Navbar from '@/components/(nav)/Navbar/Navbar'
+import Sidebar from '@/components/(nav)/Sidebar/Sidebar'
 
 export const metadata = {
   title: 'Ivy',
