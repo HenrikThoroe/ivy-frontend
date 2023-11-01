@@ -15,7 +15,9 @@ import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded'
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MemoryRoundedIcon from '@mui/icons-material/MemoryRounded'
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded'
 import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded'
@@ -49,6 +51,8 @@ export type IconName =
   | 'prev'
   | 'query-stats'
   | 'remove'
+  | 'person'
+  | 'logout'
 
 interface Props {
   /**
@@ -106,5 +110,9 @@ export default function Icon(props: Props) {
       return <QueryStatsRoundedIcon />
     case 'remove':
       return <RemoveRoundedIcon />
+    case 'person':
+      return <PersonRoundedIcon />
+    case 'logout':
+      return <LogoutRoundedIcon />
   }
 }

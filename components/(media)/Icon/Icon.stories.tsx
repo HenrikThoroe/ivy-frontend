@@ -108,6 +108,12 @@ export const Plain: Story = () => {
       <Box name="visibility">
         <Icon name="visibility" />
       </Box>
+      <Box name="person">
+        <Icon name="person" />
+      </Box>
+      <Box name="logout">
+        <Icon name="logout" />
+      </Box>
     </div>
   )
 }
