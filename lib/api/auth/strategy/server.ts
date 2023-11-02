@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { AuthClient } from '../../clients/AuthClient'
 import { NextTokenStore } from '../store/NextTokenStore'
 import { RequestTokenStore } from '../store/RequestTokenStore'
-import { JWTProvider, RefreshTokenProvider } from '../store/types'
+import { JWTProvider, RefreshTokenProvider, RoleProvider } from '../store/types'
 import { TokenStrategy } from './TokenStrategy'
 
 interface Options {
@@ -12,7 +12,7 @@ interface Options {
   }
 }
 
-type ServerProvider = JWTProvider & RefreshTokenProvider
+type ServerProvider = JWTProvider & RefreshTokenProvider & RoleProvider
 
 function requestStrategy(
   request: NextRequest,

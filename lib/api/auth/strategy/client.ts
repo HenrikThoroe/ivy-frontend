@@ -1,8 +1,10 @@
 import { ClientTokenStore } from '../store/ClientTokenStore'
-import { JWTStore } from '../store/types'
+import { JWTStore, RoleStore } from '../store/types'
 import { TokenStrategy } from './TokenStrategy'
 
-export function clientStrategy(): TokenStrategy<JWTStore> {
+type ClientStore = JWTStore & RoleStore
+
+export function clientStrategy(): TokenStrategy<ClientStore> {
   const store = new ClientTokenStore()
 
   return {
