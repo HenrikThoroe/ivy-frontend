@@ -16,6 +16,7 @@ import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
+import MarkEmailReadRoundedIcon from '@mui/icons-material/MarkEmailReadRounded'
 import MemoryRoundedIcon from '@mui/icons-material/MemoryRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded'
@@ -53,6 +54,7 @@ export type IconName =
   | 'remove'
   | 'person'
   | 'logout'
+  | 'email-read'
 
 interface Props {
   /**
@@ -114,5 +116,7 @@ export default function Icon(props: Props) {
       return <PersonRoundedIcon />
     case 'logout':
       return <LogoutRoundedIcon />
+    case 'email-read':
+      return <MarkEmailReadRoundedIcon />
   }
 }
