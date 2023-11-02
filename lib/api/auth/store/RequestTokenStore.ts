@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { JWTStore, RefreshTokenStore, TokenResult, tokenKeys, tokenResult } from './types'
+import {
+  JWTStore,
+  RefreshTokenStore,
+  RoleStore,
+  TokenResult,
+  tokenKeys,
+  tokenResult,
+} from './types'
 
 /**
  * Token store that uses cookies from a request and response.
  * Allows for updating and clearing of all tokens.
  */
-export class RequestTokenStore implements JWTStore, RefreshTokenStore {
+export class RequestTokenStore implements JWTStore, RefreshTokenStore, RoleStore {
   private readonly request: NextRequest
 
   private readonly response: NextResponse
@@ -25,6 +32,10 @@ export class RequestTokenStore implements JWTStore, RefreshTokenStore {
     return tokenResult(this.request.cookies.get(tokenKeys.refreshToken)?.value)
   }
 
+  public get role(): TokenResult {
+    return tokenResult(this.request.cookies.get(tokenKeys.role)?.value)
+  }
+
   public updateJwt(token: string): void {
     this.response.cookies.set(tokenKeys.jwt, token)
   }
@@ -35,8 +46,13 @@ export class RequestTokenStore implements JWTStore, RefreshTokenStore {
     })
   }
 
+  public updateRole(role: string): void {
+    this.response.cookies.set(tokenKeys.role, role)
+  }
+
   public clear(): void {
     this.response.cookies.delete(tokenKeys.jwt)
     this.response.cookies.delete(tokenKeys.refreshToken)
+    this.response.cookies.delete(tokenKeys.role)
   }
 }

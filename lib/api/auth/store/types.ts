@@ -35,6 +35,16 @@ export interface RefreshTokenProvider {
 }
 
 /**
+ * Source for stored user roles.
+ */
+export interface RoleProvider {
+  /**
+   * The stored user role.
+   */
+  get role(): TokenResult
+}
+
+/**
  * Write-enabled JWT provider.
  */
 export interface JWTStore extends JWTProvider, Store {
@@ -59,11 +69,24 @@ export interface RefreshTokenStore extends RefreshTokenProvider, Store {
 }
 
 /**
+ * Write-enabled role provider.
+ */
+export interface RoleStore extends RoleProvider, Store {
+  /**
+   * Update the stored role.
+   *
+   * @param role The new role
+   */
+  updateRole(role: string): void
+}
+
+/**
  * Recommended keys to use for storing tokens.
  */
 export const tokenKeys = {
   jwt: 'jwt',
   refreshToken: 'rt',
+  role: 'role',
 }
 
 /**
