@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p>
+    <img src="./docs/assets/cover.png" alt="Ivy Frontend Cover" />
+</p>
 
-## Getting Started
+# Ivy - Frontend
 
-First, run the development server:
+The frontend for the `Ivy Chess Manager` project.
+Provides an interface for the [backend](https://github.com/HenrikThoroe/ivy-backend).
 
-```bash
-npm run dev
-# or
+## 🎉 Motivation
+
+The backend provides many features to manage, train and compare different chess engines.
+To put good use to all these features a neat frontend is required!
+The repo contains a NextJS application to access the backend and upload, download,
+train and compare engines.
+
+## 📖 Project Overview
+
+The projects is following the NextJS 13+ `app` folder structure.
+Reusable components are placed under `/components`. Logic can be found under `/lib`.
+
+The component directory follows a fixed structure:
+
+- Groups are named `(<name>)`
+  - A group is a collection of logically related components
+- Components with name `A` are saved as `A/A.tsx`.
+- Each component has a coresponding `Comp.stories.ts(x?)` file
+  - See [storybook](https://storybook.js.org)
+  - The story is placed in the components directory
+- Any logic or extracted sub-component is placed in the components directory
+  - Sub components are usually implemented as nested arrow functions, but sometimes they need their own directory
+  - Sub components should not be imported by other components as they only make sense in the components context
+
+## 🔥 Getting Started
+
+### Install Prerequisites
+
+- [NodeJS](https://nodejs.org/en/download) (v18.12+, recommended v20+)
+- [Yarn](https://yarnpkg.com/getting-started/install) (v3+ is required. Use `yarn set version stable`)
+
+### Setup Dev Environment
+
+```sh
+# Install dependencies
+yarn install
+
+# Start dev server in watch mode
 yarn dev
-# or
-pnpm dev
+
+# Run component inspector
+yarn storybook
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧑‍⚖️ License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project and all components of it are distributed under GPLv3 or later.
+See `LICENSE` for more details. In summary the license allows anyone to use and redistribute
+this project as long as the code is again published under GPLv3.
