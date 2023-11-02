@@ -1,10 +1,46 @@
+import { AuthClient, Credentials } from '../../clients/AuthClient'
 import { ClientTokenStore } from '../store/ClientTokenStore'
 import { JWTStore, RoleStore } from '../store/types'
 import { TokenStrategy } from './TokenStrategy'
 
 type ClientStore = JWTStore & RoleStore
 
-export function clientStrategy(): TokenStrategy<ClientStore> {
+type ClientStrategy = TokenStrategy<ClientStore>
+
+interface SetupOptions {
+  client: AuthClient
+  strategy: ClientStrategy
+  credentials: Credentials
+}
+
+/**
+ * Setup user credentials on the client.
+ * The users access tokens will be stored in cookies
+ * and the users will be fetched from the API.
+ *
+ * @param options The client, strategy and credentials to use.
+ */
+export async function setupCredentials(options: SetupOptions) {
+  const { client, strategy, credentials } = options
+
+  strategy.store.updateJwt(credentials.jwt)
+
+  //? If refreshing is supported, refresh jwt to synchronize refresh token
+
+  if (strategy.refresh) {
+    await strategy.refresh(credentials.refreshToken)
+  }
+
+  //? Get user profile and store role
+
+  const user = await client.profile()
+
+  if (user.success) {
+    strategy.store.updateRole(user.result.role)
+  }
+}
+
+export function clientStrategy(): ClientStrategy {
   const store = new ClientTokenStore()
 
   return {
