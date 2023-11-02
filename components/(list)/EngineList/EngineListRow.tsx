@@ -1,5 +1,6 @@
 'use client'
 
+import { useEditorMode } from '@/lib/api/auth/access/hooks'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { EngineClient } from '@/lib/api/clients/EngineClient'
 import { EngineVersion, encodeVersion } from '@ivy-chess/model'
@@ -30,6 +31,7 @@ export default function EngineListRow(props: Props) {
   const [showLoading, setShowLoading] = useState(false)
   const client = new EngineClient(clientStrategy())
   const downloadUrl = `${process.env.NEXT_PUBLIC_EVC_HOST}/engines/bin/${props.engine}/${props.id}`
+  const editor = useEditorMode()
 
   //* Event Handler
 
@@ -72,9 +74,11 @@ export default function EngineListRow(props: Props) {
         <span>{props.arch}</span>
         <span>{props.capabilities.join(', ')}</span>
         <ListActions>
-          <WithModal modal={DeletePrompt}>
-            <ListAction variant="action" style="danger" icon="delete" />
-          </WithModal>
+          {editor && (
+            <WithModal modal={DeletePrompt}>
+              <ListAction variant="action" style="danger" icon="delete" />
+            </WithModal>
+          )}
           <ListAction
             variant="download"
             style="primary"

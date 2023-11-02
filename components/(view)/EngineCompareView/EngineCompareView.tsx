@@ -3,6 +3,7 @@
 import AddNodeModal from '@/components/(form)/CreateVerificationGroupForm/AddNodeModal'
 import Icon from '@/components/(media)/Icon/Icon'
 import LoadingModal from '@/components/(modal)/LoadingModal/LoadingModal'
+import { useEditorMode } from '@/lib/api/auth/access/hooks'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import {
@@ -61,6 +62,7 @@ export default function EngineCompareView(props: Props) {
   const [showLoading, setShowLoading] = useState(false)
   const client = new VerificationStatsClient(clientStrategy())
   const router = useRouter()
+  const editor = useEditorMode()
 
   //* Event Handler
 
@@ -158,6 +160,15 @@ export default function EngineCompareView(props: Props) {
     </Section>
   )
 
+  const AddButton = () => (
+    <button
+      onClick={() => setShowAddModal(true)}
+      className="flex cursor-pointer flex-row gap-2 rounded-full bg-cyan-900 p-2 text-sm text-on-secondary hover:bg-cyan-600"
+    >
+      <Icon name="add" />
+    </button>
+  )
+
   //* Render
 
   return (
@@ -170,17 +181,7 @@ export default function EngineCompareView(props: Props) {
         configs={configs}
       />
       <SectionedView>
-        <Section
-          title="Engine Configurations"
-          action={
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="flex cursor-pointer flex-row gap-2 rounded-full bg-cyan-900 p-2 text-sm text-on-secondary hover:bg-cyan-600"
-            >
-              <Icon name="add" />
-            </button>
-          }
-        >
+        <Section title="Engine Configurations" action={editor && <AddButton />}>
           <EngineGalleryView base={group.base} nodes={group.nodes} onRemoveNode={handleRemove} />
         </Section>
         {result ? <DataView result={result} /> : <NoDataView />}

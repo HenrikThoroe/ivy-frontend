@@ -1,5 +1,6 @@
 'use client'
 
+import { useEditorMode } from '@/lib/api/auth/access/hooks'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
 import { TestSuite } from '@ivy-chess/model'
@@ -31,6 +32,7 @@ export default function TestSuiteListRow(props: Props) {
   const router = useRouter()
   const client = new TestSuiteClient(clientStrategy())
   const iter = formatter.format(props.suite.iterations)
+  const editor = useEditorMode()
 
   //* Event Handler
 
@@ -64,9 +66,11 @@ export default function TestSuiteListRow(props: Props) {
       <span>{`${props.suite.engines[0].name} vs. ${props.suite.engines[1].name}`}</span>
       <span>{iter}</span>
       <ListActions>
-        <WithModal modal={DeletePrompt}>
-          <ListAction variant="action" style="danger" icon="delete" />
-        </WithModal>
+        {editor && (
+          <WithModal modal={DeletePrompt}>
+            <ListAction variant="action" style="danger" icon="delete" />
+          </WithModal>
+        )}
         <ListAction
           variant="link"
           style="primary"

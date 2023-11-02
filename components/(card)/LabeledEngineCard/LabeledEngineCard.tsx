@@ -3,6 +3,7 @@
 import Icon from '@/components/(media)/Icon/Icon'
 import ActionModal from '@/components/(modal)/ActionModal/ActionModal'
 import WithModal from '@/components/(modal)/WithModal/WithModal'
+import { useEditorMode } from '@/lib/api/auth/access/hooks'
 import { EngineTestConfig } from '@ivy-chess/model'
 import EngineTestConfigCard from '../EngineTestConfigCard/EngineTestConfigCard'
 
@@ -31,6 +32,7 @@ interface Props {
  */
 export default function LabeledEngineCard(props: Props) {
   const { label, config, onRemove } = props
+  const editor = useEditorMode()
 
   //* UI
 
@@ -53,7 +55,7 @@ export default function LabeledEngineCard(props: Props) {
     <section className="flex flex-col items-center justify-center gap-4">
       <div className="flex flex-row gap-3">
         <span className="text-xl font-medium text-on-primary-light">{label}</span>
-        {onRemove && (
+        {editor && onRemove && (
           <WithModal modal={Prompt}>
             <button className="text-action-destructive hover:text-action-destructive-active">
               <Icon name="delete" />

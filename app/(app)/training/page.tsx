@@ -1,6 +1,7 @@
 import TestCaseCard from '@/components/(card)/TestCaseCard/TestCaseCard'
 import TestSessionsList from '@/components/(list)/TestSessionsList/TestSessionsList'
 import NoContentView from '@/components/(view)/NoContentView/NoContentView'
+import { isContributor } from '@/lib/api/auth/access/roles'
 import { serverStrategy } from '@/lib/api/auth/strategy/server'
 import { TestSessionClient } from '@/lib/api/clients/TestSessionClient'
 import { TestSuiteClient } from '@/lib/api/clients/TestSuiteClient'
@@ -17,6 +18,7 @@ export default async function Training() {
   const suitesClient = new TestSuiteClient(serverStrategy())
   const suites = await suitesClient.unsafeSuites()
   const sessions = await sessionClient.unsafeSessions()
+  const editor = await isContributor(serverStrategy())
 
   //* UI
 
@@ -42,9 +44,11 @@ export default async function Training() {
         </Link>
       </section>
 
-      <section>
-        {sessions.length > 0 ? <TestSessionsList sessions={sessions} /> : <SessionPlaceholder />}
-      </section>
+      {editor && (
+        <section>
+          {sessions.length > 0 ? <TestSessionsList sessions={sessions} /> : <SessionPlaceholder />}
+        </section>
+      )}
     </div>
   )
 }

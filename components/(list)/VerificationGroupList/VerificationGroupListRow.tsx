@@ -1,5 +1,6 @@
 'use client'
 
+import { useEditorMode } from '@/lib/api/auth/access/hooks'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { VerificationStatsClient } from '@/lib/api/clients/StatsClient'
 import { VerificationGroup } from '@ivy-chess/model'
@@ -25,6 +26,7 @@ interface Props {
 export default function VerificationGroupListRow(props: Props) {
   const router = useRouter()
   const client = new VerificationStatsClient(clientStrategy())
+  const editor = useEditorMode()
 
   //* Event Handler
 
@@ -55,9 +57,11 @@ export default function VerificationGroupListRow(props: Props) {
       <span>{props.group.name}</span>
       <span>{formatEngine(props.group.base)}</span>
       <ListActions>
-        <WithModal modal={DeletePrompt}>
-          <ListAction icon="delete" variant="action" style="danger" />
-        </WithModal>
+        {editor && (
+          <WithModal modal={DeletePrompt}>
+            <ListAction icon="delete" variant="action" style="danger" />
+          </WithModal>
+        )}
         <ListAction
           icon="visibility"
           variant="link"
