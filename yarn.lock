@@ -2047,13 +2047,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ivy-chess/api-schema@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@ivy-chess/api-schema@npm:0.3.0"
+"@ivy-chess/api-schema@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@ivy-chess/api-schema@npm:0.4.0"
   dependencies:
     "@ivy-chess/model": "*"
     zod: ^3.22.0
-  checksum: b3cbb862660e55fb329b10b636fd38108c3112e2672e30391f233e4611c0eaae1ec855b7c97eb4ed59ad19dc81734985b7d651e6866e2d17474f7be9c4a863cf
+  checksum: b78b52ac67acd12fa879d6503d3a01d3f79dcb22d23a616e84ac1d96e860b3ff2adf12d99c13035bf83d637740ab3df9a8ffae894a7dd8b22e63ed0a0ec56319
   languageName: node
   linkType: hard
 
@@ -9197,7 +9197,7 @@ __metadata:
     "@emotion/react": ^11.11.0
     "@emotion/styled": ^11.11.0
     "@headlessui/react": ^1.7.15
-    "@ivy-chess/api-schema": ^0.3.0
+    "@ivy-chess/api-schema": ^0.4.0
     "@ivy-chess/model": ^0.1.4
     "@mui/icons-material": ^5.11.16
     "@mui/material": ^5.13.3
