@@ -2,6 +2,11 @@
     <img src="./docs/assets/cover.png" alt="Ivy Frontend Cover" />
 </p>
 
+<p align="center">
+    <img alt="GitHub" style="padding: 10px" src="https://img.shields.io/github/license/HenrikThoroe/ivy-frontend?style=for-the-badge">
+    <img alt="Prettier" style="padding: 10px" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge">
+</p>
+
 # Ivy - Frontend
 
 The frontend for the `Ivy Chess Manager` project.
