@@ -40,6 +40,12 @@ export async function setupCredentials(options: SetupOptions) {
   }
 }
 
+/**
+ * Creates a client strategy which implements the {@link TokenStrategy} interface.
+ * The strategy allows reading and writing the users access token and role from and to a cookie.
+ *
+ * @returns A {@link TokenStrategy} which stores the users access token in a cookie.
+ */
 export function clientStrategy(): ClientStrategy {
   const store = new ClientTokenStore()
 
