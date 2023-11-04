@@ -1,3 +1,5 @@
+'use client'
+
 interface Props<T extends string> {
   /**
    * Set of options available for the user to choose
