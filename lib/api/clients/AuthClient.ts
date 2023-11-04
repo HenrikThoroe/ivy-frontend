@@ -92,4 +92,14 @@ export class AuthClient extends Client<Config<typeof api.auth.authenticationRout
   public async profile(): Promise<ReturnType<UserData>> {
     return await this.fetch('profile', 'no-store', {})
   }
+
+  /**
+   * Signs out the currently signed in user.
+   *
+   * @returns The result of the fetch request.
+   * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
+   */
+  public async signOut(): Promise<ReturnType<{ success: boolean }>> {
+    return await this.fetch('signOut', 'no-store', {})
+  }
 }
