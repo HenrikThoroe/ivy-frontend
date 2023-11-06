@@ -105,7 +105,7 @@ export default function SignUpForm() {
       />
       <Form onSubmit={handleSubmit}>
         <LabeledInput label="Email" error={emailErr} required>
-          <TextInput placeholder="my@email.com" type="text" required onChange={onEmailChange} />
+          <TextInput placeholder="my@email.com" type="email" required onChange={onEmailChange} />
         </LabeledInput>
         <LabeledInput label="Username" error={usernameErr} required>
           <TextInput placeholder="Name" type="text" required onChange={onUsernameChange} />

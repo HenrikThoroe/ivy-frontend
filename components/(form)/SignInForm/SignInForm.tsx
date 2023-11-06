@@ -131,7 +131,7 @@ export default function SignInForm() {
       />
       <Form onSubmit={handleSubmit}>
         <LabeledInput label="Email" error={emailErr} required>
-          <TextInput placeholder="my@email.com" type="text" required onChange={onEmailChange} />
+          <TextInput placeholder="my@email.com" type="email" required onChange={onEmailChange} />
         </LabeledInput>
         <LabeledInput label="Password" error={passwordErr} required>
           <TextInput placeholder="••••••" type="password" required onChange={onPasswordChange} />
