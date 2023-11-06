@@ -47,6 +47,13 @@ interface Props {
    * `onChange` handler.
    */
   clear?: boolean
+
+  /**
+   * If `true`, the input will be disabled.
+   *
+   * @default false
+   */
+  readonly?: boolean
 }
 
 /**
@@ -102,6 +109,8 @@ export default function TextInput(props: Props) {
         placeholder={props.placeholder}
         required={props.required}
         pattern={props.pattern}
+        readOnly={props.readonly}
+        onFocus={(e) => props.readonly && e.target.blur()}
       />
       {props.clear && <ClearButton />}
     </div>

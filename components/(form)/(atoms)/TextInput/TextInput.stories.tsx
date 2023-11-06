@@ -53,4 +53,12 @@ export const WithClearButton: Story = {
   },
 }
 
+export const ReadOnly: Story = {
+  args: {
+    readonly: true,
+    type: 'text',
+    defaultValue: 'Read only',
+  },
+}
+
 export default meta
