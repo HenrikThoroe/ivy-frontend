@@ -4,5 +4,12 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "conventionalCommits.scopes": ["comp", "lib", "styles", "app", "story", "assets"]
+  "conventionalCommits.scopes": ["comp", "lib", "styles", "app", "story", "assets"],
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
