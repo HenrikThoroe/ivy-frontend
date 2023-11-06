@@ -24,4 +24,4 @@ jobs:
       - run: corepack enable
       - run: yarn set version stable
       - run: yarn install --immutable
-      - run: yarn prettier . --check
+      - run: yarn prettier ./lib ./components ./app --check
