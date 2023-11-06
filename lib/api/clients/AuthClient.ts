@@ -25,7 +25,15 @@ interface SignUpResponse {
   user: UserData
 }
 
-type UserData = z.infer<typeof shared.user.userSchema>
+/**
+ * The data of a user.
+ */
+export type UserData = z.infer<typeof shared.user.userSchema>
+
+/**
+ * The filter options for the user list.
+ */
+export type UserFilterOptions = z.infer<typeof api.auth.userFilterOptionsSchema>
 
 /**
  * A client for the authentication API.
@@ -101,5 +109,59 @@ export class AuthClient extends Client<Config<typeof api.auth.authenticationRout
    */
   public async signOut(): Promise<ReturnType<{ success: boolean }>> {
     return await this.fetch('signOut', 'no-store', {})
+  }
+
+  /**
+   * Deletes the currently signed in user.
+   *
+   * @returns The result of the fetch request.
+   * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
+   */
+  public async delete(): Promise<ReturnType<{ success: boolean }>> {
+    return await this.fetch('delete', 'no-store', {})
+  }
+
+  /**
+   * Removes the user with the given id.
+   * Requires the signed in user to have the 'manager' role.
+   * Otherwise, the request will fail.
+   *
+   * @param id The id of the user to remove.
+   * @returns The result of the fetch request.
+   * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
+   */
+  public async remove(id: string): Promise<ReturnType<{ success: boolean }>> {
+    return await this.fetch('remove', 'no-store', {
+      params: { id },
+    })
+  }
+
+  /**
+   * Updates the role of the user with the given id.
+   * Requires the signed in user to have the 'manager' role.
+   *
+   * @param role The new role of the user.
+   * @returns The result of the fetch request.
+   * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
+   */
+  public async update(id: string, role: UserData['role']): Promise<ReturnType<UserData>> {
+    return await this.fetch('update', 'no-store', {
+      params: { id },
+      body: { user: { role } },
+    })
+  }
+
+  /**
+   * Fetches a list of users using the given filter options.
+   * Requires the signed in user to have the 'manager' role.
+   *
+   * @param options The filter options to use.
+   * @returns The result of the fetch request.
+   * @throws When the fetch result is not compatible with the schema or a network error, etc... occurs.
+   */
+  public async list(options?: UserFilterOptions): Promise<ReturnType<UserData[]>> {
+    return await this.fetch('list', 'no-store', {
+      query: options ?? {},
+    })
   }
 }
