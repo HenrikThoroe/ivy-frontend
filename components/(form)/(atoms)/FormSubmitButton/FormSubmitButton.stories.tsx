@@ -31,4 +31,18 @@ export const Disabled: Story = {
   },
 }
 
+export const Loading: Story = {
+  args: {
+    children: 'Submit',
+    loading: true,
+  },
+}
+
+export const WithError: Story = {
+  args: {
+    children: 'Submit',
+    error: 'Something went wrong',
+  },
+}
+
 export default meta
