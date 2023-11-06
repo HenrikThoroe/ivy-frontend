@@ -47,7 +47,7 @@ module.exports = {
         'custom-4': '2fr 4fr 1fr 2.5rem',
         'custom-5': '1fr 1fr 5rem',
         'chess-board': 'repeat(8, 1fr)',
-        'user-list': '1fr 1fr 1fr 2.5rem',
+        'user-list': '1fr 1fr 1fr 5rem',
       },
       gridTemplateRows: {
         'chess-board': 'repeat(8, 1fr)',
