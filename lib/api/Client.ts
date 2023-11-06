@@ -98,6 +98,8 @@ export abstract class Client<T extends RouteConfig> {
   ): Promise<FetchResult<T[K]>> {
     const ep = this.schema.get(key)
     const url = this.buildURL(key, options)
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 10000)
 
     await this.refreshToken(ep)
 
@@ -108,7 +110,10 @@ export abstract class Client<T extends RouteConfig> {
       cache: typeof cache === 'number' ? 'default' : cache,
       next: typeof cache !== 'number' ? undefined : { revalidate: cache },
       headers: await this.headers(options, ep.authenticated),
+      signal: controller.signal,
     })
+
+    clearTimeout(timeout)
 
     if (!response.ok) {
       const body = await response.json()
