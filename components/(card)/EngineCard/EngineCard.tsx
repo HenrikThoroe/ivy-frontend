@@ -39,7 +39,12 @@ export default function EngineCard(props: Props) {
         <span className="text-sm font-light">{label}</span>
         <div className="flex flex-col gap-1">
           {resize(values, 3, '').map((value) => (
-            <span className="line-clamp-1 h-4 text-xs font-medium">{value}</span>
+            <span
+              className="line-clamp-1 h-4 text-xs font-medium"
+              key={`engine-card-${label}-${value}`}
+            >
+              {value}
+            </span>
           ))}
         </div>
       </div>

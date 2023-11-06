@@ -46,6 +46,7 @@ export default function EngineGalleryView(props: Props) {
         <LabeledEngineCard label="Base" config={base} />
         {nodes.map((node, i) => (
           <LabeledEngineCard
+            key={`card-node-${i}`}
             label={`Node ${i + 1}`}
             config={node}
             onRemove={nodes.length > 1 ? () => handleRemove(i) : undefined}

@@ -20,8 +20,12 @@ export default async function Engines() {
     <div className="flex w-full flex-row flex-wrap justify-start gap-x-10 gap-y-20 p-10">
       {editor && <ActionCard icon="upload" title="Upload Engine" href="/engines/upload" />}
       {engines.map((e, i) => (
-        <Link href={`/engines/${e.name}`}>
-          <EngineCard engine={e} variant={i % 3 === 0 ? 'glass' : 'primary'} />
+        <Link href={`/engines/${e.name}`} key={`engine-card-link-${i}`}>
+          <EngineCard
+            engine={e}
+            variant={i % 3 === 0 ? 'glass' : 'primary'}
+            key={`engine-card-${i}`}
+          />
         </Link>
       ))}
     </div>

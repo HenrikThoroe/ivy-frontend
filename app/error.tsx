@@ -72,7 +72,7 @@ export default function Error({ error, reset }: Props) {
         </h1>
         <p className="w-[40rem] max-w-full text-center text-lg font-medium text-on-primary">
           Something happened that should not have happened... But how are you doing today?
-          Everything alright? Here's a duck for you: 🦆
+          Everything alright? Here&apos;s a duck for you: 🦆
         </p>
         <div className="mt-12 flex flex-row gap-4">
           <Button label="Show Error" style="error" onClick={handleShowError} icon="error" />

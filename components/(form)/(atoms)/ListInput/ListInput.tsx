@@ -91,8 +91,8 @@ export default function ListInput<T>(props: Props<T>) {
         <AddButton />
       </div>
       <ul className="flex flex-col gap-2 pl-2">
-        {items.map((item) => (
-          <Item item={item} />
+        {items.map((item, idx) => (
+          <Item item={item} key={`list-input-item-${idx}`} />
         ))}
       </ul>
     </div>

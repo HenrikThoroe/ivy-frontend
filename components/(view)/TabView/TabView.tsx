@@ -33,6 +33,7 @@ export default function TabView(props: Props) {
       <div className="flex w-max flex-row justify-center gap-2 rounded-full p-2 shadow-inner-card">
         {props.tabs.map((tab, idx) => (
           <button
+            key={`tab-${idx}`}
             onClick={() => setSelected(idx)}
             className={classNames('min-w-[10rem] rounded-full py-1 text-sm font-medium', {
               'bg-slate-200 shadow-sm': selected === idx,

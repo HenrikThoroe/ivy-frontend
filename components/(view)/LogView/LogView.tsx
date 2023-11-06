@@ -21,11 +21,17 @@ export default function LogView(props: Props) {
     <section className="scrollbar flex h-[40rem] max-h-[80vh] flex-col gap-3 overflow-y-scroll rounded-lg bg-[#1d2025] p-8 font-mono text-[#dedfe1]">
       {groupLogMessages(props.logs).map((group, idx) => {
         if (group.length === 1 && group[0].type === 'send') {
-          return <InputLine value={group[0].value} />
+          return <InputLine key={`input-${idx}`} value={group[0].value} />
         } else if (group.length === 1 && group[0].type === 'recv') {
-          return <OutputLine value={group[0].value} />
+          return <OutputLine key={`output-${idx}`} value={group[0].value} />
         } else {
-          return <OutputGroup messages={group.map((msg) => msg.value)} idx={idx} />
+          return (
+            <OutputGroup
+              key={`output-group-${idx}`}
+              messages={group.map((msg) => msg.value)}
+              idx={idx}
+            />
+          )
         }
       })}
     </section>

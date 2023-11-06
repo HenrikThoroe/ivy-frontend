@@ -34,7 +34,7 @@ export default function Waiting() {
         </p>
       </div>
       <div className="flex flex-row gap-0 text-base font-normal text-on-primary-light">
-        <span>You don't want to be here? Go back to&nbsp;</span>
+        <span>You don&apos;t want to be here? Go back to&nbsp;</span>
         <Link href="/login" className="text-action-primary hover:text-action-primary-active">
           the login page.
         </Link>

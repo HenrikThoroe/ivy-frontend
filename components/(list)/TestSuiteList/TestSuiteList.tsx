@@ -22,9 +22,12 @@ interface Props {
  */
 export default function TestSuiteList(props: Props) {
   return (
-    <List variant="custom-2" head={['Name', 'Engines', 'Iterations', <TestSuiteListTools />]}>
+    <List
+      variant="custom-2"
+      head={['Name', 'Engines', 'Iterations', <TestSuiteListTools key="test-suite-list-tools" />]}
+    >
       {props.suites.map((suite) => (
-        <TestSuiteListRow suite={suite} />
+        <TestSuiteListRow suite={suite} key={`test-suite-row-${suite.id}`} />
       ))}
     </List>
   )

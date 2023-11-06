@@ -15,7 +15,7 @@ interface Props {
  * `head` and `children` should have the same length.
  */
 export default function List(props: Props) {
-  const head = props.head.map((head) => <span>{head}</span>)
+  const head = props.head.map((head, idx) => <span key={`list-head-${idx}`}>{head}</span>)
 
   return (
     <section className="flex flex-col text-on-primary">

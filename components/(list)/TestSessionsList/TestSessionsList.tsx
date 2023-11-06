@@ -22,9 +22,12 @@ interface Props {
  */
 export default function TestSessionsList(props: Props) {
   return (
-    <List variant="custom-3" head={['Test Suite', 'Progress', <TestSessionListTools />]}>
+    <List
+      variant="custom-3"
+      head={['Test Suite', 'Progress', <TestSessionListTools key="test-session-list-tools" />]}
+    >
       {props.sessions.map((session) => (
-        <TestSessionsListRow session={session} />
+        <TestSessionsListRow session={session} key={`test-session-row-${session.id}`} />
       ))}
     </List>
   )

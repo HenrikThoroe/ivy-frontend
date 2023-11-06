@@ -25,9 +25,12 @@ interface Props {
  */
 export default function ReplayList(props: Props) {
   return (
-    <List variant="custom-4" head={['Date', 'Contestants', 'Result', <ReplayListTools />]}>
+    <List
+      variant="custom-4"
+      head={['Date', 'Contestants', 'Result', <ReplayListTools key="replay-list-tools" />]}
+    >
       {props.replays.map((replay) => (
-        <ReplayListRow replay={replay} />
+        <ReplayListRow replay={replay} key={`replay-row-${replay.id}`} />
       ))}
     </List>
   )

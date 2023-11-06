@@ -43,8 +43,8 @@ export function OutputGroup(props: { messages: string[]; idx: number }) {
       </label>
       <div className="max-h-0 overflow-hidden peer-checked:max-h-min">
         <div className="flex flex-col gap-3">
-          {props.messages.slice(1).map((msg) => (
-            <OutputLine value={msg} />
+          {props.messages.slice(1).map((msg, idx) => (
+            <OutputLine key={`output-group-line-${idx}`} value={msg} />
           ))}
         </div>
       </div>

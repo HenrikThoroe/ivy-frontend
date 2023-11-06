@@ -47,7 +47,7 @@ export default function ChessBoard(props: Props) {
     <div className="h-fit w-fit">
       <div className="grid grid-cols-chess-board grid-rows-chess-board">
         {Array.from({ length: 64 }, (_, idx) => (
-          <Tile position={board.positions[idx]} />
+          <Tile position={board.positions[idx]} key={`chess-board-tile-${idx}`} />
         ))}
       </div>
     </div>

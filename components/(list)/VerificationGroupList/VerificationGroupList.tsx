@@ -20,9 +20,12 @@ export default function VerificationGroupList(props: Props) {
   const { groups } = props
 
   return (
-    <List variant="custom-5" head={['Name', 'Base Engine', <VerificationGroupListTools />]}>
-      {groups.map((group) => (
-        <VerificationGroupListRow group={group} />
+    <List
+      variant="custom-5"
+      head={['Name', 'Base Engine', <VerificationGroupListTools key="verification-list-tools" />]}
+    >
+      {groups.map((group, idx) => (
+        <VerificationGroupListRow group={group} key={`verification-group-row-${idx}`} />
       ))}
     </List>
   )
