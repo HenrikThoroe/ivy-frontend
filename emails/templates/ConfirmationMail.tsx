@@ -56,7 +56,7 @@ export default function ConfirmationMail(props: Props) {
             </Section>
             <Text className="text-[14px] leading-[24px] text-black">
               or copy and paste this URL into your browser: <br />
-              <Link href={dest} className="text-blue-600 no-underline">
+              <Link href={dest} className="break-all text-blue-600 no-underline">
                 {dest}
               </Link>
             </Text>
