@@ -99,7 +99,7 @@ export abstract class Client<T extends RouteConfig> {
     const ep = this.schema.get(key)
     const url = this.buildURL(key, options)
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 10000)
+    const timeout = setTimeout(() => controller.abort(), 120000)
 
     await this.refreshToken(ep)
 
