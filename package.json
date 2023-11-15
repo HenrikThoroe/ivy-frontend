@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "NODE_ENV=test storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "email:dev": "yarn dlx ts-node --project './emails/tsconfig.json'  ./emails/build-dev.tsx",
+    "email:prod": "yarn dlx ts-node --project './emails/tsconfig.json'  ./emails/build-prod.tsx"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -40,6 +42,21 @@
     "zod": "^3.22.0"
   },
   "devDependencies": {
+    "@react-email/button": "^0.0.11",
+    "@react-email/column": "^0.0.8",
+    "@react-email/components": "^0.0.11",
+    "@react-email/container": "^0.0.10",
+    "@react-email/head": "^0.0.6",
+    "@react-email/heading": "^0.0.9",
+    "@react-email/hr": "^0.0.6",
+    "@react-email/html": "^0.0.6",
+    "@react-email/img": "^0.0.6",
+    "@react-email/link": "^0.0.6",
+    "@react-email/preview": "^0.0.7",
+    "@react-email/render": "^0.0.9",
+    "@react-email/row": "^0.0.6",
+    "@react-email/section": "^0.0.10",
+    "@react-email/tailwind": "^0.0.12",
     "@storybook/addon-actions": "^7.5.3",
     "@storybook/addon-docs": "^7.5.3",
     "@storybook/addon-essentials": "^7.5.0",
@@ -62,6 +79,7 @@
     "eslint-config-next": "^14.0.1",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
+    "react-email": "^1.9.5",
     "storybook": "^7.5.3",
     "webpack": "^5.89.0"
   },
