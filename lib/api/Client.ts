@@ -81,7 +81,7 @@ export abstract class Client<T extends RouteConfig> {
   /**
    * Fetches a resource from the API.
    *
-   * When an {@link Client.authStrategy auth strategy} is present,
+   * When an {@link Client#authStrategy auth strategy} is present,
    * the client will automatically try to refresh the token if necessary.
    *
    * @param key The key of the resource to fetch.
