@@ -5,6 +5,7 @@ export type LayoutVariant =
   | 'custom-4'
   | 'custom-5'
   | 'user-list'
+  | 'games-list'
 
 /**
  * Translates a layout variant to a Tailwind CSS class defining the number of grid columns.
@@ -20,5 +21,6 @@ export function translateLayoutVariant(variant: LayoutVariant) {
     'grid-cols-custom-4': variant === 'custom-4',
     'grid-cols-custom-5': variant === 'custom-5',
     'grid-cols-user-list': variant === 'user-list',
+    'grid-cols-games-list': variant === 'games-list',
   }
 }
