@@ -117,6 +117,9 @@ export const Plain: Story = () => {
       <Box name="email-read">
         <Icon name="email-read" />
       </Box>
+      <Box name="game">
+        <Icon name="game" />
+      </Box>
     </div>
   )
 }

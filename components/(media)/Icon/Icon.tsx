@@ -23,6 +23,7 @@ import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineR
 import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded'
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded'
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
+import SportsEsportsRoundedIcon from '@mui/icons-material/SportsEsportsRounded'
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
@@ -55,6 +56,7 @@ export type IconName =
   | 'person'
   | 'logout'
   | 'email-read'
+  | 'game'
 
 interface Props {
   /**
@@ -118,5 +120,7 @@ export default function Icon(props: Props) {
       return <LogoutRoundedIcon />
     case 'email-read':
       return <MarkEmailReadRoundedIcon />
+    case 'game':
+      return <SportsEsportsRoundedIcon />
   }
 }
