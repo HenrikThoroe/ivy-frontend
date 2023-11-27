@@ -1,3 +1,5 @@
+'use client'
+
 import ActionModal from '@/components/(modal)/ActionModal/ActionModal'
 import WithModal from '@/components/(modal)/WithModal/WithModal'
 import classNames from 'classnames'
