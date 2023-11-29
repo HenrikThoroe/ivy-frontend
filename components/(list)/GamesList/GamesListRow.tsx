@@ -1,8 +1,8 @@
 'use client'
 
+import StateDot from '@/components/(media)/StateDot/StateDot'
 import ActionModal from '@/components/(modal)/ActionModal/ActionModal'
 import WithModal from '@/components/(modal)/WithModal/WithModal'
-import classNames from 'classnames'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
@@ -52,14 +52,9 @@ export default function GamesListRow(props: Props) {
   return (
     <ListRow variant="games-list">
       <span className="font-mono">{id}</span>
-      <span
-        className={classNames('text-center text-2xl', {
-          'text-green-500': active,
-          'text-red-500': !active,
-        })}
-      >
-        {active ? '✔' : '✘'}
-      </span>
+      <div className="p-2">
+        <StateDot label="" color={active ? 'green' : 'red'} />
+      </div>
       <ListActions>
         <WithModal modal={DeletePrompt}>
           <ListAction variant="action" icon="delete" style="danger" />
