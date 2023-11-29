@@ -1,6 +1,6 @@
 'use client'
 
-import { Position, decode, isValidMove, moves } from '@ivy-chess/model'
+import { Piece, Position, decode, isValidMove, moves } from '@ivy-chess/model'
 import { useMemo, useState } from 'react'
 import Tile from './Tile'
 
@@ -14,7 +14,7 @@ interface Props {
   /**
    * Called when a piece is selected.
    */
-  onSelectPiece?: (index: number) => void
+  onSelectPiece?: (index: number, piece: Piece) => void
 
   /**
    * Called when a target is selected for the last selected piece.
@@ -68,7 +68,7 @@ export default function ChessBoard(props: Props) {
   const handleTileClick = (position: Position) => {
     if (onSelectPiece && position.piece && position.piece.color === board.next) {
       setSelected(position)
-      onSelectPiece(index(position))
+      onSelectPiece(index(position), position.piece)
       return
     }
 
