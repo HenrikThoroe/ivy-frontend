@@ -8,5 +8,7 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_AUTH_HOST: string
     readonly NEXT_PUBLIC_REFRESH_URL: string
     readonly NEXT_PUBLIC_GAMES_HOST: string
+    readonly NEXT_PUBLIC_GAMES_PLAYER_HOST: string
+    readonly NEXT_PUBLIC_GAMES_SPECTATOR_HOST: string
   }
 }
