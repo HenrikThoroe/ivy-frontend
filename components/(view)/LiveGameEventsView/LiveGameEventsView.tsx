@@ -45,8 +45,8 @@ export default function LiveGameEventsView(props: Props) {
 
   return (
     <section className="flex flex-col gap-4">
-      {events.map((event) => (
-        <EventView {...event} />
+      {events.map((event, idx) => (
+        <EventView {...event} key={`event-${idx}`} />
       ))}
     </section>
   )
