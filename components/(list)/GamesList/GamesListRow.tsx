@@ -17,6 +17,11 @@ interface Props {
    * The game ID.
    */
   id: string
+
+  /**
+   * The date the game was created.
+   */
+  date: string
 }
 
 /**
@@ -24,7 +29,7 @@ interface Props {
  * Provides actions to delete and view the game.
  */
 export default function GamesListRow(props: Props) {
-  const { active, id } = props
+  const { active, id, date } = props
 
   //* Event Handler
 
@@ -51,7 +56,7 @@ export default function GamesListRow(props: Props) {
 
   return (
     <ListRow variant="games-list">
-      <span className="font-mono">{id}</span>
+      <span className="font-mono">{date}</span>
       <div className="p-2">
         <StateDot label="" color={active ? 'green' : 'red'} />
       </div>

@@ -1,4 +1,5 @@
 import { LiveGame } from '@ivy-chess/model'
+import { useId } from 'react'
 import List from '../List/List'
 import GamesListRow from './GamesListRow'
 import GamesListTools from './GamesListTools'
@@ -16,10 +17,24 @@ interface Props {
  * a link to view the game and a button to delete the game.
  */
 export default function GamesList({ games }: Props) {
+  const dateFormatter = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'medium',
+  })
+
+  const created = (game: LiveGame) => (game.events.length > 0 ? game.events[0].timestamp : 0)
+  const managed = games.sort((a) => (a.isActive ? -1 : 1)).sort((a, b) => created(b) - created(a))
+  const toolID = useId()
+
   return (
-    <List variant="games-list" head={['ID', 'Active', <GamesListTools />]}>
-      {games.map((game) => (
-        <GamesListRow key={game.id} id={game.id} active={game.isActive} />
+    <List variant="games-list" head={['Created', 'Active', <GamesListTools key={toolID} />]}>
+      {managed.map((game, idx) => (
+        <GamesListRow
+          key={`${game.id}-${idx}`}
+          id={game.id}
+          date={dateFormatter.format(created(game))}
+          active={game.isActive}
+        />
       ))}
     </List>
   )
