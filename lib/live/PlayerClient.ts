@@ -42,18 +42,6 @@ export class PlayerClient extends RealTimeClient<I, O> {
       initialized: false,
       shouldMove: false,
     }
-
-    this.on('move', () => {
-      this.state.shouldMove = true
-      this.publish()
-    })
-
-    this.onClose(() => {
-      this.state.id = undefined
-      this.state.initialized = false
-      this.state.shouldMove = false
-      this.publish()
-    })
   }
 
   //* API
@@ -109,10 +97,29 @@ export class PlayerClient extends RealTimeClient<I, O> {
 
   /**
    * Checks the player into the game.
+   * If the client is not connected, it will be reloaded.
    *
    * @param player The player's ID.
    */
-  public checkIn(player: string) {
+  public async checkIn(player: string) {
+    if (!this.isConnected) {
+      this.reload()
+    }
+
+    await this.waitForConnection()
+
+    this.on('move', () => {
+      this.state.shouldMove = true
+      this.publish()
+    })
+
+    this.onClose(() => {
+      this.state.id = undefined
+      this.state.initialized = false
+      this.state.shouldMove = false
+      this.publish()
+    })
+
     this.state.id = player
     this.state.initialized = true
     this.publish()
