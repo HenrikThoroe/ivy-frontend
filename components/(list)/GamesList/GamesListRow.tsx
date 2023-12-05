@@ -2,7 +2,12 @@
 
 import StateDot from '@/components/(media)/StateDot/StateDot'
 import ActionModal from '@/components/(modal)/ActionModal/ActionModal'
+import AlertModal from '@/components/(modal)/AlertModal/AlertModal'
 import WithModal from '@/components/(modal)/WithModal/WithModal'
+import { clientStrategy } from '@/lib/api/auth/strategy/client'
+import { GameClient } from '@/lib/api/clients/GameClient'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import ListAction from '../List/ListAction'
 import ListActions from '../List/ListActions'
 import ListRow from '../List/ListRow'
@@ -30,11 +35,22 @@ interface Props {
  */
 export default function GamesListRow(props: Props) {
   const { active, id, date } = props
+  const router = useRouter()
+  const [error, setError] = useState<string>()
+  const [showError, setShowError] = useState(false)
 
   //* Event Handler
 
   const handleDelete = async () => {
-    // TODO: Implement when API is ready
+    const client = new GameClient(clientStrategy())
+    const res = await client.catchNetworkError(client.delete(id))
+
+    if (res.success) {
+      router.refresh()
+    } else {
+      setError(res.error.message)
+      setShowError(true)
+    }
   }
 
   //* UI
@@ -55,17 +71,27 @@ export default function GamesListRow(props: Props) {
   //* Render
 
   return (
-    <ListRow variant="games-list">
-      <span className="font-mono">{date}</span>
-      <div className="p-2">
-        <StateDot label="" color={active ? 'green' : 'red'} />
-      </div>
-      <ListActions>
-        <WithModal modal={DeletePrompt}>
-          <ListAction variant="action" icon="delete" style="danger" />
-        </WithModal>
-        <ListAction variant="link" href={`/games/${id}`} icon="visibility" style="primary" />
-      </ListActions>
-    </ListRow>
+    <>
+      <AlertModal
+        icon="error"
+        variant="error"
+        open={showError}
+        onClose={() => setShowError(false)}
+        title="Could not delete game!"
+        description={error ?? ''}
+      />
+      <ListRow variant="games-list">
+        <span className="font-mono">{date}</span>
+        <div className="p-2">
+          <StateDot label="" color={active ? 'green' : 'red'} />
+        </div>
+        <ListActions>
+          <WithModal modal={DeletePrompt}>
+            <ListAction variant="action" icon="delete" style="danger" />
+          </WithModal>
+          <ListAction variant="link" href={`/games/${id}`} icon="visibility" style="primary" />
+        </ListActions>
+      </ListRow>
+    </>
   )
 }
