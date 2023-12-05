@@ -4,6 +4,7 @@ import StateDot from '@/components/(media)/StateDot/StateDot'
 import ActionModal from '@/components/(modal)/ActionModal/ActionModal'
 import AlertModal from '@/components/(modal)/AlertModal/AlertModal'
 import WithModal from '@/components/(modal)/WithModal/WithModal'
+import { useEditorMode } from '@/lib/api/auth/access/hooks'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { GameClient } from '@/lib/api/clients/GameClient'
 import { useRouter } from 'next/navigation'
@@ -38,6 +39,7 @@ export default function GamesListRow(props: Props) {
   const router = useRouter()
   const [error, setError] = useState<string>()
   const [showError, setShowError] = useState(false)
+  const edit = useEditorMode()
 
   //* Event Handler
 
@@ -86,9 +88,11 @@ export default function GamesListRow(props: Props) {
           <StateDot label="" color={active ? 'green' : 'red'} />
         </div>
         <ListActions>
-          <WithModal modal={DeletePrompt}>
-            <ListAction variant="action" icon="delete" style="danger" />
-          </WithModal>
+          {edit && (
+            <WithModal modal={DeletePrompt}>
+              <ListAction variant="action" icon="delete" style="danger" />
+            </WithModal>
+          )}
           <ListAction variant="link" href={`/games/${id}`} icon="visibility" style="primary" />
         </ListActions>
       </ListRow>
