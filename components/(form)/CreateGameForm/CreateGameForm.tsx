@@ -4,13 +4,25 @@ import AlertModal from '@/components/(modal)/AlertModal/AlertModal'
 import LoadingModal from '@/components/(modal)/LoadingModal/LoadingModal'
 import { clientStrategy } from '@/lib/api/auth/strategy/client'
 import { GameClient } from '@/lib/api/clients/GameClient'
+import { useChangeListener } from '@/lib/hooks/useChangeListener'
 import { customHandler } from '@/lib/util/handler'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { z } from 'zod'
 import Form from '../(atoms)/Form/Form'
 import FormSeparator from '../(atoms)/FormSeparator/FormSeparator'
 import FormSubmitButton from '../(atoms)/FormSubmitButton/FormSubmitButton'
+import LabeledInput from '../(atoms)/LabeledInput/LabeledInput'
+import TextInput from '../(atoms)/TextInput/TextInput'
 import PlayerConfigForm, { PlayerConfig } from '../(compositions)/PlayerConfigForm/PlayerConfigForm'
+
+const fenSchema = z
+  .string()
+  .regex(
+    /^(?<PiecePlacement>((?<RankItem>[pnbrqkPNBRQK1-8]{1,8})\/?){8})\s+(?<SideToMove>b|w)\s+(?<Castling>-|K?Q?k?q)\s+(?<EnPassant>-|[a-h][3-6])\s+(?<HalfMoveClock>\d+)\s+(?<FullMoveNumber>\d+)\s*$/gim,
+    'Value must be a valid FEN string'
+  )
+  .transform((val) => val.trim())
 
 /**
  * A form for creating a game.
@@ -26,6 +38,7 @@ export default function CreateGameForm() {
   const [error, setError] = useState<string>()
   const [showLoading, setShowLoading] = useState(false)
   const router = useRouter()
+  const [fen, onFenChange, fenErr] = useChangeListener(fenSchema)
 
   //* Event Handler
 
@@ -37,7 +50,9 @@ export default function CreateGameForm() {
     setShowLoading(true)
 
     const client = new GameClient(clientStrategy())
-    const res = await client.catchNetworkError(client.create({ players: { white, black } }))
+    const res = await client.catchNetworkError(
+      client.create({ players: { white, black }, startingFen: fen })
+    )
 
     setShowLoading(false)
 
@@ -68,7 +83,19 @@ export default function CreateGameForm() {
         <PlayerConfigForm default={{ type: 'human' }} onChange={setWhite} />
         <FormSeparator label="Black Player" />
         <PlayerConfigForm default={{ type: 'human' }} onChange={setBlack} />
-        <FormSubmitButton disabled={!white || !black}>Create Game</FormSubmitButton>
+        <FormSeparator label="Board Setup" />
+        <LabeledInput label="FEN" error={fenErr}>
+          <TextInput
+            type="text"
+            placeholder="FEN string for chess board"
+            autocheck={false}
+            onChange={onFenChange}
+            clear
+          />
+        </LabeledInput>
+        <FormSubmitButton disabled={!white || !black || fenErr !== undefined}>
+          Create Game
+        </FormSubmitButton>
       </Form>
     </>
   )
