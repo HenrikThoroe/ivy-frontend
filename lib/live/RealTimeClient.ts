@@ -22,19 +22,8 @@ export class RealTimeClient<I extends InSchema, O extends OutSchema> {
   protected constructor(schema: IOSchema<I, O>, socket: WebSocket) {
     this.schema = schema
     this.socket = socket
-
-    this.socket.addEventListener('message', async (msg) => {
-      const str = msg.data.toString()
-
-      console.log('Received message:', str)
-
-      this.messageQueue.push(str)
-      this.checkForMessage()
-
-      for (const key in this.listeners) {
-        this.handle(key, str)
-      }
-    })
+    this.handleMessage = this.handleMessage.bind(this)
+    this.socket.addEventListener('message', this.handleMessage)
   }
 
   //* API
@@ -85,6 +74,7 @@ export class RealTimeClient<I extends InSchema, O extends OutSchema> {
   public reload() {
     this.exit()
     this.socket = new WebSocket(this.socket.url)
+    this.socket.addEventListener('message', this.handleMessage)
   }
 
   /**
@@ -116,12 +106,22 @@ export class RealTimeClient<I extends InSchema, O extends OutSchema> {
    * Closes the socket connection.
    */
   public exit() {
+    this.socket.removeEventListener('message', this.handleMessage)
+    for (const key in this.listeners) {
+      this.listeners[key] = []
+    }
+
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.close()
     }
 
     if (this.socket.readyState === WebSocket.CONNECTING) {
-      this.socket.addEventListener('open', () => this.socket.close())
+      const cb = () => {
+        this.socket.removeEventListener('open', cb)
+        this.socket.close()
+      }
+
+      this.socket.addEventListener('open', cb)
     }
   }
 
@@ -198,6 +198,17 @@ export class RealTimeClient<I extends InSchema, O extends OutSchema> {
   }
 
   //* Private Methods
+
+  private async handleMessage(msg: MessageEvent<any>) {
+    const str = msg.data.toString()
+
+    this.messageQueue.push(str)
+    await this.checkForMessage()
+
+    for (const key in this.listeners) {
+      this.handle(key, str)
+    }
+  }
 
   private async checkForMessage() {
     if (this.messageQueue.length === 0 || !this.expectation) {
