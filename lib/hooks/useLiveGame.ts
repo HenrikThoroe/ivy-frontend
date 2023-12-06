@@ -5,11 +5,6 @@ import { RealTimeClient } from '../live/RealTimeClient'
 
 const spectatorInterface = api.games.ws.spectatorInterface
 
-type SpectatorClient = RealTimeClient<
-  typeof spectatorInterface.input,
-  typeof spectatorInterface.output
->
-
 /**
  * A hook that returns a `LiveGame` object.
  * Uses the WebSocket API to listen for updates on the
@@ -20,7 +15,6 @@ type SpectatorClient = RealTimeClient<
  */
 export function useLiveGame(init: LiveGame) {
   const [game, setGame] = useState(init)
-  const [socket, setSocket] = useState<SpectatorClient | null>(null)
 
   const listen = async () => {
     const client = await RealTimeClient.custom(
@@ -28,15 +22,20 @@ export function useLiveGame(init: LiveGame) {
       spectatorInterface
     )
 
-    setSocket(client)
     client.send('subscribe', { key: 'subscribe-msg', id: game.id })
-    client.on('state', (data) => setGame(data.game))
+    client.on('state', (data) => {
+      setGame({ ...data.game })
+    })
+
+    return client
   }
 
   useEffect(() => {
-    listen()
+    const client = listen()
     return () => {
-      socket?.exit()
+      client.then((c) => {
+        c.exit()
+      })
     }
   }, [])
 
