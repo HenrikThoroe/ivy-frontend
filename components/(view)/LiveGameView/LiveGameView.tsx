@@ -1,18 +1,16 @@
 'use client'
 
-import InteractiveBoard from '@/components/(board)/InteractiveBoard/InteractiveBoard'
-import ReplayBoard from '@/components/(board)/ReplayBoard/ReplayBoard'
 import PlayerCard from '@/components/(card)/PlayerCard/PlayerCard'
 import StateDot from '@/components/(media)/StateDot/StateDot'
 import { useLiveGame } from '@/lib/hooks/useLiveGame'
 import { usePlayerClient } from '@/lib/hooks/usePlayerClient'
-import { buildReplayHistory } from '@/lib/util/buildGameHistory'
 import { capitalize } from '@/lib/util/format'
-import { LiveGame, Player, encode } from '@ivy-chess/model'
+import { LiveGame, Player } from '@ivy-chess/model'
 import classNames from 'classnames'
 import LiveGameEventsView from '../LiveGameEventsView/LiveGameEventsView'
 import Section from '../SectionedView/Section'
 import SectionedView from '../SectionedView/SectionedView'
+import Board from './Board'
 
 interface Props {
   /**
@@ -87,20 +85,6 @@ export default function LiveGameView(props: Props) {
     )
   }
 
-  const Board = () => {
-    if (game.isActive) {
-      return (
-        <InteractiveBoard
-          enabled={player.shouldMove}
-          onMove={player.move}
-          position={encode(game.game.board)}
-        />
-      )
-    }
-
-    return <ReplayBoard moves={buildReplayHistory(game.game.history)} />
-  }
-
   //* Render
 
   return (
@@ -108,7 +92,12 @@ export default function LiveGameView(props: Props) {
       <Section title="Game" action={<GameState />}>
         <div className="flex w-full flex-col items-center justify-center gap-6">
           <GameLabel />
-          <Board />
+          <Board
+            game={game}
+            player={player}
+            shouldMove={player.shouldMove}
+            isActive={game.isActive}
+          />
         </div>
       </Section>
       <Section title="White" action={<PlayerState player={game.players.white} />}>
