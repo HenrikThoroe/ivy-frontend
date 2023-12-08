@@ -22,9 +22,11 @@ export default function GamesList({ games }: Props) {
     timeStyle: 'medium',
   })
 
-  const created = (game: LiveGame) => (game.events.length > 0 ? game.events[0].timestamp : 0)
-  const managed = games.sort((a) => (a.isActive ? -1 : 1)).sort((a, b) => created(b) - created(a))
   const toolID = useId()
+  const created = (game: LiveGame) => (game.events.length > 0 ? game.events[0].timestamp : 0)
+  const managed = games
+    .sort((a, b) => created(b) - created(a))
+    .sort((a, b) => +b.isActive - +a.isActive)
 
   return (
     <List variant="games-list" head={['Created', 'Active', <GamesListTools key={toolID} />]}>
