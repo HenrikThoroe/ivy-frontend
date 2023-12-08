@@ -2284,13 +2284,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ivy-chess/api-schema@npm:^0.8.2":
-  version: 0.8.2
-  resolution: "@ivy-chess/api-schema@npm:0.8.2"
+"@ivy-chess/api-schema@npm:^0.8.3":
+  version: 0.8.3
+  resolution: "@ivy-chess/api-schema@npm:0.8.3"
   dependencies:
     "@ivy-chess/model": "npm:*"
     zod: "npm:^3.22.0"
-  checksum: 975aec2a2036d7e654a2da450551a84a0a7e61724edff523f9f1352508d14b425abee89aef38762a7897baa1622a87432002db2f36084f94fdd16a0b33359dd1
+  checksum: 7d1573610ce63d8bba9ef1396e4e0104ec206d1d90707fd24261c39191c05d46fc0bb4329cf4db82cacfe53c612bd0fc4a2d58886366f554ec36746deb8183b9
   languageName: node
   linkType: hard
 
@@ -2303,12 +2303,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ivy-chess/model@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@ivy-chess/model@npm:0.2.2"
+"@ivy-chess/model@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@ivy-chess/model@npm:0.3.0"
   dependencies:
     uuid: "npm:^9.0.0"
-  checksum: 6f50dbba3c50f275c4891e55069d746e1616dd05d968d883d8a5174d9f72e23841791a6b69d98fc7331c6e81f3d56960958f5cf0cf36365299a11519ed2fed88
+  checksum: 006dc1a74c2f83e45436360b0221da47a0fe9108a6d59bd8859db07b2748d8bcf1abba91d03a2fb3d93a8dba0794c16ce03511aa80e879f9ccd661d3de1a488b
   languageName: node
   linkType: hard
 
@@ -11384,8 +11384,8 @@ __metadata:
     "@emotion/react": "npm:^11.11.0"
     "@emotion/styled": "npm:^11.11.0"
     "@headlessui/react": "npm:^1.7.15"
-    "@ivy-chess/api-schema": "npm:^0.8.2"
-    "@ivy-chess/model": "npm:^0.2.2"
+    "@ivy-chess/api-schema": "npm:^0.8.3"
+    "@ivy-chess/model": "npm:^0.3.0"
     "@mui/icons-material": "npm:^5.11.16"
     "@mui/material": "npm:^5.13.3"
     "@react-email/button": "npm:^0.0.11"
