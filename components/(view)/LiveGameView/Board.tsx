@@ -1,7 +1,7 @@
 import InteractiveBoard from '@/components/(board)/InteractiveBoard/InteractiveBoard'
 import ReplayBoard from '@/components/(board)/ReplayBoard/ReplayBoard'
 import { PlayerClient } from '@/lib/live/PlayerClient'
-import { buildReplayHistory } from '@/lib/util/buildGameHistory'
+import { buildReplayHistory } from '@/lib/util/buildReplayHistory'
 import { LiveGame, encode } from '@ivy-chess/model'
 import { memo } from 'react'
 
@@ -50,5 +50,10 @@ export default memo(function Board(props: Props) {
     )
   }
 
-  return <ReplayBoard moves={buildReplayHistory(props.game.game.history)} />
+  return (
+    <ReplayBoard
+      startFen={props.game.game.startFen}
+      moves={buildReplayHistory(props.game.game.startFen, props.game.game.history)}
+    />
+  )
 }, compare)
