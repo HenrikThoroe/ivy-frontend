@@ -7,9 +7,9 @@ import { Move, MoveInfo, create, encode, fenEncode, move, register } from '@ivy-
  * @param moves The moves to convert.
  * @returns The move infos.
  */
-export function buildReplayHistory(moves: Move[]): MoveInfo[] {
+export function buildReplayHistory(start: string, moves: Move[]): MoveInfo[] {
   try {
-    const game = create({ timeout: Infinity, timeback: 0 })
+    const game = create({ timeout: Infinity, timeback: 0, startFen: start })
     const history: MoveInfo[] = []
 
     register(game)
