@@ -23,9 +23,15 @@ interface Props {
    * @default 0
    */
   start?: number
+
+  /**
+   * The fen of the initial position.
+   * When not given, the standard start position is used.
+   */
+  startFen?: string
 }
 
-const startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+const standardFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
 /**
  * A client side chess board component that allows for replaying a game.
@@ -90,7 +96,7 @@ export default function ReplayBoard(props: Props) {
         )}
       </Modal>
       <div className="flex w-fit flex-col gap-4">
-        <ChessBoard fen={idx === 0 ? startFen : props.moves[idx - 1].fen} />
+        <ChessBoard fen={idx === 0 ? props.startFen ?? standardFen : props.moves[idx - 1].fen} />
         <div className="flex flex-row items-start justify-between">
           <NavButton onClick={prev}>
             <Icon name="prev" />

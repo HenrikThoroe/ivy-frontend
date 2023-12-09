@@ -20,6 +20,12 @@ export default function SidebarActions() {
         active={segments[0] === 'engines'}
       />
       <SidebarButton
+        icon={<Icon name="game" />}
+        text="Games"
+        href="/games"
+        active={segments[0] === 'games'}
+      />
+      <SidebarButton
         icon={<Icon name="desktop" />}
         text="Devices"
         href="/devices"

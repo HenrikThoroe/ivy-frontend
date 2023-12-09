@@ -1,6 +1,6 @@
 {
   "name": "ivy-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -16,8 +16,8 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.15",
-    "@ivy-chess/api-schema": "^0.6.2",
-    "@ivy-chess/model": "^0.1.4",
+    "@ivy-chess/api-schema": "^0.8.3",
+    "@ivy-chess/model": "^0.3.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.3",
     "@tailwindcss/typography": "^0.5.9",
@@ -31,7 +31,7 @@
     "jose": "^4.15.4",
     "js-cookie": "^3.0.5",
     "moment": "^2.29.4",
-    "next": "^14.0.1",
+    "next": "^14.0.3",
     "postcss": "8.4.24",
     "prop-types": "^15.8.1",
     "react": "18.2.0",

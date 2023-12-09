@@ -1,6 +1,20 @@
 import { Move, Piece, UCILog } from '@ivy-chess/model'
 
 /**
+ * Capitalizes the first letter of a string.
+ *
+ * @param str The string to capitalize.
+ * @returns The capitalized string.
+ */
+export function capitalize(str: string) {
+  if (str.length === 0) {
+    return str
+  }
+
+  return str[0].toUpperCase() + str.slice(1)
+}
+
+/**
  * Format a number of bytes to a human readable string
  * using the IEC standard.
  *
